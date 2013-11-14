@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventviva;
+
 
 class ImageResize {
 
@@ -109,5 +109,31 @@ class ImageResize {
 
         $this->image = $new_image;
     }
-
+    
+    /* center crops image to desired width height */
+    public function crop($width,$height){
+    	$aspect_o = $this->getWidth()/$this->getHeight();
+    	$aspect_f = $width/$height;
+    
+    	if($aspect_o>=$aspect_f){
+    		$width_n=$this->getWidth() / ($this->getHeight()/$height);
+    		$height_n=$height;
+    	}else{
+    		$width_n=$width;
+    		$height_n=$this->getHeight() / ($this->getWidth()/$width);
+    	}
+    
+        $new_image = imagecreatetruecolor($width, $height);
+        /* Check if this image is PNG or GIF, then set if Transparent */
+        if (($this->image_type == IMAGETYPE_GIF) || ($this->image_type == IMAGETYPE_PNG)) {
+            imagealphablending($new_image, false);
+            imagesavealpha($new_image, true);
+            $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
+            imagefilledrectangle($new_image, 0, 0, $width, $height, $transparent);
+        }
+        imagecopyresampled($new_image, $this->image, 0 - ($width_n - $width)*0.5, 0 - ($height_n - $height)*0.5, 0, 0, $width_n, $height_n, $this->getWidth(), $this->getHeight());
+        
+        $this->image = $new_image;    	
+    }
+ 
 }
