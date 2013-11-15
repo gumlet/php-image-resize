@@ -1,6 +1,6 @@
 {
     "name": "eventviva/php-image-resize",
-    "description": "HP class to re-size and scale images",
+    "description": "PHP class to re-size and scale images",
     "keywords": ["php", "image", "resize","scale"],
     "type": "library",
     "homepage": "https://github.com/eventviva/php-image-resize",
@@ -8,7 +8,7 @@
     "authors": [
         {
             "name": "EventViva",
-            "homepage": "http://eventviva.com/"
+            "homepage": "https://eventviva.com/"
         }
     ],
     "require": {
