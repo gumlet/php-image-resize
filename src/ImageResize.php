@@ -25,6 +25,7 @@ class ImageResize {
 
             $this->image = imagecreatefrompng($filename);
         }
+        return $this;
     }
 
     public function save($filename, $image_type = IMAGETYPE_PNG, $compression = 75, $permissions = null) {
@@ -44,6 +45,7 @@ class ImageResize {
 
             chmod($filename, $permissions);
         }
+        return $this;
     }
 
     public function output($image_type = IMAGETYPE_JPEG) {
@@ -57,6 +59,7 @@ class ImageResize {
 
             imagepng($this->image);
         }
+        return $this;   // Dhananjay: I'm not sure about this though.
     }
 
     public function getWidth() {
@@ -74,18 +77,21 @@ class ImageResize {
         $ratio = $height / $this->getHeight();
         $width = $this->getWidth() * $ratio;
         $this->resize($width, $height);
+        return $this;
     }
 
     public function resizeToWidth($width) {
         $ratio = $width / $this->getWidth();
         $height = $this->getheight() * $ratio;
         $this->resize($width, $height);
+        return $this;
     }
 
     public function scale($scale) {
         $width = $this->getWidth() * $scale / 100;
         $height = $this->getheight() * $scale / 100;
         $this->resize($width, $height);
+        return $this;
     }
 
     public function resize($width, $height, $forcesize = false) {
@@ -108,6 +114,7 @@ class ImageResize {
         imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
 
         $this->image = $new_image;
+        return $this;
     }
     
     /* center crops image to desired width height */
@@ -133,7 +140,8 @@ class ImageResize {
         }
         imagecopyresampled($new_image, $this->image, 0 - ($width_n - $width)*0.5, 0 - ($height_n - $height)*0.5, 0, 0, $width_n, $height_n, $this->getWidth(), $this->getHeight());
         
-        $this->image = $new_image;    	
+        $this->image = $new_image;
+        return $this;
     }
  
 }
