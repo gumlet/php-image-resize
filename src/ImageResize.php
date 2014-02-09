@@ -59,7 +59,6 @@ class ImageResize {
 
             imagepng($this->image);
         }
-        return $this;   // Dhananjay: I'm not sure about this though.
     }
 
     public function getWidth() {
