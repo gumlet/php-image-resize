@@ -17,7 +17,7 @@ If you want to resize image:
 $image = new ImageResize('picture.jpg');
 $image->resizeToHeight(500);
 $image->save('picture2.jpg');
-$image->resizeToWidth200);
+$image->resizeToWidth(200);
 $image->save('picture3.jpg');
 ```
 
