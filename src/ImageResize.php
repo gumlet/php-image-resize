@@ -19,19 +19,28 @@ class ImageResize
     public function load($filename)
     {
         $image_info = getimagesize($filename);
+
+        if (!$image_info) {
+            throw new \Exception('Could not read ' . $filename);
+        }
+
         $this->image_type = $image_info[2];
 
         switch($this->image_type) {
-            case IMAGETYPE_JPEG:
-                $this->image = imagecreatefromjpeg($filename);
-            break;
-
             case IMAGETYPE_GIF:
                 $this->image = imagecreatefromgif($filename);
             break;
 
+            case IMAGETYPE_JPEG:
+                $this->image = imagecreatefromjpeg($filename);
+            break;
+
             case IMAGETYPE_PNG:
                 $this->image = imagecreatefrompng($filename);
+            break;
+
+            default:
+                throw new \Exception('Unsupported image type');
             break;
         }
 
@@ -44,12 +53,12 @@ class ImageResize
         $quality = $quality !== null ? $quality : $this->getQuality($image_type);
 
         switch($image_type) {
-            case IMAGETYPE_JPEG:
-                imagejpeg($this->image, $filename, $quality);
-            break;
-
             case IMAGETYPE_GIF:
                 imagegif($this->image, $filename);
+            break;
+
+            case IMAGETYPE_JPEG:
+                imagejpeg($this->image, $filename, $quality);
             break;
 
             case IMAGETYPE_PNG:
