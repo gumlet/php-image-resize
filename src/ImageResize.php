@@ -6,6 +6,7 @@ class ImageResize
 {
 
     public $jpg_quality = 75;
+    public $png_quality = 0;
 
     protected $image;
     protected $image_type;
@@ -37,14 +38,14 @@ class ImageResize
         return $this;
     }
 
-    public function save($filename, $image_type = null, $jpg_quality = null, $permissions = null)
+    public function save($filename, $image_type = null, $quality = null, $permissions = null)
     {
         $image_type = $image_type ?: $this->image_type;
-        $jpg_quality = $jpg_quality ?: $this->jpg_quality;
+        $quality = $quality !== null ? $quality : $this->getQuality($image_type);
 
         switch($image_type) {
             case IMAGETYPE_JPEG:
-                imagejpeg($this->image, $filename, $jpg_quality);
+                imagejpeg($this->image, $filename, $quality);
             break;
 
             case IMAGETYPE_GIF:
@@ -52,7 +53,7 @@ class ImageResize
             break;
 
             case IMAGETYPE_PNG:
-                imagepng($this->image, $filename);
+                imagepng($this->image, $filename, $quality);
             break;
         }
 
@@ -63,9 +64,9 @@ class ImageResize
         return $this;
     }
 
-    public function output($image_type = null, $jpg_quality = null)
+    public function output($image_type = null, $quality = null)
     {
-        $this->save(null, $image_type, $jpg_quality);
+        $this->save(null, $image_type, $quality);
     }
 
     public function getWidth()
@@ -164,6 +165,18 @@ class ImageResize
         $this->image = $new_image;
 
         return $this;
+    }
+
+    private function getQuality($image_type) {
+        switch ($image_type) {
+            case IMAGETYPE_JPEG:
+                return $this->jpg_quality;
+            break;
+
+            case IMAGETYPE_PNG:
+                return $this->png_quality;
+            break;
+        }
     }
 
 }
