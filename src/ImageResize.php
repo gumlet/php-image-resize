@@ -5,6 +5,8 @@ namespace Eventviva;
 class ImageResize
 {
 
+    public $jpg_quality = 75;
+
     protected $image;
     protected $image_type;
 
@@ -31,20 +33,19 @@ class ImageResize
         return $this;
     }
 
-    public function save($filename, $image_type = IMAGETYPE_PNG, $compression = 75, $permissions = null)
+    public function save($filename, $image_type = null, $jpg_quality = null, $permissions = null)
     {
+        $image_type = $image_type ?: $this->image_type;
+        $jpg_quality = $jpg_quality ?: $this->jpg_quality;
 
         if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image, $filename, $compression);
+            imagejpeg($this->image, $filename, $jpg_quality);
         } elseif ($image_type == IMAGETYPE_GIF) {
-
             imagegif($this->image, $filename);
         } elseif ($image_type == IMAGETYPE_PNG) {
-
-            imagealphablending($this->image, false);
-            imagesavealpha($this->image, true);
             imagepng($this->image, $filename);
         }
+
         if ($permissions != null) {
             chmod($filename, $permissions);
         }
@@ -52,15 +53,9 @@ class ImageResize
         return $this;
     }
 
-    public function output($image_type = IMAGETYPE_JPEG)
+    public function output($image_type = null, $jpg_quality = null)
     {
-        if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image);
-        } elseif ($image_type == IMAGETYPE_GIF) {
-            imagegif($this->image);
-        } elseif ($image_type == IMAGETYPE_PNG) {
-            imagepng($this->image);
-        }
+        $this->save(null, $image_type, $jpg_quality);
     }
 
     public function getWidth()
