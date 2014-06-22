@@ -19,15 +19,19 @@ class ImageResize
     {
         $image_info = getimagesize($filename);
         $this->image_type = $image_info[2];
-        if ($this->image_type == IMAGETYPE_JPEG) {
 
-            $this->image = imagecreatefromjpeg($filename);
-        } elseif ($this->image_type == IMAGETYPE_GIF) {
+        switch($this->image_type) {
+            case IMAGETYPE_JPEG:
+                $this->image = imagecreatefromjpeg($filename);
+            break;
 
-            $this->image = imagecreatefromgif($filename);
-        } elseif ($this->image_type == IMAGETYPE_PNG) {
+            case IMAGETYPE_GIF:
+                $this->image = imagecreatefromgif($filename);
+            break;
 
-            $this->image = imagecreatefrompng($filename);
+            case IMAGETYPE_PNG:
+                $this->image = imagecreatefrompng($filename);
+            break;
         }
 
         return $this;
@@ -38,12 +42,18 @@ class ImageResize
         $image_type = $image_type ?: $this->image_type;
         $jpg_quality = $jpg_quality ?: $this->jpg_quality;
 
-        if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image, $filename, $jpg_quality);
-        } elseif ($image_type == IMAGETYPE_GIF) {
-            imagegif($this->image, $filename);
-        } elseif ($image_type == IMAGETYPE_PNG) {
-            imagepng($this->image, $filename);
+        switch($image_type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($this->image, $filename, $jpg_quality);
+            break;
+
+            case IMAGETYPE_GIF:
+                imagegif($this->image, $filename);
+            break;
+
+            case IMAGETYPE_PNG:
+                imagepng($this->image, $filename);
+            break;
         }
 
         if ($permissions != null) {
