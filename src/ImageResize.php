@@ -112,15 +112,15 @@ class ImageResize
         $width  = $this->source_w * $scale / 100;
         $height = $this->source_h * $scale / 100;
 
-        $this->resize($width, $height);
+        $this->resize($width, $height, true);
 
         return $this;
     }
 
-    public function resize($width, $height, $forcesize = false)
+    public function resize($width, $height, $allow_enlarge = false)
     {
         /* optional. if file is smaller, do not resize. */
-        if ($forcesize === false) {
+        if (!$allow_enlarge) {
             if ($width > $this->source_w && $height > $this->source_h) {
                 $width  = $this->source_w;
                 $height = $this->source_h;
