@@ -3,6 +3,42 @@ php-image-resize
 
 PHP class to resize and scale images.
 
+Setup
+-----
+
+This package is available through Packagist with the vendor and package identifier the same as this repo.
+
+If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
+
+```json
+{
+    "require": {
+        "eventviva/php-image-resize": "dev-master"
+    }
+}
+```
+
+Otherwise:
+
+```php
+include '/path/to/ImageResize.php';
+```
+
+Because this class uses namespacing, when instantiating the object, you need to either use the fully qualified namespace:
+
+```php
+$image = new \Eventviva\ImageResize();
+```
+
+Or alias it:
+
+```php
+
+use \Eventviva\ImageResize;
+
+$image = new ImageResize();
+```
+
 Usage
 -----
 
