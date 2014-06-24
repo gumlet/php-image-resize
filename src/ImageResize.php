@@ -70,7 +70,7 @@ class ImageResize
     {
         $image_type = $image_type ?: $this->source_type;
 
-        $dest_image = imagecreatetruecolor($this->dest_w, $this->dest_h);
+        $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
         switch ($image_type) {
             case IMAGETYPE_GIF:
@@ -82,7 +82,7 @@ class ImageResize
 
             case IMAGETYPE_JPEG:
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
-                imagefilledrectangle($dest_image, 0, 0, $this->dest_w, $this->dest_h, $background);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
             break;
 
             case IMAGETYPE_PNG:
@@ -98,8 +98,8 @@ class ImageResize
             $this->dest_y,
             $this->source_x,
             $this->source_y,
-            $this->dest_w,
-            $this->dest_h,
+            $this->getDestWidth(),
+            $this->getDestHeight(),
             $this->source_w,
             $this->source_h
         );
@@ -158,8 +158,8 @@ class ImageResize
 
     public function resizeToHeight($height)
     {
-        $ratio = $height / $this->original_h;
-        $width = $this->original_w * $ratio;
+        $ratio = $height / $this->getSourceHeight();
+        $width = $this->getSourceWidth() * $ratio;
 
         $this->resize($width, $height);
 
@@ -168,8 +168,8 @@ class ImageResize
 
     public function resizeToWidth($width)
     {
-        $ratio  = $width / $this->original_w;
-        $height = $this->original_h * $ratio;
+        $ratio  = $width / $this->getSourceWidth();
+        $height = $this->getSourceHeight() * $ratio;
 
         $this->resize($width, $height);
 
@@ -178,8 +178,8 @@ class ImageResize
 
     public function scale($scale)
     {
-        $width  = $this->original_w * $scale / 100;
-        $height = $this->original_h * $scale / 100;
+        $width  = $this->getSourceWidth() * $scale / 100;
+        $height = $this->getSourceHeight() * $scale / 100;
 
         $this->resize($width, $height, true);
 
@@ -189,9 +189,9 @@ class ImageResize
     public function resize($width, $height, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
-            if ($width > $this->original_w || $height > $this->original_h) {
-                $width  = $this->original_w;
-                $height = $this->original_h;
+            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+                $width  = $this->getSourceWidth();
+                $height = $this->getSourceHeight();
             }
         }
 
@@ -201,8 +201,8 @@ class ImageResize
         $this->dest_w = $width;
         $this->dest_h = $height;
 
-        $this->source_w = $this->original_w;
-        $this->source_h = $this->original_h;
+        $this->source_w = $this->getSourceWidth();
+        $this->source_h = $this->getSourceHeight();
 
         return $this;
     }
@@ -210,26 +210,46 @@ class ImageResize
     public function crop($width, $height, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
-            if ($width > $this->original_w || $height > $this->original_h) {
-                $width  = $this->original_w;
-                $height = $this->original_h;
+            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+                $width  = $this->getSourceWidth();
+                $height = $this->getSourceHeight();
             }
         }
 
         $this->resize($width, $height, $allow_enlarge);
 
-        $ratio_source = $this->original_w / $this->original_h;
+        $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
 
         if ($ratio_dest < $ratio_source) {
             $this->source_w *= $ratio_dest;
-            $this->source_x = ($this->original_w - $this->source_w) / 2;
+            $this->source_x = ($this->getSourceWidth() - $this->source_w) / 2;
         } else {
             $this->source_h /= $ratio_dest;
-            $this->source_y = ($this->original_h - $this->source_h) / 2;
+            $this->source_y = ($this->getSourceHeight() - $this->source_h) / 2;
         }
 
         return $this;
+    }
+
+    public function getSourceWidth()
+    {
+        return $this->original_w;
+    }
+
+    public function getSourceHeight()
+    {
+        return $this->original_h;
+    }
+
+    public function getDestWidth()
+    {
+        return $this->dest_w;
+    }
+
+    public function getDestHeight()
+    {
+        return $this->dest_h;
     }
 
 }
