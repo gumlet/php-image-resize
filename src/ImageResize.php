@@ -2,145 +2,254 @@
 
 namespace Eventviva;
 
-class ImageResize {
+class ImageResize
+{
 
-    protected $image;
-    protected $image_type;
+    public $quality_jpg = 75;
+    public $quality_png = 0;
 
-    public function __construct($filename) {
+    protected $source_image;
+    protected $source_type;
+
+    protected $original_w;
+    protected $original_h;
+
+    protected $dest_x = 0;
+    protected $dest_y = 0;
+
+    protected $source_x;
+    protected $source_y;
+
+    protected $dest_w;
+    protected $dest_h;
+
+    protected $source_w;
+    protected $source_h;
+
+    public function __construct($filename)
+    {
         $this->load($filename);
     }
 
-    public function load($filename) {
-
+    public function load($filename)
+    {
         $image_info = getimagesize($filename);
-        $this->image_type = $image_info[2];
-        if ($this->image_type == IMAGETYPE_JPEG) {
 
-            $this->image = imagecreatefromjpeg($filename);
-        } elseif ($this->image_type == IMAGETYPE_GIF) {
-
-            $this->image = imagecreatefromgif($filename);
-        } elseif ($this->image_type == IMAGETYPE_PNG) {
-
-            $this->image = imagecreatefrompng($filename);
+        if (!$image_info) {
+            throw new \Exception('Could not read ' . $filename);
         }
+
+        list (
+            $this->original_w,
+            $this->original_h,
+            $this->source_type
+        ) = $image_info;
+
+        switch ($this->source_type) {
+            case IMAGETYPE_GIF:
+                $this->source_image = imagecreatefromgif($filename);
+            break;
+
+            case IMAGETYPE_JPEG:
+                $this->source_image = imagecreatefromjpeg($filename);
+            break;
+
+            case IMAGETYPE_PNG:
+                $this->source_image = imagecreatefrompng($filename);
+            break;
+
+            default:
+                throw new \Exception('Unsupported image type');
+            break;
+        }
+
         return $this;
     }
 
-    public function save($filename, $image_type = IMAGETYPE_PNG, $compression = 75, $permissions = null) {
+    public function save($filename, $image_type = null, $quality = null, $permissions = null)
+    {
+        $image_type = $image_type ?: $this->source_type;
 
-        if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image, $filename, $compression);
-        } elseif ($image_type == IMAGETYPE_GIF) {
+        $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
-            imagegif($this->image, $filename);
-        } elseif ($image_type == IMAGETYPE_PNG) {
+        switch ($image_type) {
+            case IMAGETYPE_GIF:
+                $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
+                imagecolortransparent($dest_image, $background);
+                imagefill($dest_image, 0, 0 , $background);
+                imagesavealpha($dest_image, true);
+            break;
 
-            imagealphablending($this->image, false);
-            imagesavealpha($this->image, true);
-            imagepng($this->image, $filename);
+            case IMAGETYPE_JPEG:
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
+            break;
+
+            case IMAGETYPE_PNG:
+                imagealphablending($dest_image, false);
+                imagesavealpha($dest_image, true);
+            break;
         }
-        if ($permissions != null) {
 
+        imagecopyresampled(
+            $dest_image,
+            $this->source_image,
+            $this->dest_x,
+            $this->dest_y,
+            $this->source_x,
+            $this->source_y,
+            $this->getDestWidth(),
+            $this->getDestHeight(),
+            $this->source_w,
+            $this->source_h
+        );
+
+        switch ($image_type) {
+            case IMAGETYPE_GIF:
+                imagegif($dest_image, $filename);
+            break;
+
+            case IMAGETYPE_JPEG:
+                if ($quality === null) {
+                    $quality = $this->quality_jpg;
+                }
+
+                imagejpeg($dest_image, $filename, $quality);
+            break;
+
+            case IMAGETYPE_PNG:
+                if ($quality === null) {
+                    $quality = $this->quality_png;
+                }
+
+                imagepng($dest_image, $filename, $quality);
+            break;
+        }
+
+        if ($permissions) {
             chmod($filename, $permissions);
         }
+
         return $this;
     }
 
-    public function output($image_type = IMAGETYPE_JPEG) {
+    public function output($image_type = null, $quality = null)
+    {
+        $image_type = $image_type ?: $this->source_type;
 
-        if ($image_type == IMAGETYPE_JPEG) {
-            imagejpeg($this->image);
-        } elseif ($image_type == IMAGETYPE_GIF) {
+        switch ($image_type) {
+            case IMAGETYPE_GIF:
+                $content_type = 'image/gif';
+            break;
 
-            imagegif($this->image);
-        } elseif ($image_type == IMAGETYPE_PNG) {
+            case IMAGETYPE_JPEG:
+                $content_type = 'image/jpg';
+            break;
 
-            imagepng($this->image);
+            case IMAGETYPE_PNG:
+                $content_type = 'image/png';
+            break;
         }
+
+        header('Content-Type: ' . $content_type);
+
+        $this->save(null, $image_type, $quality);
     }
 
-    public function getWidth() {
+    public function resizeToHeight($height)
+    {
+        $ratio = $height / $this->getSourceHeight();
+        $width = $this->getSourceWidth() * $ratio;
 
-        return imagesx($this->image);
-    }
-
-    public function getHeight() {
-
-        return imagesy($this->image);
-    }
-
-    public function resizeToHeight($height) {
-
-        $ratio = $height / $this->getHeight();
-        $width = $this->getWidth() * $ratio;
         $this->resize($width, $height);
+
         return $this;
     }
 
-    public function resizeToWidth($width) {
-        $ratio = $width / $this->getWidth();
-        $height = $this->getheight() * $ratio;
+    public function resizeToWidth($width)
+    {
+        $ratio  = $width / $this->getSourceWidth();
+        $height = $this->getSourceHeight() * $ratio;
+
         $this->resize($width, $height);
+
         return $this;
     }
 
-    public function scale($scale) {
-        $width = $this->getWidth() * $scale / 100;
-        $height = $this->getheight() * $scale / 100;
-        $this->resize($width, $height);
+    public function scale($scale)
+    {
+        $width  = $this->getSourceWidth() * $scale / 100;
+        $height = $this->getSourceHeight() * $scale / 100;
+
+        $this->resize($width, $height, true);
+
         return $this;
     }
 
-    public function resize($width, $height, $forcesize = false) {
-        /* optional. if file is smaller, do not resize. */
-        if ($forcesize === false) {
-            if ($width > $this->getWidth() && $height > $this->getHeight()) {
-                $width = $this->getWidth();
-                $height = $this->getHeight();
+    public function resize($width, $height, $allow_enlarge = false)
+    {
+        if (!$allow_enlarge) {
+            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+                $width  = $this->getSourceWidth();
+                $height = $this->getSourceHeight();
             }
         }
 
-        $new_image = imagecreatetruecolor($width, $height);
-        /* Check if this image is PNG or GIF, then set if Transparent */
-        if (($this->image_type == IMAGETYPE_GIF) || ($this->image_type == IMAGETYPE_PNG)) {
-            imagealphablending($new_image, false);
-            imagesavealpha($new_image, true);
-            $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
-            imagefilledrectangle($new_image, 0, 0, $width, $height, $transparent);
-        }
-        imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+        $this->source_x = 0;
+        $this->source_y = 0;
 
-        $this->image = $new_image;
+        $this->dest_w = $width;
+        $this->dest_h = $height;
+
+        $this->source_w = $this->getSourceWidth();
+        $this->source_h = $this->getSourceHeight();
+
         return $this;
     }
-    
-    /* center crops image to desired width height */
-    public function crop($width,$height){
-    	$aspect_o = $this->getWidth()/$this->getHeight();
-    	$aspect_f = $width/$height;
-    
-    	if($aspect_o>=$aspect_f){
-    		$width_n=$this->getWidth() / ($this->getHeight()/$height);
-    		$height_n=$height;
-    	}else{
-    		$width_n=$width;
-    		$height_n=$this->getHeight() / ($this->getWidth()/$width);
-    	}
-    
-        $new_image = imagecreatetruecolor($width, $height);
-        /* Check if this image is PNG or GIF, then set if Transparent */
-        if (($this->image_type == IMAGETYPE_GIF) || ($this->image_type == IMAGETYPE_PNG)) {
-            imagealphablending($new_image, false);
-            imagesavealpha($new_image, true);
-            $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
-            imagefilledrectangle($new_image, 0, 0, $width, $height, $transparent);
+
+    public function crop($width, $height, $allow_enlarge = false)
+    {
+        if (!$allow_enlarge) {
+            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+                $width  = $this->getSourceWidth();
+                $height = $this->getSourceHeight();
+            }
         }
-        imagecopyresampled($new_image, $this->image, 0 - ($width_n - $width)*0.5, 0 - ($height_n - $height)*0.5, 0, 0, $width_n, $height_n, $this->getWidth(), $this->getHeight());
-        
-        $this->image = $new_image;
+
+        $this->resize($width, $height, $allow_enlarge);
+
+        $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
+        $ratio_dest = $width / $height;
+
+        if ($ratio_dest < $ratio_source) {
+            $this->source_w *= $ratio_dest;
+            $this->source_x = ($this->getSourceWidth() - $this->source_w) / 2;
+        } else {
+            $this->source_h /= $ratio_dest;
+            $this->source_y = ($this->getSourceHeight() - $this->source_h) / 2;
+        }
+
         return $this;
     }
- 
+
+    public function getSourceWidth()
+    {
+        return $this->original_w;
+    }
+
+    public function getSourceHeight()
+    {
+        return $this->original_h;
+    }
+
+    public function getDestWidth()
+    {
+        return $this->dest_w;
+    }
+
+    public function getDestHeight()
+    {
+        return $this->dest_h;
+    }
+
 }
