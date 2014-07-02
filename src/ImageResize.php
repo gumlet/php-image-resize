@@ -31,7 +31,7 @@ class ImageResize
         $this->load($filename);
     }
 
-    public function load($filename)
+    protected function load($filename)
     {
         $image_info = getimagesize($filename);
 
@@ -63,7 +63,7 @@ class ImageResize
             break;
         }
 
-        return $this;
+        return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
 
     public function save($filename, $image_type = null, $quality = null, $permissions = null)
