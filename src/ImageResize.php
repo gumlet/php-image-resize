@@ -222,7 +222,7 @@ class ImageResize
         $ratio_dest = $width / $height;
 
         if ($ratio_dest < $ratio_source) {
-            $this->source_w *= $ratio_dest;
+            $this->source_w /= $ratio_source;
             $this->source_x = ($this->getSourceWidth() - $this->source_w) / 2;
         } else {
             $this->source_h /= $ratio_dest;
