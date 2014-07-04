@@ -8,8 +8,9 @@ class ImageResize
     public $quality_jpg = 75;
     public $quality_png = 0;
 
+    public $source_type;
+
     protected $source_image;
-    protected $source_type;
 
     protected $original_w;
     protected $original_h;
@@ -156,22 +157,22 @@ class ImageResize
         $this->save(null, $image_type, $quality);
     }
 
-    public function resizeToHeight($height)
+    public function resizeToHeight($height, $allow_enlarge = false)
     {
         $ratio = $height / $this->getSourceHeight();
         $width = $this->getSourceWidth() * $ratio;
 
-        $this->resize($width, $height);
+        $this->resize($width, $height, $allow_enlarge);
 
         return $this;
     }
 
-    public function resizeToWidth($width)
+    public function resizeToWidth($width, $allow_enlarge = false)
     {
         $ratio  = $width / $this->getSourceWidth();
         $height = $this->getSourceHeight() * $ratio;
 
-        $this->resize($width, $height);
+        $this->resize($width, $height, $allow_enlarge);
 
         return $this;
     }
@@ -189,6 +190,10 @@ class ImageResize
     public function resize($width, $height, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
+            // if the user hasn't explicitly allowed enlarging,
+            // but either of the dimensions are larger then the original,
+            // then just use original dimensions - this logic may need rethinking
+
             if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
                 $width  = $this->getSourceWidth();
                 $height = $this->getSourceHeight();
@@ -210,23 +215,40 @@ class ImageResize
     public function crop($width, $height, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
-            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+            // this logic is slightly different to resize(),
+            // it will only reset dimensions to the original
+            // if that particular dimenstion is larger
+
+            if ($width > $this->getSourceWidth()) {
                 $width  = $this->getSourceWidth();
+            }
+
+            if ($height > $this->getSourceHeight()) {
                 $height = $this->getSourceHeight();
             }
         }
-
-        $this->resize($width, $height, $allow_enlarge);
 
         $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
 
         if ($ratio_dest < $ratio_source) {
-            $this->source_w /= $ratio_source;
-            $this->source_x = ($this->getSourceWidth() - $this->source_w) / 2;
+            $this->resizeToHeight($height, $allow_enlarge);
+
+            $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
+
+            $this->source_w = $this->getSourceWidth() - $excess_width;
+            $this->source_x = $excess_width / 2;
+
+            $this->dest_w = $width;
         } else {
-            $this->source_h /= $ratio_dest;
-            $this->source_y = ($this->getSourceHeight() - $this->source_h) / 2;
+            $this->resizeToWidth($width, $allow_enlarge);
+
+            $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
+
+            $this->source_h = $this->getSourceHeight() - $excess_height;
+            $this->source_y = $excess_height / 2;
+
+            $this->dest_h = $height;
         }
 
         return $this;
