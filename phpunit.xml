@@ -1,0 +1,10 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="php-image-resize tests">
+            <directory>test</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-text" target="php://stdout"/>
+    </logging>
+</phpunit>
