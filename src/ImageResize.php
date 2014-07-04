@@ -216,17 +216,27 @@ class ImageResize
             }
         }
 
-        $this->resize($width, $height, $allow_enlarge);
-
         $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
 
         if ($ratio_dest < $ratio_source) {
-            $this->source_w /= $ratio_source;
-            $this->source_x = ($this->getSourceWidth() - $this->source_w) / 2;
+            $this->resizeToHeight($height);
+
+            $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
+
+            $this->source_w = $this->getSourceWidth() - $excess_width;
+            $this->source_x = $excess_width / 2;
+
+            $this->dest_w = $width;
         } else {
-            $this->source_h /= $ratio_dest;
-            $this->source_y = ($this->getSourceHeight() - $this->source_h) / 2;
+            $this->resizeToWidth($width);
+
+            $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
+
+            $this->source_h = $this->getSourceHeight() - $excess_height;
+            $this->source_y = $excess_height / 2;
+
+            $this->dest_h = $height;
         }
 
         return $this;
