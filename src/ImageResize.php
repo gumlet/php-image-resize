@@ -8,8 +8,9 @@ class ImageResize
     public $quality_jpg = 75;
     public $quality_png = 0;
 
+    public $source_type;
+
     protected $source_image;
-    protected $source_type;
 
     protected $original_w;
     protected $original_h;
