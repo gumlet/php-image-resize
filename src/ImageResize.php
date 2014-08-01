@@ -144,7 +144,7 @@ class ImageResize
             break;
 
             case IMAGETYPE_JPEG:
-                $content_type = 'image/jpg';
+                $content_type = 'image/jpeg';
             break;
 
             case IMAGETYPE_PNG:
