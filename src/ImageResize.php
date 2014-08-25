@@ -138,21 +138,7 @@ class ImageResize
     {
         $image_type = $image_type ?: $this->source_type;
 
-        switch ($image_type) {
-            case IMAGETYPE_GIF:
-                $content_type = 'image/gif';
-            break;
-
-            case IMAGETYPE_JPEG:
-                $content_type = 'image/jpeg';
-            break;
-
-            case IMAGETYPE_PNG:
-                $content_type = 'image/png';
-            break;
-        }
-
-        header('Content-Type: ' . $content_type);
+        header('Content-Type: ' . image_type_to_mime_type($image_type));
 
         $this->save(null, $image_type, $quality);
     }
