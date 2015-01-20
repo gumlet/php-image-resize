@@ -119,7 +119,7 @@ The properties `$quality_jpg` and `$quality_png` are available for you to config
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->quality_png = 100;
+$image->quality_jpg = 100;
 $image->resize(800, 600);
 $image->save('image2.jpg');
 ```
