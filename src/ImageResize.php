@@ -39,21 +39,87 @@ class ImageResize
     protected $source_h;
 
     /**
-     * Constructor
+     * Create instance from a file
+     *
      * @param string $filename
+     * @return ImageResize
+     * @throws \Exception
      */
-    public function __construct($filename)
-    {
-        $this->load($filename);
+    public static function createFromFile($filename){
+        $s = new self();
+        $s->load($filename);
+        return $s;
     }
 
     /**
-     * Loads image source and its properties to the instanciated object
-     * @param string $filename
-     * @return \static
-     * @throws Exception
+     * Create instance from a strng
+     *
+     * @param string $imageData
+     * @return ImageResize
+     * @throws \exception
      */
-    protected function load($filename)
+    public static function createFromString($imageData){
+        $s = new self();
+        $s->loadFromString($imageData);
+        return $s;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param string|null $filename
+     * @throws \Exception
+     */
+    public function __construct($filename=null)
+    {
+        if(!empty($filename)){
+            $this->load($filename);
+        }
+    }
+
+    /**
+     * Get image size from string
+     *
+     * @param string $imagedata
+     * @return array
+     */
+    protected function getImagesizeFromString($imagedata){
+        return @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
+    }
+
+    /**
+     * Load image from string
+     *
+     * @param string $imagedata
+     * @return ImageResize
+     * @throws \Exception
+     */
+    public function loadFromString($imagedata)
+    {
+        $image_info = $this->getImagesizeFromString($imagedata);
+        if(!$image_info) {
+            throw new \Exception('Could not load image from string');
+        }
+
+        list (
+            $this->original_w,
+            $this->original_h,
+            $this->source_type
+            ) = $image_info;
+
+        $this->source_image = imagecreatefromstring($imagedata);
+
+        return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
+    }
+
+    /**
+     * Load a file
+     *
+     * @param string $filename
+     * @return ImageResize
+     * @throws \Exception
+     */
+    public function load($filename)
     {
         $image_info = getimagesize($filename);
 
@@ -161,11 +227,25 @@ class ImageResize
 
         return $this;
     }
-    
+
     /**
-     * Outpus image source to browser
-     * @param string $image_type
-     * @param integer $quality
+     * Return image as string
+     *
+     * @param int $image_type
+     * @param int $quality
+     * @return string
+     */
+    public function toString($image_type = null, $quality = null){
+        ob_start();
+        $this->save(null, $image_type, $quality);
+        return ob_get_clean();
+    }
+
+    /**
+     * Outputs image source to browser
+     *
+     * @param int $image_type
+     * @param int $quality
      */
     public function output($image_type = null, $quality = null)
     {

@@ -14,26 +14,45 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     );
 
     private $unsupported_image = 'Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA';
+    private $image_string = 'R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==';
+
+    public function testLoadString(){
+        $resize = ImageResize::createFromString(base64_decode($this->image_string));
+
+        $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
 
     public function testLoadGif() {
         $image = $this->createImage(1, 1, 'gif');
-        $resize = new ImageResize($image);
+        $resize = ImageResize::createFromFile($image);
 
         $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
     public function testLoadJpg() {
         $image = $this->createImage(1, 1, 'jpeg');
-        $resize = new ImageResize($image);
+        $resize = ImageResize::createFromFile($image);
 
         $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
     public function testLoadPng() {
         $image = $this->createImage(1, 1, 'png');
-        $resize = new ImageResize($image);
+        $resize = ImageResize::createFromFile($image);
 
         $this->assertEquals(IMAGETYPE_PNG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Could not load image from string
+     */
+    public function testInvalidString(){
+        ImageResize::createFromString($this->unsupported_image);
     }
 
     /**
@@ -41,7 +60,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Filename cannot be empty
      */
     public function testLoadNoFile() {
-        new ImageResize(null);
+        ImageResize::createFromFile(null);
     }
 
     /**
@@ -182,6 +201,12 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $resize->save($filename, null, null, 0600);
 
         $this->assertEquals(600, substr(decoct(fileperms($filename)), 3));
+    }
+
+    public function testToString(){
+        $resize = ImageResize::createFromString(base64_decode($this->image_string));
+        $image = $resize->toString();
+        $this->assertEquals('R0lGODlhDwAPAJEAAAQCzMzO/Pz+/P///yH5BAEAAAMALAAAAAAPAA8AAAIghI95Aeytnkyh2suU3jwJcXybaJDdiaYqpWVG1bgwvBYAOw==', base64_encode($image));
     }
 
     public function testOutputGif() {
