@@ -7,6 +7,11 @@ use \Exception;
 /**
  * Handles thumb image(s) according to the original source given.
  */
+/**
+ * Image Resize
+ *
+ * @package Eventviva
+ */
 class ImageResize
 {
     const cropTOP = 1;
