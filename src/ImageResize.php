@@ -2,9 +2,20 @@
 
 namespace Eventviva;
 
+use \Exception;
+
+/**
+ * Handles thumb image(s) according to the original source given.
+ */
 class ImageResize
 {
-
+    const cropTOP = 1;
+    const cropCENTRE = 2;
+    const cropCENTER = 2;
+    const cropBOTTOM = 3;
+    const cropLEFT = 4;
+    const cropRIGHT = 5;
+    
     public $quality_jpg = 75;
     public $quality_png = 0;
 
@@ -27,11 +38,21 @@ class ImageResize
     protected $source_w;
     protected $source_h;
 
+    /**
+     * Constructor
+     * @param string $filename
+     */
     public function __construct($filename)
     {
         $this->load($filename);
     }
 
+    /**
+     * Loads image source and its properties to the instanciated object
+     * @param string $filename
+     * @return \static
+     * @throws Exception
+     */
     protected function load($filename)
     {
         $image_info = getimagesize($filename);
@@ -61,12 +82,19 @@ class ImageResize
 
             default:
                 throw new \Exception('Unsupported image type');
-            break;
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
-
+    
+    /**
+     * Saves new image
+     * @param string $filename
+     * @param string $image_type
+     * @param integer $quality
+     * @param integer $permissions
+     * @return \static
+     */
     public function save($filename, $image_type = null, $quality = null, $permissions = null)
     {
         $image_type = $image_type ?: $this->source_type;
@@ -133,7 +161,12 @@ class ImageResize
 
         return $this;
     }
-
+    
+    /**
+     * Outpus image source to browser
+     * @param string $image_type
+     * @param integer $quality
+     */
     public function output($image_type = null, $quality = null)
     {
         $image_type = $image_type ?: $this->source_type;
@@ -142,7 +175,13 @@ class ImageResize
 
         $this->save(null, $image_type, $quality);
     }
-
+    
+    /**
+     * Resizes image according to the given height. Width is proportional.
+     * @param integer $height
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
     public function resizeToHeight($height, $allow_enlarge = false)
     {
         $ratio = $height / $this->getSourceHeight();
@@ -152,7 +191,13 @@ class ImageResize
 
         return $this;
     }
-
+    
+    /**
+     * Resizes image according to the given width. Height is proportional.
+     * @param integer $width
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
     public function resizeToWidth($width, $allow_enlarge = false)
     {
         $ratio  = $width / $this->getSourceWidth();
@@ -163,6 +208,11 @@ class ImageResize
         return $this;
     }
 
+    /**
+     * Resizes image according to given scale (proportionally)
+     * @param type $scale
+     * @return \Eventviva\ImageResize
+     */
     public function scale($scale)
     {
         $width  = $this->getSourceWidth() * $scale / 100;
@@ -173,6 +223,13 @@ class ImageResize
         return $this;
     }
 
+    /**
+     * Resizes image according to the given width and height
+     * @param integer $width
+     * @param integer $height
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
     public function resize($width, $height, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
@@ -197,8 +254,17 @@ class ImageResize
 
         return $this;
     }
-
-    public function crop($width, $height, $allow_enlarge = false)
+    
+    /**
+     * Crops image according to the given width and height for the new saved
+     * image. Crop's position may be configured.
+     * @param integer $width
+     * @param integer $height
+     * @param boolean $allow_enlarge
+     * @param integer $position
+     * @return \static
+     */
+    public function crop($width, $height, $allow_enlarge = false, $position = self::cropCENTER)
     {
         if (!$allow_enlarge) {
             // this logic is slightly different to resize(),
@@ -213,17 +279,17 @@ class ImageResize
                 $height = $this->getSourceHeight();
             }
         }
-
+        
         $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
-
+        
         if ($ratio_dest < $ratio_source) {
             $this->resizeToHeight($height, $allow_enlarge);
 
             $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
 
             $this->source_w = $this->getSourceWidth() - $excess_width;
-            $this->source_x = $excess_width / 2;
+            $this->source_x = $this->getCropPosition($excess_width, $position);
 
             $this->dest_w = $width;
         } else {
@@ -232,32 +298,68 @@ class ImageResize
             $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
 
             $this->source_h = $this->getSourceHeight() - $excess_height;
-            $this->source_y = $excess_height / 2;
+            $this->source_y = $this->getCropPosition($excess_height, $position);
 
             $this->dest_h = $height;
         }
 
         return $this;
     }
-
+    
+    /**
+     * Gets source width
+     * @return integer
+     */
     public function getSourceWidth()
     {
         return $this->original_w;
     }
-
+    
+    /**
+     * Gets source height
+     * @return integer
+     */
     public function getSourceHeight()
     {
         return $this->original_h;
     }
 
+    /**
+     * Gets width of the destination image
+     * @return integer
+     */
     public function getDestWidth()
     {
         return $this->dest_w;
     }
 
+    /**
+     * Gets height of the destination image
+     * @return integer
+     */
     public function getDestHeight()
     {
         return $this->dest_h;
     }
-
+    
+    /**
+     * Gets crop position (X or Y) according to the given position.
+     * @param integer $expectedSize
+     * @param integer $position
+     * @return integer
+     */
+    protected function getCropPosition($expectedSize, $position = self::cropCENTER)
+    {
+        $size = 0;
+        switch ($position) {
+            case self::cropBOTTOM:
+            case self::cropRIGHT:
+                $size = $expectedSize;
+                break;
+            case self::cropCENTER:
+            case self::cropCENTRE:
+                $size = $expectedSize / 2;
+        }
+        return $size;
+    }
 }
