@@ -241,7 +241,7 @@ class ImageResize
     }
 
     /**
-     * Outpus image source to browser
+     * Outputs image source to browser
      * @param string $image_type
      * @param integer $quality
      */
