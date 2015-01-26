@@ -7,11 +7,6 @@ use \Exception;
 /**
  * Handles thumb image(s) according to the original source given.
  */
-/**
- * Image Resize
- *
- * @package Eventviva
- */
 class ImageResize
 {
     const cropTOP = 1;
@@ -68,7 +63,7 @@ class ImageResize
         $s->loadFromString($imageData);
         return $s;
     }
-
+    
     /**
      * Constructor
      *
@@ -77,7 +72,7 @@ class ImageResize
      */
     public function __construct($filename=null)
     {
-        if(!empty($filename)){
+        if(!empty($filename)) {
             $this->load($filename);
         }
     }
@@ -118,11 +113,10 @@ class ImageResize
     }
 
     /**
-     * Load a file
-     *
+     * Loads image source and its properties to the instanciated object
      * @param string $filename
-     * @return ImageResize
-     * @throws \Exception
+     * @return \static
+     * @throws Exception
      */
     public function load($filename)
     {
@@ -247,10 +241,9 @@ class ImageResize
     }
 
     /**
-     * Outputs image source to browser
-     *
-     * @param int $image_type
-     * @param int $quality
+     * Outpus image source to browser
+     * @param string $image_type
+     * @param integer $quality
      */
     public function output($image_type = null, $quality = null)
     {
