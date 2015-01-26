@@ -102,7 +102,15 @@ You can also return the result as a string:
 ```php
 $image = ImageResize::createFromString(base64_decode('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='));
 $image->scale(50);
-$result = $image->toString();
+$result = $image->get();
+```
+
+Magic `__toString()` is also supported:
+
+```php
+$image = ImageResize::createFromString(base64_decode('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='));
+$image->resize(10, 10);
+$result = (string)$image;
 ```
 
 Displaying
@@ -145,7 +153,7 @@ $image->save('image2.jpg');
 
 By default they are set to 75 and 0 respectively. See the manual entries for [`imagejpeg()`](http://www.php.net/manual/en/function.imagejpeg.php) and [`imagepng()`](http://www.php.net/manual/en/function.imagepng.php) for more info.
 
-You can also pass the quality directly to the `save()`, `output()` and `toString()` methods:
+You can also pass the quality directly to the `save()`, `output()` and `get()` methods:
 
 ```php
 $image = new ImageResize('image.jpg');
@@ -158,7 +166,7 @@ $image->output(IMAGETYPE_PNG, 4);
 
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$result = $image->toString(IMAGETYPE_PNG, 4);
+$result = $image->get(IMAGETYPE_PNG, 4);
 ```
 
 We're passing `null` for the image type in the example above to skip over it and provide the quality. In this case, the image type is assumed to be the same as the input.

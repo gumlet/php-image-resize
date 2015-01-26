@@ -228,16 +228,25 @@ class ImageResize
     }
 
     /**
-     * Return image as string
+     * Get image as string
      *
      * @param int $image_type
      * @param int $quality
      * @return string
      */
-    public function toString($image_type = null, $quality = null){
+    public function get($image_type = null, $quality = null){
         ob_start();
         $this->save(null, $image_type, $quality);
         return ob_get_clean();
+    }
+
+    /**
+    * Convert the image to string with the current settings
+    *
+    * @return string
+    */
+    public function __toString(){
+        return $this->get();
     }
 
     /**
