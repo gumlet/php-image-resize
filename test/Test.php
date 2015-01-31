@@ -145,6 +145,19 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(50, $resize->getDestHeight());
     }
 
+    public function testCropPosition() {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->crop(50, 50, false, $resize::cropRIGHT);
+
+        $reflection_class = new ReflectionClass('\Eventviva\ImageResize');
+        $source_x = $reflection_class->getProperty('source_x');
+        $source_x->setAccessible(true);
+
+        $this->assertEquals(100, $source_x->getValue($resize));
+    }
+
     public function testCropLargerNotAllowed() {
         $image = $this->createImage(200, 100, 'png');
         $resize = new ImageResize($image);
