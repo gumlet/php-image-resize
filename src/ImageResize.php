@@ -96,7 +96,7 @@ class ImageResize
             $this->original_w,
             $this->original_h,
             $this->source_type
-            ) = $image_info;
+        ) = $image_info;
 
         $this->source_image = imagecreatefromstring($imagedata);
 
