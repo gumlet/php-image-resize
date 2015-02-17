@@ -78,16 +78,6 @@ class ImageResize
     }
 
     /**
-     * Get image size from string
-     *
-     * @param string $imagedata
-     * @return array
-     */
-    protected function getImagesizeFromString($imagedata){
-        return @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
-    }
-
-    /**
      * Load image from string
      *
      * @param string $imagedata
@@ -96,7 +86,8 @@ class ImageResize
      */
     public function loadFromString($imagedata)
     {
-        $image_info = $this->getImagesizeFromString($imagedata);
+        $image_info = getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
+
         if(!$image_info) {
             throw new \Exception('Could not load image from string');
         }
