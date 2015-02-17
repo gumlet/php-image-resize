@@ -86,7 +86,7 @@ class ImageResize
      */
     public function loadFromString($imagedata)
     {
-        $image_info = getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
+        $image_info = @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
 
         if (!$image_info) {
             throw new \Exception('Could not load image from string');
