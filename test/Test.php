@@ -216,9 +216,9 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(600, substr(decoct(fileperms($filename)), 3));
     }
 
-    public function testGet(){
+    public function testGetImageAsString(){
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
-        $image = $resize->get();
+        $image = $resize->getImageAsString();
         $this->assertEquals(79, strlen($image));
     }
 
