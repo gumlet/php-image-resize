@@ -98,7 +98,17 @@ class ImageResize
             $this->source_type
         ) = $image_info;
 
-        $this->source_image = imagecreatefromstring($imagedata);
+        switch ($this->source_type) {
+            case IMAGETYPE_GIF:
+            case IMAGETYPE_JPEG:
+            case IMAGETYPE_PNG:
+                $this->source_image = imagecreatefromstring($imagedata);
+                break;
+
+            default:
+                throw new \Exception('Unsupported image type');
+                break;
+        }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
