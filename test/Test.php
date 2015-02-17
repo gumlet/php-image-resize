@@ -16,12 +16,10 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     private $unsupported_image = 'Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA';
     private $image_string = 'R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
 
-    public function testLoadString() {
-        $resize = ImageResize::createFromString(base64_decode($this->image_string));
 
-        $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
-        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
-    }
+    /**
+     * Loading tests
+     */
 
     public function testLoadGif() {
         $image = $this->createImage(1, 1, 'gif');
@@ -47,13 +45,17 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unsupported image type
-     */
-    public function testInvalidString() {
-        ImageResize::createFromString(base64_decode($this->unsupported_image));
+    public function testLoadString() {
+        $resize = ImageResize::createFromString(base64_decode($this->image_string));
+
+        $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
+
+
+    /**
+     * Bad load tests
+     */
 
     /**
      * @expectedException Exception
@@ -92,6 +94,19 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
         new ImageResize($filename);
     }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unsupported image type
+     */
+    public function testInvalidString() {
+        ImageResize::createFromString(base64_decode($this->unsupported_image));
+    }
+
+
+    /**
+     * Resize tests
+     */
 
     public function testResizeToHeight() {
         $image = $this->createImage(200, 100, 'png');
@@ -143,6 +158,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(100, $resize->getDestHeight());
     }
 
+
+    /**
+     * Crop tests
+     */
+
     public function testCrop() {
         $image = $this->createImage(200, 100, 'png');
         $resize = new ImageResize($image);
@@ -175,6 +195,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $resize->getDestWidth());
         $this->assertEquals(100, $resize->getDestHeight());
     }
+
+
+    /**
+     * Save tests
+     */
 
     public function testSaveGif() {
         $image = $this->createImage(200, 100, 'gif');
@@ -224,6 +249,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(600, substr(decoct(fileperms($filename)), 3));
     }
 
+
+    /**
+     * String test
+     */
+
     public function testGetImageAsString() {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
         $image = $resize->getImageAsString();
@@ -235,6 +265,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $image = (string)$resize;
         $this->assertEquals(43, strlen($image));
     }
+
+
+    /**
+     * Output tests
+     */
 
     public function testOutputGif() {
         $image = $this->createImage(200, 100, 'gif');
@@ -292,6 +327,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('image/png', $type);
     }
+
+
+    /**
+     * Helpers
+     */
 
     private function createImage($width, $height, $type) {
         if (!in_array($type, $this->image_types)) {
