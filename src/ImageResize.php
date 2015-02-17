@@ -129,10 +129,10 @@ class ImageResize
      */
     public function loadFromFile($filename)
     {
-        $image_info = getimagesize($filename);
+        $image_info = @getimagesize($filename);
 
         if (!$image_info) {
-            throw new \Exception('Could not read ' . $filename);
+            throw new \Exception('Could not read ' . ($filename ?: 'file'));
         }
 
         list (
