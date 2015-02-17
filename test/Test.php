@@ -56,11 +56,11 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage Filename cannot be empty
+     * @expectedException Exception
+     * @expectedExceptionMessage No image provided
      */
     public function testLoadNoFile() {
-        ImageResize::createFromFile(null);
+        new ImageResize(null);
     }
 
     /**
