@@ -72,8 +72,16 @@ class ImageResize
      */
     public function __construct($filename = null)
     {
-        if (!empty($filename)) {
+        if ($filename !== null) {
             $this->loadFromFile($filename);
+        } else {
+            // if no filename is provided, we want to throw an exception if
+            // the object was not created in one of it's static method
+            $backtrace = debug_backtrace();
+
+            if (!isset($backtrace[1]['class']) || $backtrace[1]['class'] != __CLASS__) {
+                throw new \Exception('No image provided');
+            }
         }
     }
 
