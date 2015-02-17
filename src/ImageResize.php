@@ -47,7 +47,7 @@ class ImageResize
      */
     public static function createFromFile($filename){
         $s = new self();
-        $s->load($filename);
+        $s->loadFromFile($filename);
         return $s;
     }
 
@@ -72,8 +72,8 @@ class ImageResize
      */
     public function __construct($filename = null)
     {
-        if(!empty($filename)) {
-            $this->load($filename);
+        if (!empty($filename)) {
+            $this->loadFromFile($filename);
         }
     }
 
@@ -88,7 +88,7 @@ class ImageResize
     {
         $image_info = getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
 
-        if(!$image_info) {
+        if (!$image_info) {
             throw new \Exception('Could not load image from string');
         }
 
@@ -119,7 +119,7 @@ class ImageResize
      * @return \static
      * @throws Exception
      */
-    public function load($filename)
+    public function loadFromFile($filename)
     {
         $image_info = getimagesize($filename);
 
