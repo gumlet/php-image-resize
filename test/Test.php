@@ -14,9 +14,9 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     );
 
     private $unsupported_image = 'Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA';
-    private $image_string = 'R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==';
+    private $image_string = 'R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
 
-    public function testLoadString(){
+    public function testLoadString() {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
 
         $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
@@ -49,10 +49,10 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Could not load image from string
+     * @expectedExceptionMessage Unsupported image type
      */
-    public function testInvalidString(){
-        ImageResize::createFromString($this->unsupported_image);
+    public function testInvalidString() {
+        ImageResize::createFromString(base64_decode($this->unsupported_image));
     }
 
     /**
@@ -69,6 +69,14 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
      */
     public function testLoadUnsupportedFile() {
         new ImageResize(__FILE__);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Could not load
+     */
+    public function testLoadUnsupportedFileString() {
+        ImageResize::createFromString('');
     }
 
     /**
@@ -216,16 +224,16 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(600, substr(decoct(fileperms($filename)), 3));
     }
 
-    public function testGetImageAsString(){
+    public function testGetImageAsString() {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
         $image = $resize->getImageAsString();
-        $this->assertEquals(79, strlen($image));
+        $this->assertEquals(43, strlen($image));
     }
 
-    public function testToString(){
+    public function testToString() {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
         $image = (string)$resize;
-        $this->assertEquals(79, strlen($image));
+        $this->assertEquals(43, strlen($image));
     }
 
     public function testOutputGif() {
