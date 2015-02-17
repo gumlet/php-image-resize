@@ -9,12 +9,12 @@ use \Exception;
  */
 class ImageResize
 {
-    const cropTOP = 1;
-    const cropCENTRE = 2;
-    const cropCENTER = 2;
-    const cropBOTTOM = 3;
-    const cropLEFT = 4;
-    const cropRIGHT = 5;
+    const CROPTOP = 1;
+    const CROPCENTRE = 2;
+    const CROPCENTER = 2;
+    const CROPBOTTOM = 3;
+    const CROPLEFT = 4;
+    const CROPRIGHT = 5;
     
     public $quality_jpg = 75;
     public $quality_png = 0;
@@ -70,7 +70,7 @@ class ImageResize
      * @param string|null $filename
      * @throws \Exception
      */
-    public function __construct($filename=null)
+    public function __construct($filename = null)
     {
         if(!empty($filename)) {
             $this->load($filename);
@@ -135,18 +135,19 @@ class ImageResize
         switch ($this->source_type) {
             case IMAGETYPE_GIF:
                 $this->source_image = imagecreatefromgif($filename);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 $this->source_image = imagecreatefromjpeg($filename);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 $this->source_image = imagecreatefrompng($filename);
-            break;
+                break;
 
             default:
                 throw new \Exception('Unsupported image type');
+                break;
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
@@ -172,17 +173,17 @@ class ImageResize
                 imagecolortransparent($dest_image, $background);
                 imagefill($dest_image, 0, 0 , $background);
                 imagesavealpha($dest_image, true);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 imagealphablending($dest_image, false);
                 imagesavealpha($dest_image, true);
-            break;
+                break;
         }
 
         imagecopyresampled(
@@ -201,7 +202,7 @@ class ImageResize
         switch ($image_type) {
             case IMAGETYPE_GIF:
                 imagegif($dest_image, $filename);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 if ($quality === null) {
@@ -209,7 +210,7 @@ class ImageResize
                 }
 
                 imagejpeg($dest_image, $filename, $quality);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 if ($quality === null) {
@@ -217,7 +218,7 @@ class ImageResize
                 }
 
                 imagepng($dest_image, $filename, $quality);
-            break;
+                break;
         }
 
         if ($permissions) {
@@ -351,7 +352,7 @@ class ImageResize
      * @param integer $position
      * @return \static
      */
-    public function crop($width, $height, $allow_enlarge = false, $position = self::cropCENTER)
+    public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
         if (!$allow_enlarge) {
             // this logic is slightly different to resize(),
@@ -435,17 +436,18 @@ class ImageResize
      * @param integer $position
      * @return integer
      */
-    protected function getCropPosition($expectedSize, $position = self::cropCENTER)
+    protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
     {
         $size = 0;
         switch ($position) {
-            case self::cropBOTTOM:
-            case self::cropRIGHT:
+            case self::CROPBOTTOM:
+            case self::CROPRIGHT:
                 $size = $expectedSize;
                 break;
-            case self::cropCENTER:
-            case self::cropCENTRE:
+            case self::CROPCENTER:
+            case self::CROPCENTRE:
                 $size = $expectedSize / 2;
+                break;
         }
         return $size;
     }
