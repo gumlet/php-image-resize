@@ -9,12 +9,12 @@ use \Exception;
  */
 class ImageResize
 {
-    const cropTOP = 1;
-    const cropCENTRE = 2;
-    const cropCENTER = 2;
-    const cropBOTTOM = 3;
-    const cropLEFT = 4;
-    const cropRIGHT = 5;
+    const CROPTOP = 1;
+    const CROPCENTRE = 2;
+    const CROPCENTER = 2;
+    const CROPBOTTOM = 3;
+    const CROPLEFT = 4;
+    const CROPRIGHT = 5;
     
     public $quality_jpg = 75;
     public $quality_png = 0;
@@ -45,9 +45,9 @@ class ImageResize
      * @return ImageResize
      * @throws \Exception
      */
-    public static function createFromFile($filename){
+    public static function createFromFile($filename) {
         $s = new self();
-        $s->load($filename);
+        $s->loadFromFile($filename);
         return $s;
     }
 
@@ -58,7 +58,7 @@ class ImageResize
      * @return ImageResize
      * @throws \exception
      */
-    public static function createFromString($imageData){
+    public static function createFromString($imageData) {
         $s = new self();
         $s->loadFromString($imageData);
         return $s;
@@ -70,21 +70,19 @@ class ImageResize
      * @param string|null $filename
      * @throws \Exception
      */
-    public function __construct($filename=null)
+    public function __construct($filename = null)
     {
-        if(!empty($filename)) {
-            $this->load($filename);
-        }
-    }
+        if ($filename !== null) {
+            $this->loadFromFile($filename);
+        } else {
+            // if no filename is provided, we want to throw an exception if
+            // the object was not created in one of it's static method
+            $backtrace = debug_backtrace();
 
-    /**
-     * Get image size from string
-     *
-     * @param string $imagedata
-     * @return array
-     */
-    protected function getImagesizeFromString($imagedata){
-        return @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
+            if (!isset($backtrace[1]['class']) || $backtrace[1]['class'] != __CLASS__) {
+                throw new \Exception('No image provided');
+            }
+        }
     }
 
     /**
@@ -96,8 +94,9 @@ class ImageResize
      */
     public function loadFromString($imagedata)
     {
-        $image_info = $this->getImagesizeFromString($imagedata);
-        if(!$image_info) {
+        $image_info = @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
+
+        if (!$image_info) {
             throw new \Exception('Could not load image from string');
         }
 
@@ -105,9 +104,19 @@ class ImageResize
             $this->original_w,
             $this->original_h,
             $this->source_type
-            ) = $image_info;
+        ) = $image_info;
 
-        $this->source_image = imagecreatefromstring($imagedata);
+        switch ($this->source_type) {
+            case IMAGETYPE_GIF:
+            case IMAGETYPE_JPEG:
+            case IMAGETYPE_PNG:
+                $this->source_image = imagecreatefromstring($imagedata);
+                break;
+
+            default:
+                throw new \Exception('Unsupported image type');
+                break;
+        }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
@@ -118,12 +127,12 @@ class ImageResize
      * @return \static
      * @throws Exception
      */
-    public function load($filename)
+    public function loadFromFile($filename)
     {
-        $image_info = getimagesize($filename);
+        $image_info = @getimagesize($filename);
 
         if (!$image_info) {
-            throw new \Exception('Could not read ' . $filename);
+            throw new \Exception('Could not read ' . ($filename ?: 'file'));
         }
 
         list (
@@ -135,18 +144,19 @@ class ImageResize
         switch ($this->source_type) {
             case IMAGETYPE_GIF:
                 $this->source_image = imagecreatefromgif($filename);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 $this->source_image = imagecreatefromjpeg($filename);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 $this->source_image = imagecreatefrompng($filename);
-            break;
+                break;
 
             default:
                 throw new \Exception('Unsupported image type');
+                break;
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
@@ -172,17 +182,17 @@ class ImageResize
                 imagecolortransparent($dest_image, $background);
                 imagefill($dest_image, 0, 0 , $background);
                 imagesavealpha($dest_image, true);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 imagealphablending($dest_image, false);
                 imagesavealpha($dest_image, true);
-            break;
+                break;
         }
 
         imagecopyresampled(
@@ -201,7 +211,7 @@ class ImageResize
         switch ($image_type) {
             case IMAGETYPE_GIF:
                 imagegif($dest_image, $filename);
-            break;
+                break;
 
             case IMAGETYPE_JPEG:
                 if ($quality === null) {
@@ -209,7 +219,7 @@ class ImageResize
                 }
 
                 imagejpeg($dest_image, $filename, $quality);
-            break;
+                break;
 
             case IMAGETYPE_PNG:
                 if ($quality === null) {
@@ -217,7 +227,7 @@ class ImageResize
                 }
 
                 imagepng($dest_image, $filename, $quality);
-            break;
+                break;
         }
 
         if ($permissions) {
@@ -228,16 +238,22 @@ class ImageResize
     }
 
     /**
-     * Get image as string
+     * Convert the image to string
      *
      * @param int $image_type
      * @param int $quality
      * @return string
      */
-    public function get($image_type = null, $quality = null){
-        ob_start();
-        $this->save(null, $image_type, $quality);
-        return ob_get_clean();
+    public function getImageAsString($image_type = null, $quality = null) {
+        $string_temp = tempnam('', '');
+
+        $this->save($string_temp, $image_type, $quality);
+
+        $string = file_get_contents($string_temp);
+
+        unlink($string_temp);
+
+        return $string;
     }
 
     /**
@@ -245,8 +261,8 @@ class ImageResize
     *
     * @return string
     */
-    public function __toString(){
-        return $this->get();
+    public function __toString() {
+        return $this->getImageAsString();
     }
 
     /**
@@ -351,7 +367,7 @@ class ImageResize
      * @param integer $position
      * @return \static
      */
-    public function crop($width, $height, $allow_enlarge = false, $position = self::cropCENTER)
+    public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
         if (!$allow_enlarge) {
             // this logic is slightly different to resize(),
@@ -435,17 +451,18 @@ class ImageResize
      * @param integer $position
      * @return integer
      */
-    protected function getCropPosition($expectedSize, $position = self::cropCENTER)
+    protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
     {
         $size = 0;
         switch ($position) {
-            case self::cropBOTTOM:
-            case self::cropRIGHT:
+            case self::CROPBOTTOM:
+            case self::CROPRIGHT:
                 $size = $expectedSize;
                 break;
-            case self::cropCENTER:
-            case self::cropCENTRE:
+            case self::CROPCENTER:
+            case self::CROPCENTRE:
                 $size = $expectedSize / 2;
+                break;
         }
         return $size;
     }
