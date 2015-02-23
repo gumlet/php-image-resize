@@ -45,7 +45,8 @@ class ImageResize
      * @return ImageResize
      * @throws \exception
      */
-    public static function createFromString($imageData) {
+    public static function createFromString($imageData)
+    {
         $s = new self();
         $s->loadFromString($imageData);
         return $s;
@@ -233,7 +234,8 @@ class ImageResize
      * @param int $quality
      * @return string
      */
-    public function getImageAsString($image_type = null, $quality = null) {
+    public function getImageAsString($image_type = null, $quality = null)
+    {
         $string_temp = tempnam('', '');
 
         $this->save($string_temp, $image_type, $quality);
@@ -250,7 +252,8 @@ class ImageResize
     *
     * @return string
     */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getImageAsString();
     }
 
