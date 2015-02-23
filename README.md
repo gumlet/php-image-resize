@@ -87,12 +87,12 @@ $image->save('image2.jpg');
 This will cause your image to skew if you do not use the same width/height ratio as the source image.
 
 Loading and saving images from string
-----------
+-------------------------------------
 
 To load an image from a string:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='));
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->scale(50);
 $image->save('image.jpg');
 ```
@@ -100,17 +100,17 @@ $image->save('image.jpg');
 You can also return the result as a string:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='));
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->scale(50);
-$result = $image->get();
+echo $image->getImageAsString();
 ```
 
 Magic `__toString()` is also supported:
 
 ```php
-$image = ImageResize::createFromString(base64_decode('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=='));
+$image = ImageResize::createFromString(base64_decode('R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=='));
 $image->resize(10, 10);
-$result = (string)$image;
+echo (string)$image;
 ```
 
 Displaying
