@@ -5,7 +5,7 @@ namespace Eventviva;
 use \Exception;
 
 /**
- * Handles thumb image(s) according to the original source given.
+ * PHP class to resize and scale images
  */
 class ImageResize
 {
@@ -123,6 +123,7 @@ class ImageResize
 
     /**
      * Loads image source and its properties to the instanciated object
+     *
      * @param string $filename
      * @return \static
      * @throws Exception
@@ -164,6 +165,7 @@ class ImageResize
     
     /**
      * Saves new image
+     *
      * @param string $filename
      * @param string $image_type
      * @param integer $quality
@@ -266,7 +268,7 @@ class ImageResize
     }
 
     /**
-     * Outputs image source to browser
+     * Outputs image to browser
      * @param string $image_type
      * @param integer $quality
      */
@@ -280,7 +282,8 @@ class ImageResize
     }
     
     /**
-     * Resizes image according to the given height. Width is proportional.
+     * Resizes image according to the given height (width proportional)
+     *
      * @param integer $height
      * @param boolean $allow_enlarge
      * @return \static
@@ -296,7 +299,8 @@ class ImageResize
     }
     
     /**
-     * Resizes image according to the given width. Height is proportional.
+     * Resizes image according to the given width (height proportional)
+     *
      * @param integer $width
      * @param boolean $allow_enlarge
      * @return \static
@@ -313,6 +317,7 @@ class ImageResize
 
     /**
      * Resizes image according to given scale (proportionally)
+     *
      * @param type $scale
      * @return \Eventviva\ImageResize
      */
@@ -328,6 +333,7 @@ class ImageResize
 
     /**
      * Resizes image according to the given width and height
+     *
      * @param integer $width
      * @param integer $height
      * @param boolean $allow_enlarge
@@ -359,8 +365,8 @@ class ImageResize
     }
     
     /**
-     * Crops image according to the given width and height for the new saved
-     * image. Crop's position may be configured.
+     * Crops image according to the given width, height and crop position
+     *
      * @param integer $width
      * @param integer $height
      * @param boolean $allow_enlarge
@@ -411,6 +417,7 @@ class ImageResize
     
     /**
      * Gets source width
+     *
      * @return integer
      */
     public function getSourceWidth()
@@ -420,6 +427,7 @@ class ImageResize
     
     /**
      * Gets source height
+     *
      * @return integer
      */
     public function getSourceHeight()
@@ -429,6 +437,7 @@ class ImageResize
 
     /**
      * Gets width of the destination image
+     *
      * @return integer
      */
     public function getDestWidth()
@@ -446,7 +455,8 @@ class ImageResize
     }
     
     /**
-     * Gets crop position (X or Y) according to the given position.
+     * Gets crop position (X or Y) according to the given position
+     *
      * @param integer $expectedSize
      * @param integer $position
      * @return integer
