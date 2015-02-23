@@ -50,26 +50,15 @@ class ImageResize
         $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
         return $resize;
     }
-    
-    /**
-     * Constructor
-     *
-     * @param string|null $filename
-     * @throws \Exception
-     */
-    public function __construct($filename)
-    {
-        $this->loadFromFile($filename);
-    }
 
     /**
      * Loads image source and its properties to the instanciated object
      *
      * @param string $filename
-     * @return \static
-     * @throws Exception
+     * @return ImageResize
+     * @throws \Exception
      */
-    public function loadFromFile($filename)
+    public function __construct($filename)
     {
         $image_info = @getimagesize($filename);
 
