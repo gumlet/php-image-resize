@@ -15,7 +15,7 @@ If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
 ```json
 {
     "require": {
-        "eventviva/php-image-resize": "1.2.*"
+        "eventviva/php-image-resize": "1.3.*"
     }
 }
 ```
