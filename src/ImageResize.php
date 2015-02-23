@@ -39,19 +39,6 @@ class ImageResize
     protected $source_h;
 
     /**
-     * Create instance from a file
-     *
-     * @param string $filename
-     * @return ImageResize
-     * @throws \Exception
-     */
-    public static function createFromFile($filename) {
-        $s = new self();
-        $s->loadFromFile($filename);
-        return $s;
-    }
-
-    /**
      * Create instance from a strng
      *
      * @param string $imageData
