@@ -24,7 +24,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     public function testLoadGif()
     {
         $image = $this->createImage(1, 1, 'gif');
-        $resize = ImageResize::createFromFile($image);
+        $resize = new ImageResize($image);
 
         $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
@@ -33,7 +33,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     public function testLoadJpg()
     {
         $image = $this->createImage(1, 1, 'jpeg');
-        $resize = ImageResize::createFromFile($image);
+        $resize = new ImageResize($image);
 
         $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
@@ -42,7 +42,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     public function testLoadPng()
     {
         $image = $this->createImage(1, 1, 'png');
-        $resize = ImageResize::createFromFile($image);
+        $resize = new ImageResize($image);
 
         $this->assertEquals(IMAGETYPE_PNG, $resize->source_type);
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
