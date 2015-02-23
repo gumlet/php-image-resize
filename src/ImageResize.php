@@ -45,11 +45,10 @@ class ImageResize
      * @return ImageResize
      * @throws \exception
      */
-    public static function createFromString($imageData)
+    public static function createFromString($image_data)
     {
-        $s = new self();
-        $s->loadFromString($imageData);
-        return $s;
+        $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
+        return $resize;
     }
     
     /**
@@ -58,55 +57,9 @@ class ImageResize
      * @param string|null $filename
      * @throws \Exception
      */
-    public function __construct($filename = null)
+    public function __construct($filename)
     {
-        if ($filename !== null) {
-            $this->loadFromFile($filename);
-        } else {
-            // if no filename is provided, we want to throw an exception if
-            // the object was not created in one of it's static method
-            $backtrace = debug_backtrace();
-
-            if (!isset($backtrace[1]['class']) || $backtrace[1]['class'] != __CLASS__) {
-                throw new \Exception('No image provided');
-            }
-        }
-    }
-
-    /**
-     * Load image from string
-     *
-     * @param string $imagedata
-     * @return ImageResize
-     * @throws \Exception
-     */
-    public function loadFromString($imagedata)
-    {
-        $image_info = @getimagesize('data://application/octet-stream;base64,' . base64_encode($imagedata));
-
-        if (!$image_info) {
-            throw new \Exception('Could not load image from string');
-        }
-
-        list (
-            $this->original_w,
-            $this->original_h,
-            $this->source_type
-        ) = $image_info;
-
-        switch ($this->source_type) {
-            case IMAGETYPE_GIF:
-            case IMAGETYPE_JPEG:
-            case IMAGETYPE_PNG:
-                $this->source_image = imagecreatefromstring($imagedata);
-                break;
-
-            default:
-                throw new \Exception('Unsupported image type');
-                break;
-        }
-
-        return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
+        $this->loadFromFile($filename);
     }
 
     /**
@@ -121,7 +74,7 @@ class ImageResize
         $image_info = @getimagesize($filename);
 
         if (!$image_info) {
-            throw new \Exception('Could not read ' . ($filename ?: 'file'));
+            throw new \Exception('Could not read file');
         }
 
         list (

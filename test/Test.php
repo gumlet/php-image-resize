@@ -63,7 +63,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage No image provided
+     * @expectedExceptionMessage Could not read file
      */
     public function testLoadNoFile()
     {
@@ -72,7 +72,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Could not read
+     * @expectedExceptionMessage Could not read file
      */
     public function testLoadUnsupportedFile()
     {
@@ -81,7 +81,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Could not load
+     * @expectedExceptionMessage Could not read file
      */
     public function testLoadUnsupportedFileString()
     {
