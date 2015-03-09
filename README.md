@@ -153,7 +153,7 @@ $image->save('image2.jpg');
 
 By default they are set to 75 and 0 respectively. See the manual entries for [`imagejpeg()`](http://www.php.net/manual/en/function.imagejpeg.php) and [`imagepng()`](http://www.php.net/manual/en/function.imagepng.php) for more info.
 
-You can also pass the quality directly to the `save()`, `output()` and `get()` methods:
+You can also pass the quality directly to the `save()`, `output()` and `getImageAsString()` methods:
 
 ```php
 $image = new ImageResize('image.jpg');
@@ -166,7 +166,7 @@ $image->output(IMAGETYPE_PNG, 4);
 
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$result = $image->get(IMAGETYPE_PNG, 4);
+$result = $image->getImageAsString(IMAGETYPE_PNG, 4);
 ```
 
 We're passing `null` for the image type in the example above to skip over it and provide the quality. In this case, the image type is assumed to be the same as the input.
