@@ -171,6 +171,18 @@ $result = $image->getImageAsString(IMAGETYPE_PNG, 4);
 
 We're passing `null` for the image type in the example above to skip over it and provide the quality. In this case, the image type is assumed to be the same as the input.
 
+Interlacing
+-----------
+
+By default, [image interlacing](http://php.net/manual/en/function.imageinterlace.php) is turned off. It can be enabled by setting `$interlace` to `1`:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->scale(50);
+$image->interlace = 1;
+$image->save('image2.jpg')
+```
+
 Chaining
 --------
 
