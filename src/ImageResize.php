@@ -19,6 +19,8 @@ class ImageResize
     public $quality_jpg = 75;
     public $quality_png = 0;
 
+    public $interlace = 0;
+
     public $source_type;
 
     protected $source_image;
@@ -107,6 +109,8 @@ class ImageResize
         $image_type = $image_type ?: $this->source_type;
 
         $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
+        imageinterlace($dest_image, $this->interlace);
 
         switch ($image_type) {
             case IMAGETYPE_GIF:
