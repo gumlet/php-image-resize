@@ -15,7 +15,7 @@ class ImageResize
     const CROPBOTTOM = 3;
     const CROPLEFT = 4;
     const CROPRIGHT = 5;
-    
+
     public $quality_jpg = 75;
     public $quality_png = 0;
 
@@ -94,7 +94,7 @@ class ImageResize
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
-    
+
     /**
      * Saves new image
      *
@@ -216,7 +216,7 @@ class ImageResize
 
         $this->save(null, $image_type, $quality);
     }
-    
+
     /**
      * Resizes image according to the given height (width proportional)
      *
@@ -233,7 +233,7 @@ class ImageResize
 
         return $this;
     }
-    
+
     /**
      * Resizes image according to the given width (height proportional)
      *
@@ -299,7 +299,7 @@ class ImageResize
 
         return $this;
     }
-    
+
     /**
      * Crops image according to the given width, height and crop position
      *
@@ -324,10 +324,10 @@ class ImageResize
                 $height = $this->getSourceHeight();
             }
         }
-        
+
         $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
-        
+
         if ($ratio_dest < $ratio_source) {
             $this->resizeToHeight($height, $allow_enlarge);
 
@@ -350,7 +350,7 @@ class ImageResize
 
         return $this;
     }
-    
+
     /**
      * Gets source width
      *
@@ -360,7 +360,7 @@ class ImageResize
     {
         return $this->original_w;
     }
-    
+
     /**
      * Gets source height
      *
@@ -389,7 +389,7 @@ class ImageResize
     {
         return $this->dest_h;
     }
-    
+
     /**
      * Gets crop position (X or Y) according to the given position
      *
