@@ -43,7 +43,7 @@ class ImageResize
     /**
      * Create instance from a strng
      *
-     * @param string $imageData
+     * @param string $image_data
      * @return ImageResize
      * @throws \exception
      */
@@ -274,13 +274,13 @@ class ImageResize
             $width = $height / $ratio;
         }
 
-        return $this->resize($width, $height, true);
+        return $this->resize($width, $height, $allow_enlarge);
     }
 
     /**
      * Resizes image according to given scale (proportionally)
      *
-     * @param type $scale
+     * @param integer|float $scale
      * @return \Eventviva\ImageResize
      */
     public function scale($scale)
