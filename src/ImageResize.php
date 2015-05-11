@@ -252,6 +252,32 @@ class ImageResize
     }
 
     /**
+     * Resizes image to best fit inside the given dimensions
+     *
+     * @param integer $max_width
+     * @param integer $max_height
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
+    public function resizeToBestFit($max_width, $max_height, $allow_enlarge = false)
+    {
+        if($this->getSourceWidth() <= $max_width && $this->getSourceHeight() <= $max_height && $allow_enlarge === false){
+            return $this;
+        }
+
+        $ratio  = $this->getSourceHeight() / $this->getSourceWidth();
+        $width = $max_width;
+        $height = $width * $ratio;
+
+        if($height > $max_height){
+            $height = $max_height;
+            $width = $height / $ratio;
+        }
+
+        return $this->resize($width, $height, true);
+    }
+
+    /**
      * Resizes image according to given scale (proportionally)
      *
      * @param type $scale

@@ -64,6 +64,13 @@ $image->resizeToWidth(300);
 $image->save('image2.jpg');
 ```
 
+To resize an image to best fit a given set of dimensions (keeping aspet ratio):
+```php
+$image = new ImageResize('image.jpg');
+$image->resizeToBestFit(500, 300);
+$image->save('image2.jpg');
+```
+
 To to crop an image:
 
 ```php
