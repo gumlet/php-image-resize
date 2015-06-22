@@ -139,6 +139,28 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(50, $resize->getDestHeight());
     }
 
+    public function testResizeToBestFit()
+    {
+        $image = $this->createImage(200, 500, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToBestFit(100, 100);
+
+        $this->assertEquals(40, $resize->getDestWidth());
+        $this->assertEquals(100, $resize->getDestHeight());
+    }
+
+    public function testResizeToBestFitNoEnlarge()
+    {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToBestFit(250, 250);
+
+        $this->assertEquals(200, $resize->getDestWidth());
+        $this->assertEquals(100, $resize->getDestHeight());
+    }
+
     public function testScale()
     {
         $image = $this->createImage(200, 100, 'png');
@@ -171,7 +193,6 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $resize->getDestWidth());
         $this->assertEquals(100, $resize->getDestHeight());
     }
-
 
     /**
      * Crop tests

@@ -43,7 +43,7 @@ class ImageResize
     /**
      * Create instance from a strng
      *
-     * @param string $imageData
+     * @param string $image_data
      * @return ImageResize
      * @throws \exception
      */
@@ -252,9 +252,35 @@ class ImageResize
     }
 
     /**
+     * Resizes image to best fit inside the given dimensions
+     *
+     * @param integer $max_width
+     * @param integer $max_height
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
+    public function resizeToBestFit($max_width, $max_height, $allow_enlarge = false)
+    {
+        if($this->getSourceWidth() <= $max_width && $this->getSourceHeight() <= $max_height && $allow_enlarge === false){
+            return $this;
+        }
+
+        $ratio  = $this->getSourceHeight() / $this->getSourceWidth();
+        $width = $max_width;
+        $height = $width * $ratio;
+
+        if($height > $max_height){
+            $height = $max_height;
+            $width = $height / $ratio;
+        }
+
+        return $this->resize($width, $height, $allow_enlarge);
+    }
+
+    /**
      * Resizes image according to given scale (proportionally)
      *
-     * @param type $scale
+     * @param integer|float $scale
      * @return \Eventviva\ImageResize
      */
     public function scale($scale)
