@@ -80,7 +80,7 @@ class ImageResize
                 break;
 
             case IMAGETYPE_JPEG:
-                $this->source_image = imagecreatefromjpeg($filename);
+                $this->source_image = $this->imageCreateJpegfromExif($filename);
                 break;
 
             case IMAGETYPE_PNG:
@@ -93,6 +93,32 @@ class ImageResize
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
+    }
+    
+    // http://stackoverflow.com/a/28819866
+    public function imageCreateJpegfromExif($filename){
+      $img = imagecreatefromjpeg($filename);
+      $exif = exif_read_data($filename);
+      
+      if (!$exif || !isset($exif['Orientation'])){
+        return $img;
+      }
+      
+      $orientation = $exif['Orientation'];
+
+      if ($orientation === 6 || $orientation === 5){
+        $img = imagerotate($img, 270, null);
+      } else if ($orientation === 3 || $orientation === 4){
+        $img = imagerotate($img, 180, null);
+      } else if ($orientation === 8 || $orientation === 7){
+        $img = imagerotate($img, 90, null);
+      }
+
+      if ($orientation === 5 || $orientation === 4 || $orientation === 7){
+        imageflip($img, IMG_FLIP_HORIZONTAL);
+      }
+      
+      return $img;
     }
 
     /**
