@@ -81,6 +81,11 @@ class ImageResize
 
             case IMAGETYPE_JPEG:
                 $this->source_image = $this->imageCreateJpegfromExif($filename);
+              
+                // set new width and height for image, maybe it has changed
+                $this->original_w = ImageSX($this->source_image);
+                $this->original_h = ImageSY($this->source_image);
+                
                 break;
 
             case IMAGETYPE_PNG:
