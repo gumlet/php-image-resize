@@ -41,6 +41,8 @@ use \Eventviva\ImageResize;
 $image = new ImageResize();
 ```
 
+Note: This library uses GD class which do not support resizing animated gif files
+
 Usage
 -----
 
