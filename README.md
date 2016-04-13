@@ -3,7 +3,7 @@ php-image-resize
 
 PHP class to resize and scale images.
 
-[![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize)
+[![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/eventviva/php-image-resize/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Setup
 -----
