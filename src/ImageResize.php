@@ -81,11 +81,11 @@ class ImageResize
 
             case IMAGETYPE_JPEG:
                 $this->source_image = $this->imageCreateJpegfromExif($filename);
-              
+
                 // set new width and height for image, maybe it has changed
                 $this->original_w = ImageSX($this->source_image);
                 $this->original_h = ImageSY($this->source_image);
-                
+
                 break;
 
             case IMAGETYPE_PNG:
@@ -99,16 +99,16 @@ class ImageResize
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
-    
+
     // http://stackoverflow.com/a/28819866
     public function imageCreateJpegfromExif($filename){
       $img = imagecreatefromjpeg($filename);
-      $exif = exif_read_data($filename);
-      
+      $exif = @exif_read_data($filename);
+
       if (!$exif || !isset($exif['Orientation'])){
         return $img;
       }
-      
+
       $orientation = $exif['Orientation'];
 
       if ($orientation === 6 || $orientation === 5){
@@ -122,7 +122,7 @@ class ImageResize
       if ($orientation === 5 || $orientation === 4 || $orientation === 7){
         imageflip($img, IMG_FLIP_HORIZONTAL);
       }
-      
+
       return $img;
     }
 
