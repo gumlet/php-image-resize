@@ -1,6 +1,6 @@
 <?php
 
-include 'src/ImageResize.php';
+include __DIR__.'/../src/ImageResize.php';
 
 use \Eventviva\ImageResize;
 
