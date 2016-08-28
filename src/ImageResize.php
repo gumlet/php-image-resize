@@ -41,7 +41,7 @@ class ImageResize
     protected $source_h;
 
     /**
-     * Create instance from a strng
+     * Create instance from a string
      *
      * @param string $image_data
      * @return ImageResize
