@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__.'/../src/ImageResize.php';
+include __DIR__.'/../lib/ImageResize.php';
 
 use \Eventviva\ImageResize;
 
@@ -204,6 +204,17 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $resize = new ImageResize($image);
 
         $resize->crop(50, 50);
+
+        $this->assertEquals(50, $resize->getDestWidth());
+        $this->assertEquals(50, $resize->getDestHeight());
+    }
+
+    public function testFreeCrop()
+    {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->freecrop(50, 50 , $x = 20, $y = 20);
 
         $this->assertEquals(50, $resize->getDestWidth());
         $this->assertEquals(50, $resize->getDestHeight());

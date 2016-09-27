@@ -41,10 +41,10 @@ use \Eventviva\ImageResize;
 $image = new ImageResize();
 ```
 
-Note: This library uses GD class which do not support resizing animated gif files
+> Note: This library uses GD class which do not support resizing animated gif files
 
-Usage
------
+Resize
+------
 
 To scale an image, in this case to half it's size (scaling is percentage based):
 
@@ -53,7 +53,7 @@ $image = new ImageResize('image.jpg');
 $image->scale(50);
 $image->save('image2.jpg')
 ```
- 
+
 To resize an image according to one dimension (keeping aspect ratio):
 
 ```php
@@ -73,6 +73,27 @@ $image->resizeToBestFit(500, 300);
 $image->save('image2.jpg');
 ```
 
+All resize functions have ```$allow_enlarge``` option which is set to false by default.
+You can enable by passing ```true``` to any resize function:
+```php
+$image = new ImageResize('image.jpg');
+$image->resize(500, 300, $allow_enlarge = True);
+$image->save('image2.jpg');
+```
+
+If you are happy to handle aspect ratios yourself, you can resize directly:
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resize(800, 600);
+$image->save('image2.jpg');
+```
+
+This will cause your image to skew if you do not use the same width/height ratio as the source image.
+
+Crop
+----
+
 To to crop an image:
 
 ```php
@@ -85,15 +106,14 @@ This will scale the image to as close as it can to the passed dimensions, and th
 
 In the case of the example above, an image of 400px &times; 600px will be resized down to 200px &times; 300px, and then 50px will be taken off the top and bottom, leaving you with 200px &times; 200px.
 
-If you are happy to handle aspect ratios yourself, you can resize directly:
+There is also a way to define custom crop position.
+You can define $x and $y in ```freecrop``` method:
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->resize(800, 600);
+$image->freecrop(200, 200, $x =  20, $y = 20);
 $image->save('image2.jpg');
 ```
-
-This will cause your image to skew if you do not use the same width/height ratio as the source image.
 
 Loading and saving images from string
 -------------------------------------
@@ -183,12 +203,12 @@ We're passing `null` for the image type in the example above to skip over it and
 Interlacing
 -----------
 
-By default, [image interlacing](http://php.net/manual/en/function.imageinterlace.php) is turned off. It can be enabled by setting `$interlace` to `1`:
+By default, [image interlacing](http://php.net/manual/en/function.imageinterlace.php) is turned on. It can be disabled by setting `$interlace` to `0`:
 
 ```php
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$image->interlace = 1;
+$image->interlace = 0;
 $image->save('image2.jpg')
 ```
 

@@ -19,7 +19,7 @@ class ImageResize
     public $quality_jpg = 75;
     public $quality_png = 0;
 
-    public $interlace = 0;
+    public $interlace = 1;
 
     public $source_type;
 
@@ -213,13 +213,11 @@ class ImageResize
      */
     public function getImageAsString($image_type = null, $quality = null)
     {
-        $string_temp = tempnam(sys_get_temp_dir(), '');
+        $string_temp = "php://temp/" . substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,40);
 
-        $this->save($string_temp, $image_type, $quality);
+        $this->save($string_temp , $image_type, $quality);
 
         $string = file_get_contents($string_temp);
-
-        unlink($string_temp);
 
         return $string;
     }
@@ -312,7 +310,7 @@ class ImageResize
      * Resizes image according to given scale (proportionally)
      *
      * @param integer|float $scale
-     * @return \Eventviva\ImageResize
+     * @return \static
      */
     public function scale($scale)
     {
@@ -366,7 +364,7 @@ class ImageResize
      * @param integer $position
      * @return \static
      */
-    public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
+    public function crop($width, $height, $position = self::CROPCENTER, $allow_enlarge = false)
     {
         if (!$allow_enlarge) {
             // this logic is slightly different to resize(),
@@ -404,6 +402,40 @@ class ImageResize
 
             $this->dest_h = $height;
         }
+
+        return $this;
+    }
+
+    /**
+     * Crops image according to the given width, height, x and y
+     *
+     * @param integer $width
+     * @param integer $height
+     * @param integer $x
+     * @param integer $y
+     * @return \static
+     */
+    public function freecrop($width, $height, $x = false, $y = false)
+    {
+        if($x === false or $y === false){
+          return $this->crop($width, $height);
+        }
+        $this->source_x = $x;
+        $this->source_y = $y;
+        if($width > $this->getSourceWidth() - $x){
+          $this->source_w = $this->getSourceWidth() - $x;
+        } else {
+          $this->source_w = $width;
+        }
+
+        if($height > $this->getSourceHeight() - $h){
+          $this->source_h = $this->getSourceHeight() - $h;
+        } else {
+          $this->source_h = $height;
+        }
+
+        $this->dest_w = $width;
+        $this->dest_h = $height;
 
         return $this;
     }

@@ -17,6 +17,6 @@
         "ext-exif": "*"
     },
     "autoload": {
-        "classmap": ["src"]
+        "classmap": ["lib"]
     }
 }
