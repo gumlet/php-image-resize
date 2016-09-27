@@ -428,8 +428,8 @@ class ImageResize
           $this->source_w = $width;
         }
 
-        if($height > $this->getSourceHeight() - $h){
-          $this->source_h = $this->getSourceHeight() - $h;
+        if($height > $this->getSourceHeight() - $y){
+          $this->source_h = $this->getSourceHeight() - $y;
         } else {
           $this->source_h = $height;
         }
