@@ -366,7 +366,7 @@ class ImageResize
      * @param integer $position
      * @return \static
      */
-    public function crop($width, $height, $position = self::CROPCENTER, $allow_enlarge = false)
+    public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
         if (!$allow_enlarge) {
             // this logic is slightly different to resize(),
