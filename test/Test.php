@@ -225,7 +225,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $image = $this->createImage(200, 100, 'png');
         $resize = new ImageResize($image);
 
-        $resize->crop(50, 50, false, $resize::CROPRIGHT);
+        $resize->crop(50, 50, $resize::CROPRIGHT, false);
 
         $reflection_class = new ReflectionClass('\Eventviva\ImageResize');
         $source_x = $reflection_class->getProperty('source_x');
