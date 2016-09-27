@@ -213,11 +213,13 @@ class ImageResize
      */
     public function getImageAsString($image_type = null, $quality = null)
     {
-        $string_temp = "php://temp";
+        $string_temp = tempnam(sys_get_temp_dir(), '');
 
         $this->save($string_temp , $image_type, $quality);
 
         $string = file_get_contents($string_temp);
+
+        unlink($string_temp);
 
         return $string;
     }
