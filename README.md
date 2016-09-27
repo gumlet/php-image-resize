@@ -232,3 +232,8 @@ $image
     ->save('image4.jpg')
 ;
 ```
+
+API Doc
+-------
+
+https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html

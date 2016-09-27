@@ -213,7 +213,7 @@ class ImageResize
      */
     public function getImageAsString($image_type = null, $quality = null)
     {
-        $string_temp = "php://temp/" . substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,40);
+        $string_temp = "php://temp";
 
         $this->save($string_temp , $image_type, $quality);
 
