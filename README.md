@@ -1,7 +1,7 @@
 php-image-resize
 ================
 
-PHP class to resize and scale images.
+PHP library to resize, scale and crop images.
 
 [![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize)
 
