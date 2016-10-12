@@ -96,6 +96,10 @@ class ImageResize
                 throw new \Exception('Unsupported image type');
                 break;
         }
+        
+        if (!$this->source_image) {
+            throw new \Exception('Could not get image');
+        }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
