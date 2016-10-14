@@ -204,6 +204,8 @@ class ImageResize
         if ($permissions) {
             chmod($filename, $permissions);
         }
+        
+        imagedestroy($dest_image);
 
         return $this;
     }
