@@ -98,7 +98,7 @@ class ImageResize
         }
         
         if (!$this->source_image) {
-            throw new \Exception('Could not get image');
+            throw new \Exception('Could not load image');
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
