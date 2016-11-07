@@ -49,8 +49,7 @@ class ImageResize
      */
     public static function createFromString($image_data)
     {
-        $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
-        return $resize;
+        return new self('data://application/octet-stream;base64,' . base64_encode($image_data));
     }
 
     /**
