@@ -18,6 +18,7 @@ class ImageResize
 
     public $quality_jpg = 75;
     public $quality_png = 0;
+    public $quality_truecolor = TRUE;
 
     public $interlace = 1;
 
@@ -143,12 +144,10 @@ class ImageResize
     {
         $image_type = $image_type ?: $this->source_type;
 
-        $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
-
-        imageinterlace($dest_image, $this->interlace);
-
         switch ($image_type) {
             case IMAGETYPE_GIF:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
                 $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
                 imagecolortransparent($dest_image, $background);
                 imagefill($dest_image, 0, 0 , $background);
@@ -156,15 +155,29 @@ class ImageResize
                 break;
 
             case IMAGETYPE_JPEG:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
                 break;
 
             case IMAGETYPE_PNG:
+                if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
+                    $dest_image = imagecreate($this->getDestWidth(), $this->getDestHeight());
+
+                    $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
+                    imagecolortransparent($dest_image, $background);
+                    imagefill($dest_image, 0, 0 , $background);
+                } else {
+                    $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+                }
+
                 imagealphablending($dest_image, false);
                 imagesavealpha($dest_image, true);
                 break;
         }
+
+        imageinterlace($dest_image, $this->interlace);
 
         imagecopyresampled(
             $dest_image,
