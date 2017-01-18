@@ -165,34 +165,34 @@ class ImageResize
 
         switch ( $position ) {
             case 'topleft':
-                $stampPosition = [
+                $stampPosition = array(
                     'x' => $margin,
                     'y' => $margin
-                ];
+                );
                 break;
             case 'topright':
-                $stampPosition = [
+                $stampPosition = array(
                     'x' => round( imagesx( $original ) - $margin ) - round( $percent ),
                     'y' => $margin
-                ];
+                );
                 break;
             case 'bottomleft':
-                $stampPosition = [
+                $stampPosition = array(
                     'x' => $margin,
                     'y' => round( imagesy( $original ) - $margin ) - round( $percent )
-                ];
+                );
                 break;
             case 'center':
-                $stampPosition = [
+                $stampPosition = array(
                     'x' => round( imagesx( $original ) / 2 ) - round( $percent / 2 ),
                     'y' => round( imagesy( $original ) / 2 ) - round( $percent / 2 )
-                ];
+                );
                 break;
             default:
-                $stampPosition = [
+                $stampPosition = array(
                     'x' => round( imagesx( $original ) - $margin ) - round( $percent ),
                     'y' => round( imagesy( $original ) - $margin ) - round( $percent ),
-                ];
+                );
         }
 
         // Copy the resized stamp image onto the photo
