@@ -56,6 +56,40 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
+	public function testAddWatermark()
+	{
+		$image = $this->createImage(10, 10, 'jpeg');
+		$stamp = $this->createImage(1, 1, 'png');
+		$resize = new ImageResize($image);
+
+		$resize->addWatermark($stamp);
+
+		$this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+		$this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+	}
+
+	public function testAddEmptyWatermark()
+	{
+		$image = $this->createImage(10, 10, 'jpeg');
+		$resize = new ImageResize($image);
+
+		$resize->addWatermark();
+
+		$this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+		$this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+	}
+
+	public function testAddWrongFileTypeWatermark()
+	{
+		$image = $this->createImage(10, 10, 'jpeg');
+		$resize = new ImageResize($image);
+		$stamp = $this->createImage(1, 1, 'jpeg');
+
+		$resize->addWatermark($stamp);
+
+		$this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+		$this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+	}
 
     /**
      * Bad load tests
