@@ -16,8 +16,8 @@ class ImageResize
     const CROPLEFT = 4;
     const CROPRIGHT = 5;
 
-    public $quality_jpg = 75;
-    public $quality_png = 0;
+    public $quality_jpg = 85;
+    public $quality_png = 6;
     public $quality_truecolor = TRUE;
 
     public $interlace = 1;
