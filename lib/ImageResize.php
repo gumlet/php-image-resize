@@ -142,10 +142,10 @@ class ImageResize
      *
      * @return $this
      */
-    public function addWatermark( $stampFile, $position = 'bottomright', $alpha = .75, $ratio = 15, $margin = 10 ) {
-        if ( ! $stampResource = imagecreatefrompng( $stampFile ) ) {
-            return $this;
-        }
+	public function addWatermark( $stampFile = null, $position = 'bottomright', $alpha = .75, $ratio = 15, $margin = 10 ) {
+		if ( ! $stampFile || ! $stampResource = @imagecreatefrompng( $stampFile ) ) {
+			return $this;
+		}
         $original            = $this->source_image;
         $stampHeightOriginal = imagesx( $stampResource );
         $stampWidthOriginal  = imagesy( $stampResource );
