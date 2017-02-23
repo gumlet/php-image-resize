@@ -3,11 +3,7 @@ php-image-resize
 
 PHP library to resize, scale and crop images.
 
-[![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize)
-
-[![Latest Stable Version](https://poser.pugx.org/eventviva/php-image-resize/v/stable)](https://packagist.org/packages/eventviva/php-image-resize)
-
-[![Monthly Downloads](https://poser.pugx.org/eventviva/php-image-resize/d/monthly)](https://packagist.org/packages/eventviva/php-image-resize)
+[![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/eventviva/php-image-resize/v/stable)](https://packagist.org/packages/eventviva/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/eventviva/php-image-resize/d/monthly)](https://packagist.org/packages/eventviva/php-image-resize)
 
 Setup
 -----
