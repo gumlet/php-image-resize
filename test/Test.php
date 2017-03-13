@@ -4,8 +4,8 @@ include __DIR__.'/../lib/ImageResize.php';
 
 use \Eventviva\ImageResize;
 
-if (!class_exists('PHPUnit_Framework_TestCase')) { 
-    use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+    class_alias('PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
 }
 
 class ImageResizeTest extends PHPUnit_Framework_TestCase
