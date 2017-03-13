@@ -4,6 +4,10 @@ include __DIR__.'/../lib/ImageResize.php';
 
 use \Eventviva\ImageResize;
 
+if (!class_exists('PHPUnit_Framework_TestCase')) { 
+    use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+}
+
 class ImageResizeTest extends PHPUnit_Framework_TestCase
 {
 
