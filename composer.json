@@ -13,8 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-gd": "*",
-        "ext-exif": "*"
+        "ext-gd": "*"
+    },
+    "suggest": {
+        "ext-exif": "Auto-rotate jpeg files"
     },
     "autoload": {
         "classmap": ["lib"]
