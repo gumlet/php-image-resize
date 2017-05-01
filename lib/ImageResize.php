@@ -2,8 +2,6 @@
 
 namespace Eventviva;
 
-use \Exception;
-
 /**
  * PHP class to resize and scale images
  */
@@ -46,7 +44,7 @@ class ImageResize
      *
      * @param string $image_data
      * @return ImageResize
-     * @throws \exception
+     * @throws ImageResizeException
      */
     public static function createFromString($image_data)
     {
@@ -59,14 +57,14 @@ class ImageResize
      *
      * @param string $filename
      * @return ImageResize
-     * @throws \Exception
+     * @throws ImageResizeException
      */
     public function __construct($filename)
     {
         $image_info = @getimagesize($filename);
 
         if (!$image_info) {
-            throw new \Exception('Could not read file');
+            throw new ImageResizeException('Could not read file');
         }
 
         list (
@@ -94,12 +92,12 @@ class ImageResize
                 break;
 
             default:
-                throw new \Exception('Unsupported image type');
+                throw new ImageResizeException('Unsupported image type');
                 break;
         }
-        
+
         if (!$this->source_image) {
-            throw new \Exception('Could not load image');
+            throw new ImageResizeException('Could not load image');
         }
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
@@ -222,7 +220,7 @@ class ImageResize
         if ($permissions) {
             chmod($filename, $permissions);
         }
-        
+
         imagedestroy($dest_image);
 
         return $this;
