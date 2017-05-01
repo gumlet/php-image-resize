@@ -573,3 +573,8 @@ if (!function_exists('imageflip')) {
     imagedestroy($temp_image);
   }
 }
+
+/**
+ * PHP Exception used in the ImageResize class
+ */
+class ImageResizeException extends \Exception {}

@@ -18,9 +18,7 @@
     "suggest": {
         "ext-exif": "Auto-rotate jpeg files"
     },
-    "autoload" : {
-        "psr-4": {
-            "Eventviva\\":"lib/"
-        }
+    "autoload": {
+        "classmap": ["lib"]
     }
 }
