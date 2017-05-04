@@ -135,6 +135,116 @@ class ImageResize
     }
 
     /**
+     * Add watermark to image
+     *
+     * @param        $stampFile
+     *
+     * @param string $position
+     * @param float  $alpha
+     * @param int    $ratio
+     * @param int    $margin
+     *
+     * @return $this
+     */
+	public function addWatermark( $stampFile = null, $position = 'bottomright', $alpha = .75, $ratio = 15, $margin = 10 ) {
+		if ( ! $stampFile || ! $stampResource = @imagecreatefrompng( $stampFile ) ) {
+			return $this;
+		}
+        $original            = $this->source_image;
+        $stampHeightOriginal = imagesx( $stampResource );
+        $stampWidthOriginal  = imagesy( $stampResource );
+        $originalHeight      = imagesx( $original );
+
+        // Stamp size in percentage of the original image height
+        $percent      = $originalHeight * ( $ratio / 100 );
+        $resizedStamp = imagecreatetruecolor( $percent, $percent );
+
+        // Keep the transparency
+        imagealphablending( $resizedStamp, false );
+        imagesavealpha( $resizedStamp, true );
+
+        // Resize the stamp
+        imagecopyresampled( $resizedStamp, $stampResource, 0, 0, 0, 0, $percent, $percent, $stampHeightOriginal,
+            $stampWidthOriginal );
+
+        switch ( $position ) {
+            case 'topleft':
+                $stampPosition = array(
+                    'x' => $margin,
+                    'y' => $margin
+                );
+                break;
+            case 'topright':
+                $stampPosition = array(
+                    'x' => round( imagesx( $original ) - $margin ) - round( $percent ),
+                    'y' => $margin
+                );
+                break;
+            case 'bottomleft':
+                $stampPosition = array(
+                    'x' => $margin,
+                    'y' => round( imagesy( $original ) - $margin ) - round( $percent )
+                );
+                break;
+            case 'center':
+                $stampPosition = array(
+                    'x' => round( imagesx( $original ) / 2 ) - round( $percent / 2 ),
+                    'y' => round( imagesy( $original ) / 2 ) - round( $percent / 2 )
+                );
+                break;
+            default:
+                $stampPosition = array(
+                    'x' => round( imagesx( $original ) - $margin ) - round( $percent ),
+                    'y' => round( imagesy( $original ) - $margin ) - round( $percent ),
+                );
+        }
+
+        // Copy the resized stamp image onto the photo
+        $this->imagecopymerge_alpha(
+            $original,
+            $resizedStamp,
+            round( $stampPosition['x'] ),
+            round( $stampPosition['y'] ),
+            0,
+            0,
+            $percent,
+            $percent,
+            ( $alpha * 100 )
+        );
+
+        return $this;
+
+    }
+
+    /**
+     * A fix for imagecopymerge does not support alpha-channels
+     * @see http://php.net/manual/en/function.imagecopymerge.php#92787
+     *
+     * @param $dst_im
+     * @param $src_im
+     * @param $dst_x
+     * @param $dst_y
+     * @param $src_x
+     * @param $src_y
+     * @param $src_w
+     * @param $src_h
+     * @param $pct
+     */
+    protected function imagecopymerge_alpha( $dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct ) {
+        // creating a cut resource
+        $cut = imagecreatetruecolor( $src_w, $src_h );
+
+        // copying relevant section from background to the cut resource
+        imagecopy( $cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h );
+
+        // copying relevant section from watermark to the cut resource
+        imagecopy( $cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h );
+
+        // insert cut resource to destination image
+        imagecopymerge( $dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct );
+    }
+
+    /**
      * Saves new image
      *
      * @param string $filename

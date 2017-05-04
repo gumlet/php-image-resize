@@ -212,6 +212,29 @@ $image->interlace = 0;
 $image->save('image2.jpg')
 ```
 
+Watermark
+-----------
+It's also possible to add png-watermark on the fly. You can also customize how's the watermark displayed:
+
+```php
+addwatermark($stampFile, $position = 'bottomright', $alpha = .75, $ratio = 15, $margin = 10);
+```
+
+Where
+```php
+$position = string // 'topleft' || 'topright' || 'bottomleft' || 'bottomright' || 'center'
+$alpha = float // the opacity of the watermark, from 0 to 1
+$ratio = int // the size of the watermark compared to original image height
+$margin = int // if the position is not 'center' => the stamp margin from top edges of the original image
+```
+
+```php
+$image = new ImageResize('image.jpg');
+$image->addWatermark('path/to/watermark.png')
+      ->save('imageWithWaterMark.jpg')
+
+```
+
 Chaining
 --------
 

@@ -60,6 +60,52 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
+    public function testAddWatermark()
+    {
+        $image  = $this->createImage(10, 10, 'jpeg');
+        $stamp  = $this->createImage(1, 1, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->addWatermark($stamp);
+
+        $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
+
+    public function testAddEmptyWatermark()
+    {
+        $image  = $this->createImage(10, 10, 'jpeg');
+        $resize = new ImageResize($image);
+
+        $resize->addWatermark();
+
+        $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
+
+    public function testAddWrongFileTypeWatermark()
+    {
+        $image  = $this->createImage(10, 10, 'jpeg');
+        $resize = new ImageResize($image);
+        $stamp  = $this->createImage(1, 1, 'jpeg');
+
+        $resize->addWatermark($stamp);
+
+        $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
+
+    public function testCompareWatermarkedToReferenceImage()
+    {
+        $originalImage  = __DIR__.'/reference/original.jpeg';
+        $referenceImage = __DIR__.'/reference/watermarked.jpeg';
+        $stampFile      = __DIR__.'/reference/stamp.png';
+        $resize         = new ImageResize($originalImage);
+
+        $resize->addWatermark($stampFile);
+
+        $this->assertEquals(file_get_contents($referenceImage), $resize->getImageAsString());
+    }
 
     /**
      * Bad load tests
