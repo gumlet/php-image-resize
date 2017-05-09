@@ -233,6 +233,22 @@ $image
 ;
 ```
 
+Exceptions
+--------
+
+ImageResize throws ImageResizeException for it's own for errors. You can catch that or catch the general \Exception which it's extending.
+
+It is not to be expected, but should anything go horribly wrong mid way then notice or warning Errors could be shown from the PHP GD and Image Functions (http://php.net/manual/en/ref.image.php)
+
+```php
+try{
+    $image = new ImageResize(null);
+    echo "This line will not be printed";
+} catch (ImageResizeException $e) {
+    echo "Something went wrong" . $e->getMessage();  
+}
+```
+ 
 API Doc
 -------
 
