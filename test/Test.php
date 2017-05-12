@@ -3,8 +3,9 @@
 include __DIR__.'/../lib/ImageResize.php';
 
 use \Eventviva\ImageResize;
+use \Eventviva\ImageResizeException;
 
-if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+if (version_compare(PHP_VERSION, '7.0.0') >= 0 && !class_exists('PHPUnit_Framework_TestCase')) {
     class_alias('PHPUnit\Framework\TestCase', 'PHPUnit_Framework_TestCase');
 }
 
@@ -60,13 +61,12 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
 
-
     /**
      * Bad load tests
      */
 
     /**
-     * @expectedException Exception
+     * @expectedException \Eventviva\ImageResizeException
      * @expectedExceptionMessage Could not read file
      */
     public function testLoadNoFile()
@@ -75,7 +75,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Eventviva\ImageResizeException
      * @expectedExceptionMessage Could not read file
      */
     public function testLoadUnsupportedFile()
@@ -84,7 +84,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Eventviva\ImageResizeException
      * @expectedExceptionMessage Could not read file
      */
     public function testLoadUnsupportedFileString()
@@ -93,7 +93,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Eventviva\ImageResizeException
      * @expectedExceptionMessage Unsupported image type
      */
     public function testLoadUnsupportedImage()
@@ -108,7 +108,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Eventviva\ImageResizeException
      * @expectedExceptionMessage Unsupported image type
      */
     public function testInvalidString()
@@ -398,7 +398,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
     private function createImage($width, $height, $type)
     {
         if (!in_array($type, $this->image_types)) {
-            throw new \Exception('Unsupported image type');
+            throw new ImageResizeException('Unsupported image type');
         }
 
         $image = imagecreatetruecolor($width, $height);
@@ -416,5 +416,43 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         return tempnam(sys_get_temp_dir(), 'resize_test_image');
     }
 
+}
+
+class ImageResizeExceptionTest extends PHPUnit_Framework_TestCase
+{
+    public function testExceptionEmpty()
+    {
+        $e = new ImageResizeException();
+    
+        $this->assertEquals("", $e->getMessage());
+        $this->assertInstanceOf('\Eventviva\ImageResizeException', $e);
+    }
+    
+    public function testExceptionMessage()
+    {
+        $e = new ImageResizeException("General error");
+    
+        $this->assertEquals("General error", $e->getMessage());
+        $this->assertInstanceOf('\Eventviva\ImageResizeException', $e);
+    }
+    
+    public function testExceptionExtending()
+    {
+        $e = new ImageResizeException("General error");
+        
+        $this->assertInstanceOf('\Exception', $e);
+    }
+    
+    public function testExceptionThrown()
+    {
+        try{
+            throw new ImageResizeException("General error");
+        } catch (\Exception $e) {
+            $this->assertEquals("General error", $e->getMessage());
+            $this->assertInstanceOf('\Eventviva\ImageResizeException', $e);
+            return;
+        }
+        $this->fail();
+    }
 }
 // It's pretty easy to get your attention these days, isn't it? :D
