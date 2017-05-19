@@ -48,8 +48,7 @@ class ImageResize
      */
     public static function createFromString($image_data)
     {
-        $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
-        return $resize;
+        return new self('data://application/octet-stream;base64,' . base64_encode($image_data));
     }
 
     /**
@@ -137,13 +136,14 @@ class ImageResize
     /**
      * Saves new image
      *
-     * @param string $filename
-     * @param string $image_type
-     * @param integer $quality
+     * @param string  $filename
+     * @param string  $image_type
+     * @param integer $quality     ranges from 0 (worst quality, smaller file) to 100 (best quality, biggest file) (only for JPEG)
      * @param integer $permissions
-     * @return \static
+     * @param integer $compression Compression level: from 0 (no compression) to 9. (only for PNG)
+     * @return $this
      */
-    public function save($filename, $image_type = null, $quality = null, $permissions = null)
+    public function save($filename, $image_type = null, $quality = null, $permissions = null, $compression = null)
     {
         $image_type = $image_type ?: $this->source_type;
 
@@ -209,11 +209,7 @@ class ImageResize
                 break;
 
             case IMAGETYPE_PNG:
-                if ($quality === null) {
-                    $quality = $this->quality_png;
-                }
-
-                imagepng($dest_image, $filename, $quality);
+                imagepng($dest_image, $filename, $compression);
                 break;
         }
 
@@ -229,15 +225,16 @@ class ImageResize
     /**
      * Convert the image to string
      *
-     * @param int $image_type
-     * @param int $quality
+     * @param integer $image_type
+     * @param integer $quality $quality ranges from 0 (worst quality, smaller file) to 100 (best quality, biggest file) (only for JPEG)
+     * @param integer $compression Compression level: from 0 (no compression) to 9. (only for PNG)
      * @return string
      */
-    public function getImageAsString($image_type = null, $quality = null)
+    public function getImageAsString($image_type = null, $quality = null, $compression = null)
     {
         $string_temp = tempnam(sys_get_temp_dir(), '');
 
-        $this->save($string_temp , $image_type, $quality);
+        $this->save($string_temp , $image_type, $quality, null, $compression);
 
         $string = file_get_contents($string_temp);
 
@@ -259,15 +256,16 @@ class ImageResize
     /**
      * Outputs image to browser
      * @param string $image_type
-     * @param integer $quality
+     * @param integer $quality $quality ranges from 0 (worst quality, smaller file) to 100 (best quality, biggest file) (only for JPEG)
+     * @param integer $compression Compression level: from 0 (no compression) to 9. (only for PNG)
      */
-    public function output($image_type = null, $quality = null)
+    public function output($image_type = null, $quality = null, $compression = null)
     {
         $image_type = $image_type ?: $this->source_type;
 
         header('Content-Type: ' . image_type_to_mime_type($image_type));
 
-        $this->save(null, $image_type, $quality);
+        $this->save(null, $image_type, $quality, null, $compression);
     }
 
     /**
