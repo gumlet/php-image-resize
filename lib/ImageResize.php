@@ -13,6 +13,7 @@ class ImageResize
     const CROPBOTTOM = 3;
     const CROPLEFT = 4;
     const CROPRIGHT = 5;
+    const CROPTOPCENTER = 6;
 
     public $quality_jpg = 85;
     public $quality_png = 6;
@@ -521,6 +522,10 @@ class ImageResize
             case self::CROPCENTER:
             case self::CROPCENTRE:
                 $size = $expectedSize / 2;
+                break;
+                
+            case self::CROPTOPCENTER:
+                $size = $expectedSize / 4;
                 break;
         }
         return $size;
