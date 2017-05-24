@@ -523,7 +523,6 @@ class ImageResize
             case self::CROPCENTRE:
                 $size = $expectedSize / 2;
                 break;
-                
             case self::CROPTOPCENTER:
                 $size = $expectedSize / 4;
                 break;
