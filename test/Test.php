@@ -132,6 +132,17 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(50, $resize->getDestHeight());
     }
 
+    public function testResizeToLongSideVertical()
+    {
+        $image = $this->createImage(100, 200, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToLongSide(100);
+
+        $this->assertEquals(50, $resize->getDestWidth());
+        $this->assertEquals(100, $resize->getDestHeight());
+    }
+
     public function testResizeToShortSide()
     {
         $image = $this->createImage(200, 100, 'png');
@@ -141,6 +152,17 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(100, $resize->getDestWidth());
         $this->assertEquals(50, $resize->getDestHeight());
+    }
+
+    public function testResizeToShortSideVertical()
+    {
+        $image = $this->createImage(100, 200, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToShortSide(50);
+
+        $this->assertEquals(50, $resize->getDestWidth());
+        $this->assertEquals(100, $resize->getDestHeight());
     }
 
     public function testResizeToHeight()
