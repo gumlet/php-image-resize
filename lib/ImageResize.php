@@ -280,15 +280,15 @@ class ImageResize
     public function resizeToShortSide($max_short, $allow_enlarge = false)
     {
         if ($this->getSourceHeight() < $this->getSourceWidth()) {
-            $ratio = $height / $this->getSourceHeight();
+            $ratio = $max_short / $this->getSourceHeight();
             $width = $this->getSourceWidth() * $ratio;
 
-            $this->resize($width, $height, $allow_enlarge);
+            $this->resize($width, $max_short, $allow_enlarge);
         } else {
-            $ratio = $height / $this->getSourceWidth();
+            $ratio = $max_short / $this->getSourceWidth();
             $width = $this->getSourceHeight() * $ratio;
 
-            $this->resize($width, $height, $allow_enlarge);
+            $this->resize($width, $max_short, $allow_enlarge);
         }
         
         return $this;
@@ -304,15 +304,15 @@ class ImageResize
     public function resizeToLongSide($max_long, $allow_enlarge = false)
     {
         if ($this->getSourceHeight() > $this->getSourceWidth()) {
-            $ratio = $height / $this->getSourceHeight();
+            $ratio = $max_long / $this->getSourceHeight();
             $width = $this->getSourceWidth() * $ratio;
 
-            $this->resize($width, $height, $allow_enlarge);
+            $this->resize($width, $max_long, $allow_enlarge);
         } else {
-            $ratio = $height / $this->getSourceWidth();
+            $ratio = $max_long / $this->getSourceWidth();
             $width = $this->getSourceHeight() * $ratio;
 
-            $this->resize($width, $height, $allow_enlarge);
+            $this->resize($width, $max_long, $allow_enlarge);
         }
         
         return $this;

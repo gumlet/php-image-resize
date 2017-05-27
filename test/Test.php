@@ -121,6 +121,28 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
      * Resize tests
      */
 
+    public function testResizeToLongSide()
+    {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToLongSide(100);
+
+        $this->assertEquals(100, $resize->getDestWidth());
+        $this->assertEquals(50, $resize->getDestHeight());
+    }
+
+    public function testResizeToShortSide()
+    {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+
+        $resize->resizeToShortSide(50);
+
+        $this->assertEquals(100, $resize->getDestWidth());
+        $this->assertEquals(50, $resize->getDestHeight());
+    }
+
     public function testResizeToHeight()
     {
         $image = $this->createImage(200, 100, 'png');
