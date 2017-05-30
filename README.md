@@ -106,6 +106,16 @@ This will scale the image to as close as it can to the passed dimensions, and th
 
 In the case of the example above, an image of 400px &times; 600px will be resized down to 200px &times; 300px, and then 50px will be taken off the top and bottom, leaving you with 200px &times; 200px.
 
+By default the crop function will crop the center of you image, but there are other options available.
+Depending on your needs you can also decide to crop the top, the bottom, the left, the right, or between the top and the center of your image.
+If for instance you want to crop the top of your image here is an example of how you can do it :
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, 1);
+$image->save('image2.jpg');
+```
+
 There is also a way to define custom crop position.
 You can define $x and $y in ```freecrop``` method:
 
