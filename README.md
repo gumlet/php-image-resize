@@ -91,6 +91,10 @@ You can enable by passing ```true``` to any resize function:
 $image = new ImageResize('image.jpg');
 $image->resize(500, 300, $allow_enlarge = True);
 $image->save('image2.jpg');
+
+$image = new ImageResize('image.jpg');
+$image->resizeToShortSide(300, $allow_enlarge = True);
+$image->save('image2.jpg');
 ```
 
 If you are happy to handle aspect ratios yourself, you can resize directly:
