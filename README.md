@@ -66,6 +66,18 @@ $image->resizeToWidth(300);
 $image->save('image2.jpg');
 ```
 
+To resize an image according to a given measure regardingless its orientation (keeping aspect ratio):
+
+```php
+$image = new ImageResize('image.jpg');
+$image->resizeToLongSide(500);
+$image->save('image2.jpg');
+
+$image = new ImageResize('image.jpg');
+$image->resizeToShortSide(300);
+$image->save('image2.jpg');
+```
+
 To resize an image to best fit a given set of dimensions (keeping aspet ratio):
 ```php
 $image = new ImageResize('image.jpg');
@@ -253,3 +265,4 @@ API Doc
 -------
 
 https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html
+>>>>>>> f84e175149be8a6058e196408d59a1c05b509345

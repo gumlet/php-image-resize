@@ -271,6 +271,54 @@ class ImageResize
     }
 
     /**
+     * Resizes image according to the given short side (short side proportional)
+     *
+     * @param integer $max_short
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
+    public function resizeToShortSide($max_short, $allow_enlarge = false)
+    {
+        if ($this->getSourceHeight() < $this->getSourceWidth()) {
+            $ratio = $max_short / $this->getSourceHeight();
+            $long = $this->getSourceWidth() * $ratio;
+
+            $this->resize($long, $max_short, $allow_enlarge);
+        } else {
+            $ratio = $max_short / $this->getSourceWidth();
+            $long = $this->getSourceHeight() * $ratio;
+
+            $this->resize($max_short, $long, $allow_enlarge);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Resizes image according to the given long side (short side proportional)
+     *
+     * @param integer $max_long
+     * @param boolean $allow_enlarge
+     * @return \static
+     */
+    public function resizeToLongSide($max_long, $allow_enlarge = false)
+    {
+        if ($this->getSourceHeight() > $this->getSourceWidth()) {
+            $ratio = $max_long / $this->getSourceHeight();
+            $short = $this->getSourceWidth() * $ratio;
+
+            $this->resize($short, $max_long, $allow_enlarge);
+        } else {
+            $ratio = $max_long / $this->getSourceWidth();
+            $short = $this->getSourceHeight() * $ratio;
+
+            $this->resize($max_long, $short, $allow_enlarge);
+        }
+        
+        return $this;
+    }
+
+    /**
      * Resizes image according to the given height (width proportional)
      *
      * @param integer $height
