@@ -118,6 +118,45 @@ This will scale the image to as close as it can to the passed dimensions, and th
 
 In the case of the example above, an image of 400px &times; 600px will be resized down to 200px &times; 300px, and then 50px will be taken off the top and bottom, leaving you with 200px &times; 200px.
 
+Crop modes:
+
+Few crop mode options are available in order for you to choose how you want to handle the eventual exceeding width or height after resizing down your image. 
+The default crop mode used is the `CROPCENTER`.
+As a result those pieces of code are equivalent: 
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200);
+$image->save('image2.jpg');
+```
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, ImageResize::CROPCENTER);
+$image->save('image2.jpg');
+```
+
+In the case you have an image of 400px &times; 600px and you want to crop it to 200px &times; 200px the image will be resized down to 200px &times; 300px, then you can indicate how you want to handle those 100px exceeding passing the value of the crop mode you want to use.
+
+For instance passing the crop mode `CROPTOP` will result as 100px taken off the bottom leaving you with 200px &times; 200px.
+
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, ImageResize::CROPTOP);
+$image->save('image2.jpg');
+```
+
+On the contrary passing the crop mode `CROPBOTTOM` will result as 100px taken off the top leaving you with 200px &times; 200px.
+
+```php
+$image = new ImageResize('image.jpg');
+$image->crop(200, 200, ImageResize::CROPBOTTOM);
+$image->save('image2.jpg');
+```
+
+Freecrop:
+
 There is also a way to define custom crop position.
 You can define $x and $y in ```freecrop``` method:
 
