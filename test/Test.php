@@ -43,6 +43,15 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
         $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
     }
+    
+    public function testLoadIgnoreXmpExifJpg()
+    {
+        $image = __DIR__.'/ressources/test_xmp.jpg';
+        $resize = new ImageResize($image);
+
+        $this->assertEquals(IMAGETYPE_JPEG, $resize->source_type);
+        $this->assertInstanceOf('\Eventviva\ImageResize', $resize);
+    }
 
     public function testLoadPng()
     {
@@ -67,7 +76,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Eventviva\ImageResizeException
-     * @expectedExceptionMessage Could not read file
+     * @expectedExceptionMessage File does not exist
      */
     public function testLoadNoFile()
     {
@@ -76,7 +85,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Eventviva\ImageResizeException
-     * @expectedExceptionMessage Could not read file
+     * @expectedExceptionMessage Unsupported file type
      */
     public function testLoadUnsupportedFile()
     {
@@ -85,7 +94,7 @@ class ImageResizeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Eventviva\ImageResizeException
-     * @expectedExceptionMessage Could not read file
+     * @expectedExceptionMessage image_data must not be empty
      */
     public function testLoadUnsupportedFileString()
     {
