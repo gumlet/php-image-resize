@@ -147,6 +147,7 @@ class ImageResize
     public function save($filename, $image_type = null, $quality = null, $permissions = null)
     {
         $image_type = $image_type ?: $this->source_type;
+        $quality = (int) abs($quality);
 
         switch ($image_type) {
             case IMAGETYPE_GIF:
@@ -202,7 +203,7 @@ class ImageResize
                 break;
 
             case IMAGETYPE_JPEG:
-                if ($quality === null) {
+                if ($quality === null || $quality < 0 || $quality > 100) {
                     $quality = $this->quality_jpg;
                 }
 
@@ -210,7 +211,7 @@ class ImageResize
                 break;
 
             case IMAGETYPE_PNG:
-                if ($quality === null) {
+                if ($quality === null || $quality < 0 || $quality > 9) {
                     $quality = $this->quality_png;
                 }
 
