@@ -63,6 +63,10 @@ class ImageResize
      */
     public function __construct($filename)
     {
+        if(!defined('IMAGETYPE_WEBP')) {
+            define('IMAGETYPE_WEBP', 18);
+        }
+        
         $image_info = @getimagesize($filename);
 
         if (!$image_info) {
