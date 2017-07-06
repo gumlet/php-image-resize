@@ -16,6 +16,7 @@ class ImageResize
     const CROPTOPCENTER = 6;
 
     public $quality_jpg = 85;
+    public $quality_webp = 85;
     public $quality_png = 6;
     public $quality_truecolor = TRUE;
 
@@ -86,6 +87,10 @@ class ImageResize
                 $this->original_w = ImageSX($this->source_image);
                 $this->original_h = ImageSY($this->source_image);
 
+                break;
+                
+            case IMAGETYPE_WEBP:
+                $this->source_image = imagecreatefromwebp($filename);
                 break;
 
             case IMAGETYPE_PNG:
@@ -164,6 +169,13 @@ class ImageResize
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
                 break;
+                
+            case IMAGETYPE_WEBP:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+                
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
+                break;
 
             case IMAGETYPE_PNG:
                 if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
@@ -207,6 +219,14 @@ class ImageResize
                 }
 
                 imagejpeg($dest_image, $filename, $quality);
+                break;
+                
+            case IMAGETYPE_WEBP:
+                if ($quality === null) {
+                    $quality = $this->quality_webp;
+                }
+                
+                imagewebp($dest_image, $filename, $quality);
                 break;
 
             case IMAGETYPE_PNG:
