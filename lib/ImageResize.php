@@ -39,6 +39,8 @@ class ImageResize
 
     protected $source_w;
     protected $source_h;
+    
+    protected $source_info;
 
     /**
      * Create instance from a strng
@@ -49,6 +51,9 @@ class ImageResize
      */
     public static function createFromString($image_data)
     {
+		if(empty($image_data) || $image_data === null) {
+			throw new ImageResizeException('image_data must not be empty');
+		}
         $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
         return $resize;
     }
@@ -62,7 +67,17 @@ class ImageResize
      */
     public function __construct($filename)
     {
-        $image_info = @getimagesize($filename);
+
+        if($filename === null || empty($filename) || (substr($filename,0,7) !== 'data://' && !is_file($filename))) {
+			throw new ImageResizeException('File does not exist');
+		}	
+		
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		if(strstr(finfo_file($finfo, $filename),'image') === false) {
+			throw new ImageResizeException('Unsupported file type');
+		}
+		
+        $image_info = getimagesize($filename,$this->source_info);
 
         if (!$image_info) {
             throw new ImageResizeException('Could not read file');
@@ -107,12 +122,12 @@ class ImageResize
     // http://stackoverflow.com/a/28819866
     public function imageCreateJpegfromExif($filename){
       $img = imagecreatefromjpeg($filename);
-
-      if (!function_exists('exif_read_data')) {
+      
+      if (!function_exists('exif_read_data') || !isset($this->source_info['APP1'])  || strpos ($this->source_info['APP1'], 'Exif') !== 0) {
           return $img;
       }
-
-      $exif = @exif_read_data($filename);
+     
+      $exif = exif_read_data($filename);
 
       if (!$exif || !isset($exif['Orientation'])){
         return $img;
