@@ -43,8 +43,6 @@ class ImageResize
     
     protected $source_info;
 
-    protected $source_info;
-
     /**
      * Create instance from a strng
      *
