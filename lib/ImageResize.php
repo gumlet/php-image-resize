@@ -40,6 +40,8 @@ class ImageResize
 
     protected $source_w;
     protected $source_h;
+    
+    protected $source_info;
 
     protected $source_info;
 
@@ -109,7 +111,7 @@ class ImageResize
 
             case IMAGETYPE_WEBP:
                 if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                    throw new \Exception('For WebP support PHP >= 5.5.0 is required');
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
                 }
                 $this->source_image = imagecreatefromwebp($filename);
                 break;
@@ -195,7 +197,7 @@ class ImageResize
 
             case IMAGETYPE_WEBP:
                 if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                    throw new \Exception('For WebP support PHP >= 5.5.0 is required');
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
                 }
                 $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
@@ -249,7 +251,7 @@ class ImageResize
 
             case IMAGETYPE_WEBP:
                 if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                    throw new \Exception('For WebP support PHP >= 5.5.0 is required');
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
                 }
                 if ($quality === null) {
                     $quality = $this->quality_webp;
