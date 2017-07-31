@@ -16,8 +16,9 @@ class ImageResize
     const CROPTOPCENTER = 6;
 
     public $quality_jpg = 85;
+    public $quality_webp = 85;
     public $quality_png = 6;
-    public $quality_truecolor = TRUE;
+    public $quality_truecolor = true;
 
     public $interlace = 1;
 
@@ -51,9 +52,9 @@ class ImageResize
      */
     public static function createFromString($image_data)
     {
-		if(empty($image_data) || $image_data === null) {
-			throw new ImageResizeException('image_data must not be empty');
-		}
+        if (empty($image_data) || $image_data === null) {
+            throw new ImageResizeException('image_data must not be empty');
+        }
         $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
         return $resize;
     }
@@ -67,23 +68,26 @@ class ImageResize
      */
     public function __construct($filename)
     {
+        if (!defined('IMAGETYPE_WEBP')) {
+            define('IMAGETYPE_WEBP', 18);
+        }
 
-        if($filename === null || empty($filename) || (substr($filename,0,7) !== 'data://' && !is_file($filename))) {
-			throw new ImageResizeException('File does not exist');
-		}	
-		
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		if(strstr(finfo_file($finfo, $filename),'image') === false) {
-			throw new ImageResizeException('Unsupported file type');
-		}
-		
-        $image_info = getimagesize($filename,$this->source_info);
+        if ($filename === null || empty($filename) || (substr($filename, 0, 7) !== 'data://' && !is_file($filename))) {
+            throw new ImageResizeException('File does not exist');
+        }
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        if (strstr(finfo_file($finfo, $filename), 'image') === false) {
+            throw new ImageResizeException('Unsupported file type');
+        }
+
+        $image_info = getimagesize($filename, $this->source_info);
 
         if (!$image_info) {
             throw new ImageResizeException('Could not read file');
         }
 
-        list (
+        list(
             $this->original_w,
             $this->original_h,
             $this->source_type
@@ -103,6 +107,13 @@ class ImageResize
 
                 break;
 
+            case IMAGETYPE_WEBP:
+                if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
+                $this->source_image = imagecreatefromwebp($filename);
+                break;
+
             case IMAGETYPE_PNG:
                 $this->source_image = imagecreatefrompng($filename);
                 break;
@@ -120,34 +131,35 @@ class ImageResize
     }
 
     // http://stackoverflow.com/a/28819866
-    public function imageCreateJpegfromExif($filename){
-      $img = imagecreatefromjpeg($filename);
-      
-      if (!function_exists('exif_read_data') || !isset($this->source_info['APP1'])  || strpos ($this->source_info['APP1'], 'Exif') !== 0) {
-          return $img;
-      }
-     
-      $exif = exif_read_data($filename);
+    public function imageCreateJpegfromExif($filename)
+    {
+        $img = imagecreatefromjpeg($filename);
 
-      if (!$exif || !isset($exif['Orientation'])){
+        if (!function_exists('exif_read_data') || !isset($this->source_info['APP1'])  || strpos($this->source_info['APP1'], 'Exif') !== 0) {
+            return $img;
+        }
+
+        $exif = exif_read_data($filename);
+
+        if (!$exif || !isset($exif['Orientation'])) {
+            return $img;
+        }
+
+        $orientation = $exif['Orientation'];
+
+        if ($orientation === 6 || $orientation === 5) {
+            $img = imagerotate($img, 270, null);
+        } elseif ($orientation === 3 || $orientation === 4) {
+            $img = imagerotate($img, 180, null);
+        } elseif ($orientation === 8 || $orientation === 7) {
+            $img = imagerotate($img, 90, null);
+        }
+
+        if ($orientation === 5 || $orientation === 4 || $orientation === 7) {
+            imageflip($img, IMG_FLIP_HORIZONTAL);
+        }
+
         return $img;
-      }
-
-      $orientation = $exif['Orientation'];
-
-      if ($orientation === 6 || $orientation === 5){
-        $img = imagerotate($img, 270, null);
-      } else if ($orientation === 3 || $orientation === 4){
-        $img = imagerotate($img, 180, null);
-      } else if ($orientation === 8 || $orientation === 7){
-        $img = imagerotate($img, 90, null);
-      }
-
-      if ($orientation === 5 || $orientation === 4 || $orientation === 7){
-        imageflip($img, IMG_FLIP_HORIZONTAL);
-      }
-
-      return $img;
     }
 
     /**
@@ -170,11 +182,21 @@ class ImageResize
 
                 $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
                 imagecolortransparent($dest_image, $background);
-                imagefill($dest_image, 0, 0 , $background);
+                imagefill($dest_image, 0, 0, $background);
                 imagesavealpha($dest_image, true);
                 break;
 
             case IMAGETYPE_JPEG:
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
+                break;
+
+            case IMAGETYPE_WEBP:
+                if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
                 $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
@@ -187,7 +209,7 @@ class ImageResize
 
                     $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
                     imagecolortransparent($dest_image, $background);
-                    imagefill($dest_image, 0, 0 , $background);
+                    imagefill($dest_image, 0, 0, $background);
                 } else {
                     $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
                 }
@@ -225,6 +247,17 @@ class ImageResize
                 imagejpeg($dest_image, $filename, $quality);
                 break;
 
+            case IMAGETYPE_WEBP:
+                if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
+                if ($quality === null) {
+                    $quality = $this->quality_webp;
+                }
+
+                imagewebp($dest_image, $filename, $quality);
+                break;
+
             case IMAGETYPE_PNG:
                 if ($quality === null || $quality > 9) {
                     $quality = $this->quality_png;
@@ -254,7 +287,7 @@ class ImageResize
     {
         $string_temp = tempnam(sys_get_temp_dir(), '');
 
-        $this->save($string_temp , $image_type, $quality);
+        $this->save($string_temp, $image_type, $quality);
 
         $string = file_get_contents($string_temp);
 
@@ -307,7 +340,7 @@ class ImageResize
 
             $this->resize($max_short, $long, $allow_enlarge);
         }
-        
+
         return $this;
     }
 
@@ -331,7 +364,7 @@ class ImageResize
 
             $this->resize($max_long, $short, $allow_enlarge);
         }
-        
+
         return $this;
     }
 
@@ -379,7 +412,7 @@ class ImageResize
      */
     public function resizeToBestFit($max_width, $max_height, $allow_enlarge = false)
     {
-        if($this->getSourceWidth() <= $max_width && $this->getSourceHeight() <= $max_height && $allow_enlarge === false){
+        if ($this->getSourceWidth() <= $max_width && $this->getSourceHeight() <= $max_height && $allow_enlarge === false) {
             return $this;
         }
 
@@ -387,7 +420,7 @@ class ImageResize
         $width = $max_width;
         $height = $width * $ratio;
 
-        if($height > $max_height){
+        if ($height > $max_height) {
             $height = $max_height;
             $width = $height / $ratio;
         }
@@ -506,21 +539,21 @@ class ImageResize
      */
     public function freecrop($width, $height, $x = false, $y = false)
     {
-        if($x === false or $y === false){
-          return $this->crop($width, $height);
+        if ($x === false or $y === false) {
+            return $this->crop($width, $height);
         }
         $this->source_x = $x;
         $this->source_y = $y;
-        if($width > $this->getSourceWidth() - $x){
-          $this->source_w = $this->getSourceWidth() - $x;
+        if ($width > $this->getSourceWidth() - $x) {
+            $this->source_w = $this->getSourceWidth() - $x;
         } else {
-          $this->source_w = $width;
+            $this->source_w = $width;
         }
 
-        if($height > $this->getSourceHeight() - $y){
-          $this->source_h = $this->getSourceHeight() - $y;
+        if ($height > $this->getSourceHeight() - $y) {
+            $this->source_h = $this->getSourceHeight() - $y;
         } else {
-          $this->source_h = $height;
+            $this->source_h = $height;
         }
 
         $this->dest_w = $width;
@@ -597,21 +630,22 @@ class ImageResize
 
 // imageflip definition for PHP < 5.5
 if (!function_exists('imageflip')) {
-  define('IMG_FLIP_HORIZONTAL', 0);
-  define('IMG_FLIP_VERTICAL', 1);
-  define('IMG_FLIP_BOTH', 2);
+    define('IMG_FLIP_HORIZONTAL', 0);
+    define('IMG_FLIP_VERTICAL', 1);
+    define('IMG_FLIP_BOTH', 2);
 
-  function imageflip($image, $mode) {
-    switch ($mode) {
+    function imageflip($image, $mode)
+    {
+        switch ($mode) {
       case IMG_FLIP_HORIZONTAL: {
         $max_x = imagesx($image) - 1;
         $half_x = $max_x / 2;
         $sy = imagesy($image);
         $temp_image = imageistruecolor($image)? imagecreatetruecolor(1, $sy): imagecreate(1, $sy);
         for ($x = 0; $x < $half_x; ++$x) {
-          imagecopy($temp_image, $image, 0, 0, $x, 0, 1, $sy);
-          imagecopy($image, $image, $x, 0, $max_x - $x, 0, 1, $sy);
-          imagecopy($image, $temp_image, $max_x - $x, 0, 0, 0, 1, $sy);
+            imagecopy($temp_image, $image, 0, 0, $x, 0, 1, $sy);
+            imagecopy($image, $image, $x, 0, $max_x - $x, 0, 1, $sy);
+            imagecopy($image, $temp_image, $max_x - $x, 0, 0, 0, 1, $sy);
         }
         break;
       }
@@ -621,9 +655,9 @@ if (!function_exists('imageflip')) {
         $half_y = $max_y / 2;
         $temp_image = imageistruecolor($image)? imagecreatetruecolor($sx, 1): imagecreate($sx, 1);
         for ($y = 0; $y < $half_y; ++$y) {
-          imagecopy($temp_image, $image, 0, 0, 0, $y, $sx, 1);
-          imagecopy($image, $image, 0, $y, 0, $max_y - $y, $sx, 1);
-          imagecopy($image, $temp_image, 0, $max_y - $y, 0, 0, $sx, 1);
+            imagecopy($temp_image, $image, 0, 0, 0, $y, $sx, 1);
+            imagecopy($image, $image, 0, $y, 0, $max_y - $y, $sx, 1);
+            imagecopy($image, $temp_image, 0, $max_y - $y, 0, 0, $sx, 1);
         }
         break;
       }
@@ -638,11 +672,13 @@ if (!function_exists('imageflip')) {
         return;
       }
     }
-    imagedestroy($temp_image);
-  }
+        imagedestroy($temp_image);
+    }
 }
 
 /**
  * PHP Exception used in the ImageResize class
  */
-class ImageResizeException extends \Exception {}
+class ImageResizeException extends \Exception
+{
+}
