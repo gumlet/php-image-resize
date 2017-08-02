@@ -77,7 +77,9 @@ class ImageResize
 			throw new ImageResizeException('Unsupported file type');
 		}
 		
-        $image_info = getimagesize($filename,$this->source_info);
+        if (!$image_info = getimagesize($filename, $this->source_info)) {
+            $image_info = getimagesize($filename);
+        }
 
         if (!$image_info) {
             throw new ImageResizeException('Could not read file');
