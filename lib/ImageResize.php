@@ -23,6 +23,8 @@ class ImageResize
 
     public $source_type;
 
+    private $filter = array();
+
     protected $source_image;
 
     protected $original_w;
@@ -213,6 +215,13 @@ class ImageResize
             $this->source_w,
             $this->source_h
         );
+
+        // If filters have been applied loop through and apply each one with params
+        if(count($this->filter) > 0) {
+            foreach($this->filter as $filter) {
+                imagefilter($dest_image, ...$filter);
+            }
+        }
 
         switch ($image_type) {
             case IMAGETYPE_GIF:
@@ -594,6 +603,60 @@ class ImageResize
                 break;
         }
         return $size;
+    }
+    
+    /**
+     * Makes the image grayscale
+     *
+     * @return \static
+     */
+    public function grayscale()
+    {
+        $this->filter[] = [IMG_FILTER_GRAYSCALE];
+        return $this;
+    }
+
+    /**
+     * Inverts the image colors
+     *
+     * @return \static
+     */
+    public function invert()
+    {
+        $this->filter[] = [IMG_FILTER_NEGATE];
+        return $this;
+    }
+
+    /**
+     * Pixellates the image by the specified amount
+     *
+     * @param integer $amount
+     * @return \static
+     */
+    public function pixelate($amount = 5)
+    {
+        $this->filter[] = [IMG_FILTER_PIXELATE, $amount, false];
+        return $this;
+    }
+
+    /**
+     * Colorises the image with the specificed rgba color
+     *
+     * @param integer $red 0 - 255
+     * @param integer $green 0 - 255
+     * @param integer $blue 0 - 255
+     * @param integer $alpha 0 - 100
+     * @return \static
+     */
+    public function colorize($red = 0, $green = 0, $blue = 0, $alpha = 100)
+    {   
+        // Function has alpha from 0 - 100, but alpha is actually 0 - 127.
+        $alpha = ($alpha * 127) / 100;
+        // Alpha is also oposite (1 is opaque and 127 transparent)
+        $alpha = 127 - $alpha;
+
+        $this->filter[] = [IMG_FILTER_COLORIZE, $red, $green, $blue, $alpha];
+        return $this;
     }
 }
 

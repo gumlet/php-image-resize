@@ -284,6 +284,49 @@ $image
 ;
 ```
 
+Filters
+--------
+
+ImageResize allows you to apply filters to the image such as grayscale and colorizing
+
+Grayscale:
+
+```php
+$image->grayscale();
+```
+
+Invert the image colors:
+
+```php
+$image->invert();
+```
+
+Pixelate the image:
+
+```php
+$image->pixelate();
+$image->pixelate($amount = 20);
+```
+
+Colorize:
+
+`$red`, `$green` and `$blue` variables aree all between 0 and 255. `$alpha` is between 0 (transparent) and 100 (opaque)
+
+```php
+$image->colorize($red = 255, $green = 10, $blue = 80, $alpha = 50);
+```
+
+Filters can be chained too:
+
+```php
+$image = new ImageResize('image.jpg');
+$image
+    ->invert()
+    ->pixelate(2)
+    ->grayscale();
+```
+
+
 Exceptions
 --------
 
