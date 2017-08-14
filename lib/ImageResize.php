@@ -613,7 +613,7 @@ class ImageResize
      */
     public function grayscale()
     {
-        $this->filter[] = [IMG_FILTER_GRAYSCALE];
+        $this->filter[] = array(IMG_FILTER_GRAYSCALE);
         return $this;
     }
 
@@ -624,7 +624,7 @@ class ImageResize
      */
     public function invert()
     {
-        $this->filter[] = [IMG_FILTER_NEGATE];
+        $this->filter[] = array(IMG_FILTER_NEGATE);
         return $this;
     }
 
@@ -636,7 +636,7 @@ class ImageResize
      */
     public function pixelate($amount = 5)
     {
-        $this->filter[] = [IMG_FILTER_PIXELATE, $amount, false];
+        $this->filter[] = array(IMG_FILTER_PIXELATE, $amount, false);
         return $this;
     }
 
@@ -656,7 +656,7 @@ class ImageResize
         // Alpha is also oposite (1 is opaque and 127 transparent)
         $alpha = 127 - $alpha;
 
-        $this->filter[] = [IMG_FILTER_COLORIZE, $red, $green, $blue, $alpha];
+        $this->filter[] = array(IMG_FILTER_COLORIZE, $red, $green, $blue, $alpha);
         return $this;
     }
 }
