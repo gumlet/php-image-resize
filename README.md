@@ -304,4 +304,3 @@ API Doc
 -------
 
 https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html
->>>>>>> f84e175149be8a6058e196408d59a1c05b509345
