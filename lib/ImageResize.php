@@ -23,6 +23,8 @@ class ImageResize
 
     public $source_type;
 
+    private $filter = array();
+
     protected $source_image;
 
     protected $original_w;
@@ -39,7 +41,7 @@ class ImageResize
 
     protected $source_w;
     protected $source_h;
-    
+
     protected $source_info;
 
     /**
@@ -51,9 +53,9 @@ class ImageResize
      */
     public static function createFromString($image_data)
     {
-		if(empty($image_data) || $image_data === null) {
-			throw new ImageResizeException('image_data must not be empty');
-		}
+    if(empty($image_data) || $image_data === null) {
+    throw new ImageResizeException('image_data must not be empty');
+    }
         $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
         return $resize;
     }
@@ -69,14 +71,14 @@ class ImageResize
     {
 
         if($filename === null || empty($filename) || (substr($filename,0,7) !== 'data://' && !is_file($filename))) {
-			throw new ImageResizeException('File does not exist');
-		}	
-		
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		if(strstr(finfo_file($finfo, $filename),'image') === false) {
-			throw new ImageResizeException('Unsupported file type');
-		}
-		
+    throw new ImageResizeException('File does not exist');
+    }
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    if(strstr(finfo_file($finfo, $filename),'image') === false) {
+    throw new ImageResizeException('Unsupported file type');
+    }
+
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
         }
@@ -124,11 +126,11 @@ class ImageResize
     // http://stackoverflow.com/a/28819866
     public function imageCreateJpegfromExif($filename){
       $img = imagecreatefromjpeg($filename);
-      
+
       if (!function_exists('exif_read_data') || !isset($this->source_info['APP1'])  || strpos ($this->source_info['APP1'], 'Exif') !== 0) {
           return $img;
       }
-     
+
       $exif = exif_read_data($filename);
 
       if (!$exif || !isset($exif['Orientation'])){
@@ -213,6 +215,14 @@ class ImageResize
             $this->source_w,
             $this->source_h
         );
+
+        // If filters have been applied loop through and apply each one with params
+        if(count($this->filter) > 0) {
+            foreach($this->filter as $filter) {
+                array_unshift($filter, $dest_image);
+                call_user_func_array('imagefilter', $filter);
+            }
+        }
 
         switch ($image_type) {
             case IMAGETYPE_GIF:
@@ -309,7 +319,7 @@ class ImageResize
 
             $this->resize($max_short, $long, $allow_enlarge);
         }
-        
+
         return $this;
     }
 
@@ -333,7 +343,7 @@ class ImageResize
 
             $this->resize($max_long, $short, $allow_enlarge);
         }
-        
+
         return $this;
     }
 
@@ -594,6 +604,60 @@ class ImageResize
                 break;
         }
         return $size;
+    }
+
+    /**
+     * Makes the image grayscale
+     *
+     * @return \static
+     */
+    public function grayscale()
+    {
+        $this->filter[] = array(IMG_FILTER_GRAYSCALE);
+        return $this;
+    }
+
+    /**
+     * Inverts the image colors
+     *
+     * @return \static
+     */
+    public function invert()
+    {
+        $this->filter[] = array(IMG_FILTER_NEGATE);
+        return $this;
+    }
+
+    /**
+     * Pixellates the image by the specified amount
+     *
+     * @param integer $amount
+     * @return \static
+     */
+    public function pixelate($amount = 5)
+    {
+        $this->filter[] = array(IMG_FILTER_PIXELATE, $amount, false);
+        return $this;
+    }
+
+    /**
+     * Colorises the image with the specificed rgba color
+     *
+     * @param integer $red 0 - 255
+     * @param integer $green 0 - 255
+     * @param integer $blue 0 - 255
+     * @param integer $alpha 0 - 100
+     * @return \static
+     */
+    public function colorize($red = 0, $green = 0, $blue = 0, $alpha = 100)
+    {
+        // Function has alpha from 0 - 100, but alpha is actually 0 - 127.
+        $alpha = ($alpha * 127) / 100;
+        // Alpha is also oposite (1 is opaque and 127 transparent)
+        $alpha = 127 - $alpha;
+
+        $this->filter[] = array(IMG_FILTER_COLORIZE, $red, $green, $blue, $alpha);
+        return $this;
     }
 }
 
