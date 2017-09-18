@@ -5,6 +5,11 @@ PHP library to resize, scale and crop images.
 
 [![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/eventviva/php-image-resize/v/stable)](https://packagist.org/packages/eventviva/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/eventviva/php-image-resize/d/monthly)](https://packagist.org/packages/eventviva/php-image-resize)
 
+Hosted Solution
+---------------
+
+If you don't want to crop, resize and store images on your server, <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a> is a **free** service which can process images in real-time and serve worldwide through CDN.
+
 Setup
 -----
 
@@ -304,3 +309,10 @@ API Doc
 -------
 
 https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html
+
+Maintainer
+----------
+
+This library is maintained by <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a>
+
+[<img src="https://www.gumlet.com/public/img/logo.png" width="300px">](https://www.gumlet.com)
