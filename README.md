@@ -10,6 +10,8 @@ Hosted Solution
 
 If you don't want to crop, resize and store images on your server, <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a> is a **free** service which can process images in real-time and serve worldwide through CDN.
 
+------------------
+
 Setup
 -----
 
@@ -47,6 +49,8 @@ $image = new ImageResize();
 ```
 
 > Note: This library uses GD class which do not support resizing animated gif files
+
+------------------
 
 Resize
 ------
@@ -309,6 +313,8 @@ API Doc
 -------
 
 https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html
+
+------------------
 
 Maintainer
 ----------
