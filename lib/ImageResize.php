@@ -140,7 +140,9 @@ class ImageResize
             return $img;
         }
 
-        $exif = @exif_read_data($filename);
+        set_error_handler(function () {});
+        $exif = exif_read_data($filename);
+        restore_error_handler();
 
         if (!$exif || !isset($exif['Orientation'])) {
             return $img;
