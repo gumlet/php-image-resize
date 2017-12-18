@@ -309,6 +309,37 @@ try{
 }
 ```
  
+Filters
+--------
+ 
+You can apply special effects for new image like blur or add banner. 
+
+```php
+$image = new ImageResize('image.jpg');
+
+// Add blure
+$image->addFIlter(function ($imageDesc) {
+    imagefilter($imageDesc, IMG_FILTER_GAUSSIAN_BLUR);
+});
+
+// Add banner on bottom left corner
+$image18Plus = 'banner.png'
+$image->addFIlter(function ($imageDesc) use ($image18Plus) {
+    $logo = imagecreatefrompng($image18Plus);
+    $logo_width = imagesx($logo);
+    $logo_height = imagesy($logo);
+    $image_width = imagesx($imageDesc);
+    $image_height = imagesy($imageDesc);
+    $image_x = $image_width - $logo_width - 10;
+    $image_y = $image_height - $logo_height - 10;
+    imagecopy($imageDesc, $logo, $image_x, $image_y, 0, 0, $logo_width, $logo_height);
+});
+
+```
+ 
+Both functions will be used in the order in which they were added.
+ 
+ 
 API Doc
 -------
 
