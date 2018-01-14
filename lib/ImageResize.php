@@ -1,6 +1,6 @@
 <?php
 
-namespace Eventviva;
+namespace Gumlet;
 
 /**
  * PHP class to resize and scale images

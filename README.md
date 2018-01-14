@@ -3,7 +3,7 @@ php-image-resize
 
 PHP library to resize, scale and crop images.
 
-[![Build Status](https://travis-ci.org/eventviva/php-image-resize.svg?branch=master)](https://travis-ci.org/eventviva/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/eventviva/php-image-resize/v/stable)](https://packagist.org/packages/eventviva/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/eventviva/php-image-resize/d/monthly)](https://packagist.org/packages/eventviva/php-image-resize)
+[![Build Status](https://travis-ci.org/gumlet/php-image-resize.svg?branch=master)](https://travis-ci.org/gumlet/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/gumlet/php-image-resize/v/stable)](https://packagist.org/packages/gumlet/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/gumlet/php-image-resize/d/monthly)](https://packagist.org/packages/gumlet/php-image-resize)
 
 Hosted Solution
 ---------------
@@ -22,7 +22,7 @@ If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
 ```json
 {
     "require": {
-        "eventviva/php-image-resize": "1.6.*"
+        "gumlet/php-image-resize": "1.6.*"
     }
 }
 ```
@@ -36,14 +36,14 @@ include '/path/to/ImageResize.php';
 Because this class uses namespacing, when instantiating the object, you need to either use the fully qualified namespace:
 
 ```php
-$image = new \Eventviva\ImageResize();
+$image = new \Gumlet\ImageResize();
 ```
 
 Or alias it:
 
 ```php
 
-use \Eventviva\ImageResize;
+use \Gumlet\ImageResize;
 
 $image = new ImageResize();
 ```
@@ -312,7 +312,7 @@ try{
 API Doc
 -------
 
-https://eventviva.github.io/php-image-resize/class-Eventviva.ImageResize.html
+https://gumlet.github.io/php-image-resize/class-Gumlet.ImageResize.html
 
 ------------------
 

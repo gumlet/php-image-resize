@@ -1,9 +1,9 @@
 {
-    "name": "eventviva/php-image-resize",
+    "name": "gumlet/php-image-resize",
     "description": "PHP class to re-size and scale images",
     "keywords": ["php", "image", "resize","scale"],
     "type": "library",
-    "homepage": "https://github.com/eventviva/php-image-resize",
+    "homepage": "https://github.com/gumlet/php-image-resize",
     "license": "MIT",
     "authors": [
         {
