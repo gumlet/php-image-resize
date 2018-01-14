@@ -20,5 +20,8 @@
     },
     "autoload": {
         "classmap": ["lib"]
+    },
+    "require-dev": {
+        "apigen/apigen": "^4.1"
     }
 }
