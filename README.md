@@ -312,7 +312,7 @@ try{
 API Doc
 -------
 
-https://gumlet.github.io/php-image-resize/class-Gumlet.ImageResize.html
+https://gumlet.github.io/php-image-resize/index.html
 
 ------------------
 
