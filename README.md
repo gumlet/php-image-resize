@@ -22,7 +22,7 @@ If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
 ```json
 {
     "require": {
-        "gumlet/php-image-resize": "1.6.*"
+        "gumlet/php-image-resize": "1.7.*"
     }
 }
 ```
