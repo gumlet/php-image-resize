@@ -43,6 +43,9 @@ class ImageResize
 
     protected $source_info;
 
+
+    protected $filters = [];
+
     /**
      * Create instance from a strng
      *
@@ -57,6 +60,31 @@ class ImageResize
         }
         $resize = new self('data://application/octet-stream;base64,' . base64_encode($image_data));
         return $resize;
+    }
+
+
+    /**
+     * Add filter function for use right before save image to file.
+     *
+     * @param callable $filter
+     * @return $this
+     */
+    public function addFilter(callable $filter)
+    {
+        $this->filters[] = $filter;
+        return $this;
+    }
+
+    /**
+     * Apply filters.
+     *
+     * @param $image resource an image resource identifier
+     */
+    protected function applyFilter($image)
+    {
+        foreach ($this->filters as $function) {
+            $function($image);
+        }
     }
 
     /**
@@ -234,6 +262,9 @@ class ImageResize
             $this->source_w,
             $this->source_h
         );
+
+
+        $this->applyFilter($dest_image);
 
         switch ($image_type) {
         case IMAGETYPE_GIF:
