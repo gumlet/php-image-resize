@@ -31,7 +31,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
-        "php-coveralls/php-coveralls": "dev-master",
+        "php-coveralls/php-coveralls": "dev-master || ^1.0",
         "ext-exif": "*",
         "ext-gd": "*"
     }
