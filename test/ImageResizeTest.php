@@ -348,9 +348,14 @@ class ImageResizeTest extends TestCase
 
     public function testImageFlip()
     {
-        $image = $this->createImage(200, 100, 'png');
-        $resize = new ImageResize($image);
-        $resize->imageFlip();
+        $imageFileName = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($imageFileName);
+        $image = imagecreatetruecolor(200, 100);
+
+        $this::assertNull($resize->imageFlip($image, 0));
+        $this::assertNull($resize->imageFlip($image, 1));
+        $this::assertNull($resize->imageFlip($image, 2));
+        $this->assertNull($resize->imageFlip($image, 3));
     }
 
     /**

@@ -667,7 +667,7 @@ class ImageResize
      *
      * @param  resource $image
      * @param  integer  $mode
-     * @return integer|null
+     * @return null
      */
     public function imageFlip($image, $mode)
     {
