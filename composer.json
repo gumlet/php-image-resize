@@ -13,15 +13,26 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "ext-fileinfo": "*"
     },
     "suggest": {
         "ext-exif": "Auto-rotate jpeg files"
     },
     "autoload": {
-        "classmap": ["lib"]
+        "psr-4": {
+            "Gumlet\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gumlet\\": "test/"
+        }
     },
     "require-dev": {
-        "apigen/apigen": "^4.1"
+        "phpunit/phpunit": "^4.8",
+        "php-coveralls/php-coveralls": "dev-master",
+        "ext-exif": "*",
+        "ext-gd": "*"
     }
 }
