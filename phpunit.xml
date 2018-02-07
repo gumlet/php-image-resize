@@ -1,15 +1,14 @@
-<phpunit colors="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true" backupGlobals="false" 
+         backupStaticAttributes="false" syntaxCheck="false">
     <testsuites>
-        <testsuite name="php-image-resize tests">
-            <directory>test</directory>
+        <testsuite name="Tests">
+            <directory suffix="Test.php">test</directory>
         </testsuite>
     </testsuites>
     <filter>
-      <whitelist processUncoveredFilesFromWhitelist="true">
-        <directory suffix=".php">lib</directory>
-      </whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">lib</directory>
+        </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-text" target="php://stdout"/>
-    </logging>
 </phpunit>
