@@ -188,7 +188,11 @@ class ImageResize
         }
 
         if ($orientation === 5 || $orientation === 4 || $orientation === 7) {
-            imageflip($img, IMG_FLIP_HORIZONTAL);
+            if(function_exists('imageflip')) {
+                imageflip($img, IMG_FLIP_HORIZONTAL);
+            } else {
+                $this->imageFlip($img, IMG_FLIP_HORIZONTAL);
+            }
         }
 
         return $img;

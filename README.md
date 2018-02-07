@@ -129,9 +129,9 @@ In the case of the example above, an image of 400px &times; 600px will be resize
 
 Crop modes:
 
-Few crop mode options are available in order for you to choose how you want to handle the eventual exceeding width or height after resizing down your image. 
+Few crop mode options are available in order for you to choose how you want to handle the eventual exceeding width or height after resizing down your image.
 The default crop mode used is the `CROPCENTER`.
-As a result those pieces of code are equivalent: 
+As a result those pieces of code are equivalent:
 
 ```php
 $image = new ImageResize('image.jpg');
@@ -269,7 +269,7 @@ By default, [image interlacing](http://php.net/manual/en/function.imageinterlace
 $image = new ImageResize('image.jpg');
 $image->scale(50);
 $image->interlace = 0;
-$image->save('image2.jpg')
+$image->save('image2.jpg');
 ```
 
 Chaining
@@ -305,26 +305,26 @@ try{
     $image = new ImageResize(null);
     echo "This line will not be printed";
 } catch (ImageResizeException $e) {
-    echo "Something went wrong" . $e->getMessage();  
+    echo "Something went wrong" . $e->getMessage();
 }
 ```
- 
+
 Filters
 --------
- 
-You can apply special effects for new image like blur or add banner. 
+
+You can apply special effects for new image like blur or add banner.
 
 ```php
 $image = new ImageResize('image.jpg');
 
 // Add blure
-$image->addFIlter(function ($imageDesc) {
+$image->addFilter(function ($imageDesc) {
     imagefilter($imageDesc, IMG_FILTER_GAUSSIAN_BLUR);
 });
 
 // Add banner on bottom left corner
 $image18Plus = 'banner.png'
-$image->addFIlter(function ($imageDesc) use ($image18Plus) {
+$image->addFilter(function ($imageDesc) use ($image18Plus) {
     $logo = imagecreatefrompng($image18Plus);
     $logo_width = imagesx($logo);
     $logo_height = imagesy($logo);
@@ -336,10 +336,23 @@ $image->addFIlter(function ($imageDesc) use ($image18Plus) {
 });
 
 ```
- 
+
+Flip
+--------
+
+Flips an image using a given mode and this method is only for PHP version 5.4.
+
+```php
+$flip = new ImageResize('image.png');
+$image = imagecreatetruecolor(200, 100);
+
+$flip->imageFlip($image, 0);
+
+```
+
 Both functions will be used in the order in which they were added.
- 
- 
+
+
 API Doc
 -------
 
