@@ -146,14 +146,14 @@ class ImageResize
             $this->source_type
         ) = $image_info;
 
-        if ($this->source_type && PHP_VERSION_ID < 50500) {
-            throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-        }
 
         switch ($this->source_type) {
             case IMAGETYPE_GIF:
             case IMAGETYPE_PNG:
             case IMAGETYPE_WEBP:
+                if (PHP_VERSION_ID < 50500) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
                 $this->source_image = imagecreatefromstring($image_data);
                 break;
 
