@@ -50,7 +50,7 @@ class ImageResize
     protected $filters = [];
 
     /**
-     * Create instance from a strng
+     * Create instance from a string
      *
      * @param string $image_data
      * @return ImageResize
@@ -92,32 +92,52 @@ class ImageResize
     }
 
     /**
-     * Loads image source and its properties to the instanciated object
+     * Loads image source and its properties to the instantiated object
      *
      * @param string $filename
-     * @return ImageResize
      * @throws ImageResizeException
      */
     public function __construct($filename)
     {
+        $image_data = null;
+
         if (!defined('IMAGETYPE_WEBP')) {
             define('IMAGETYPE_WEBP', 18);
         }
-        if ($filename === null || empty($filename) || (substr($filename, 0, 7) !== 'data://' && !is_file($filename))) {
+        if ($filename === null || empty($filename)) {
+            throw new ImageResizeException('File does not exist');
+        }
+
+        // Handle URLs using the "data://" format with base64 encoded data
+        $data_url_pattern = 'data://';
+        if (strlen($filename) > 8 && strncmp($filename, $data_url_pattern, strlen($data_url_pattern)) === 0) {
+            $base_64_pos = strpos($filename, ';base64,');
+
+            if ($base_64_pos === FALSE) {
+                throw new ImageResizeException('Malformed data url used as input');
+            }
+
+            $image_data = base64_decode(substr($filename, $base_64_pos + 8));
+        }
+        elseif (is_file($filename)) {
+            $image_data = file_get_contents($filename);
+            if ($image_data === FALSE) {
+                throw new ImageResizeException('Could not read file');
+            }
+        }
+        else {
             throw new ImageResizeException('File does not exist');
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        if (strstr(finfo_file($finfo, $filename), 'image') === false) {
+        if (strpos(finfo_buffer($finfo, $image_data), 'image') === false) {
             throw new ImageResizeException('Unsupported file type');
         }
 
-        if (!$image_info = getimagesize($filename, $this->source_info)) {
-            $image_info = getimagesize($filename);
-        }
+        $image_info = getimagesizefromstring($image_data, $this->source_info);
 
         if (!$image_info) {
-            throw new ImageResizeException('Could not read file');
+            throw new ImageResizeException('Cannot get image size');
         }
 
         list(
@@ -126,54 +146,67 @@ class ImageResize
             $this->source_type
         ) = $image_info;
 
+
         switch ($this->source_type) {
-        case IMAGETYPE_GIF:
-            $this->source_image = imagecreatefromgif($filename);
-            break;
+            case IMAGETYPE_GIF:
+            case IMAGETYPE_PNG:
+            case IMAGETYPE_WEBP:
+                if (PHP_VERSION_ID < 50500) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
+                $this->source_image = imagecreatefromstring($image_data);
+                break;
 
-        case IMAGETYPE_JPEG:
-            $this->source_image = $this->imageCreateJpegfromExif($filename);
+            case IMAGETYPE_JPEG:
+                $this->source_image = $this->imageCreateJpegfromExif($image_data);
 
-            // set new width and height for image, maybe it has changed
-            $this->original_w = ImageSX($this->source_image);
-            $this->original_h = ImageSY($this->source_image);
+                // set new width and height for image, maybe it has changed
+                $this->original_w = imagesx($this->source_image);
+                $this->original_h = imagesy($this->source_image);
+                break;
 
-            break;
-
-        case IMAGETYPE_PNG:
-            $this->source_image = imagecreatefrompng($filename);
-            break;
-
-        case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-            }
-            $this->source_image = imagecreatefromwebp($filename);
-            break;
-
-        default:
-            throw new ImageResizeException('Unsupported image type');
+            default:
+                throw new ImageResizeException('Unsupported image type');
         }
 
         if (!$this->source_image) {
             throw new ImageResizeException('Could not load image');
         }
 
-        return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
+        $this->resize($this->getSourceWidth(), $this->getSourceHeight());
+    }
+
+    public function __destruct()
+    {
+        if($this->source_image) {
+            imagedestroy($this->source_image);
+        }
     }
 
     // http://stackoverflow.com/a/28819866
-    public function imageCreateJpegfromExif($filename)
+    public function imageCreateJpegfromExif($image_data)
     {
-        $img = imagecreatefromjpeg($filename);
+        $img = imagecreatefromstring($image_data);
 
-        if (!function_exists('exif_read_data') || !isset($this->source_info['APP1'])  || strpos($this->source_info['APP1'], 'Exif') !== 0) {
+        if (
+            !function_exists('exif_read_data')
+            || !isset($this->source_info['APP1'])
+            || strpos($this->source_info['APP1'], 'Exif') !== 0
+        ) {
             return $img;
         }
 
-        $exif = @exif_read_data($filename);
+        $exit = null;
 
-        if (!$exif || !isset($exif['Orientation'])) {
+        $fp = fopen('php://memory', 'rb+');
+        if (is_resource($fp)) {
+            fwrite($fp, $image_data);
+            rewind($fp);
+            $exif = @exif_read_data($fp);
+            fclose($fp);
+        }
+
+        if ($exif === null || $exif === false || !isset($exif['Orientation'])) {
             return $img;
         }
 
@@ -206,6 +239,7 @@ class ImageResize
      * @param integer $quality
      * @param integer $permissions
      * @return \static
+     * @throws ImageResizeException
      */
     public function save($filename, $image_type = null, $quality = null, $permissions = null)
     {
@@ -274,39 +308,39 @@ class ImageResize
         $this->applyFilter($dest_image);
 
         switch ($image_type) {
-        case IMAGETYPE_GIF:
-            imagegif($dest_image, $filename);
-            break;
+            case IMAGETYPE_GIF:
+                imagegif($dest_image, $filename);
+                break;
 
-        case IMAGETYPE_JPEG:
-            if ($quality === null || $quality > 100) {
-                $quality = $this->quality_jpg;
-            }
+            case IMAGETYPE_JPEG:
+                if ($quality === null || $quality > 100) {
+                    $quality = $this->quality_jpg;
+                }
 
-            imagejpeg($dest_image, $filename, $quality);
-            break;
+                imagejpeg($dest_image, $filename, $quality);
+                break;
 
-        case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-            }
-            if ($quality === null) {
-                $quality = $this->quality_webp;
-            }
+            case IMAGETYPE_WEBP:
+                if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+                    throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+                }
+                if ($quality === null) {
+                    $quality = $this->quality_webp;
+                }
 
-            imagewebp($dest_image, $filename, $quality);
-            break;
+                imagewebp($dest_image, $filename, $quality);
+                break;
 
-        case IMAGETYPE_PNG:
-            if ($quality === null || $quality > 9) {
-                $quality = $this->quality_png;
-            }
+            case IMAGETYPE_PNG:
+                if ($quality === null || $quality > 9) {
+                    $quality = $this->quality_png;
+                }
 
-            imagepng($dest_image, $filename, $quality);
-            break;
+                imagepng($dest_image, $filename, $quality);
+                break;
         }
 
-        if ($permissions) {
+        if ($filename && $permissions) {
             chmod($filename, $permissions);
         }
 
@@ -321,6 +355,7 @@ class ImageResize
      * @param int $image_type
      * @param int $quality
      * @return string
+     * @throws ImageResizeException
      */
     public function getImageAsString($image_type = null, $quality = null)
     {
@@ -339,6 +374,7 @@ class ImageResize
      * Convert the image to string with the current settings
      *
      * @return string
+     * @throws ImageResizeException
      */
     public function __toString()
     {
@@ -349,6 +385,7 @@ class ImageResize
      * Outputs image to browser
      * @param string $image_type
      * @param integer $quality
+     * @throws ImageResizeException
      */
     public function output($image_type = null, $quality = null)
     {
@@ -489,7 +526,7 @@ class ImageResize
      * @param integer $width
      * @param integer $height
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return $this
      */
     public function resize($width, $height, $allow_enlarge = false)
     {
@@ -523,7 +560,7 @@ class ImageResize
      * @param integer $height
      * @param boolean $allow_enlarge
      * @param integer $position
-     * @return \static
+     * @return $this
      */
     public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
@@ -572,9 +609,9 @@ class ImageResize
      *
      * @param integer $width
      * @param integer $height
-     * @param integer $x
-     * @param integer $y
-     * @return \static
+     * @param integer|bool $x
+     * @param integer|bool $y
+     * @return $this
      */
     public function freecrop($width, $height, $x = false, $y = false)
     {
@@ -671,7 +708,7 @@ class ImageResize
      *
      * @param  resource $image
      * @param  integer  $mode
-     * @return null
+     * @return void
      */
     public function imageFlip($image, $mode)
     {
