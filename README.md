@@ -143,7 +143,7 @@ $image->save('image2.jpg');
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->crop(200, 200, ImageResize::CROPCENTER);
+$image->crop(200, 200, true, ImageResize::CROPCENTER);
 $image->save('image2.jpg');
 ```
 
@@ -154,7 +154,7 @@ For instance passing the crop mode `CROPTOP` will result as 100px taken off the 
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->crop(200, 200, ImageResize::CROPTOP);
+$image->crop(200, 200, true, ImageResize::CROPTOP);
 $image->save('image2.jpg');
 ```
 
@@ -162,7 +162,7 @@ On the contrary passing the crop mode `CROPBOTTOM` will result as 100px taken of
 
 ```php
 $image = new ImageResize('image.jpg');
-$image->crop(200, 200, ImageResize::CROPBOTTOM);
+$image->crop(200, 200, true, ImageResize::CROPBOTTOM);
 $image->save('image2.jpg');
 ```
 
