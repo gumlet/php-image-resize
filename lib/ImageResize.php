@@ -199,21 +199,54 @@ class ImageResize
     }
 
     /**
+     * Create canvas
+     *
+     * recreate width
+	 * recreate height
+	 * center image
+    */
+    function drawCanvas()
+    {
+		// set new width and height for image
+      $ratiow = $this->original_w / $this->getDestWidth(); 
+      $ratioh = $this->original_h / $this->getDestHeight();
+      $ratio = ($ratiow > $ratioh) ? $this->getDestWidth() / $this->original_w : $this->getDestHeight() / $this->original_h;
+      if($this->original_w > $this->getDestWidth() || $this->original_h > $this->getDestHeight()) { 
+         $this->new_w = round($this->original_w * $ratio); 
+         $this->new_h = round($this->original_h * $ratio); 
+     } else {
+         $this->new_w = round($this->original_w); 
+         $this->new_h = round($this->original_h);
+     }
+     
+		// center position image
+     $this->dest_x = 0;
+     $this->dest_y = 0;
+     if($this->getDestWidth() > $this->new_w){
+         $this->dest_x = round(($this->getDestWidth() - $this->new_w) / 2);
+     }
+     if($this->getDestHeight() > $this->new_h){
+         $this->dest_y = round(($this->getDestHeight() - $this->new_h) / 2);
+     }
+ }
+ 
+    /**
      * Saves new image
      *
      * @param string $filename
+     * @param boolean $draw_canvas
      * @param string $image_type
      * @param integer $quality
      * @param integer $permissions
      * @return \static
-     */
-    public function save($filename, $image_type = null, $quality = null, $permissions = null)
+     */	
+    function save($filename, $draw_canvas = false, $image_type = null, $quality = null, $permissions = null)
     {
         $image_type = $image_type ?: $this->source_type;
         $quality = is_numeric($quality) ? (int) abs($quality) : null;
 
         switch ($image_type) {
-        case IMAGETYPE_GIF:
+            case IMAGETYPE_GIF:
             $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
             $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
@@ -222,14 +255,14 @@ class ImageResize
             imagesavealpha($dest_image, true);
             break;
 
-        case IMAGETYPE_JPEG:
+            case IMAGETYPE_JPEG:
             $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
 
             $background = imagecolorallocate($dest_image, 255, 255, 255);
             imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
             break;
 
-        case IMAGETYPE_WEBP:
+            case IMAGETYPE_WEBP:
             if (version_compare(PHP_VERSION, '5.5.0', '<')) {
                 throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
             }
@@ -239,7 +272,7 @@ class ImageResize
             imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
             break;
 
-        case IMAGETYPE_PNG:
+            case IMAGETYPE_PNG:
             if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
                 $dest_image = imagecreate($this->getDestWidth(), $this->getDestHeight());
 
@@ -254,66 +287,81 @@ class ImageResize
             imagesavealpha($dest_image, true);
             break;
         }
-
+        
         imageinterlace($dest_image, $this->interlace);
-
-        imagecopyresampled(
-            $dest_image,
-            $this->source_image,
-            $this->dest_x,
-            $this->dest_y,
-            $this->source_x,
-            $this->source_y,
+        
+        if($draw_canvas == true){
+         $this->drawCanvas();
+         imagecopyresampled(
+            $dest_image, 
+            $this->source_image, 
+            $this->dest_x, 
+            $this->dest_y, 
+            $this->source_x, 
+            $this->source_y, 
+            $this->new_w, 
+            $this->new_h, 
+            $this->source_w,
+            $this->source_h
+        );
+     }else{
+         imagecopyresampled(
+            $dest_image, 
+            $this->source_image, 
+            $this->dest_x, 
+            $this->dest_y, 
+            $this->source_x, 
+            $this->source_y, 
             $this->getDestWidth(),
             $this->getDestHeight(),
             $this->source_w,
             $this->source_h
         );
+     }
+     
+     $this->applyFilter($dest_image);
 
-
-        $this->applyFilter($dest_image);
-
-        switch ($image_type) {
+     switch ($image_type) {
         case IMAGETYPE_GIF:
-            imagegif($dest_image, $filename);
-            break;
+        imagegif($dest_image, $filename);
+        break;
 
         case IMAGETYPE_JPEG:
-            if ($quality === null || $quality > 100) {
-                $quality = $this->quality_jpg;
-            }
+        if ($quality === null || $quality > 100) {
+            $quality = $this->quality_jpg;
+        }
 
-            imagejpeg($dest_image, $filename, $quality);
-            break;
+        imagejpeg($dest_image, $filename, $quality);
+        break;
 
         case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-            }
-            if ($quality === null) {
-                $quality = $this->quality_webp;
-            }
+        if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+            throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+        }
+        if ($quality === null) {
+            $quality = $this->quality_webp;
+        }
 
-            imagewebp($dest_image, $filename, $quality);
-            break;
+        imagewebp($dest_image, $filename, $quality);
+        break;
 
         case IMAGETYPE_PNG:
-            if ($quality === null || $quality > 9) {
-                $quality = $this->quality_png;
-            }
-
-            imagepng($dest_image, $filename, $quality);
-            break;
+        if ($quality === null || $quality > 9) {
+            $quality = $this->quality_png;
         }
 
-        if ($permissions) {
-            chmod($filename, $permissions);
-        }
-
-        imagedestroy($dest_image);
-
-        return $this;
+        imagepng($dest_image, $filename, $quality);
+        break;
     }
+
+    if ($permissions) {
+        chmod($filename, $permissions);
+    }
+
+    imagedestroy($dest_image);
+
+    return $this;
+}
 
     /**
      * Convert the image to string
