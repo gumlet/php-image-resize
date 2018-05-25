@@ -645,7 +645,7 @@ class ImageResize
      *
      * @param integer $expectedSize
      * @param integer $position
-     * @return integer
+     * @return float|integer
      */
     protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
     {
