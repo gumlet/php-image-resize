@@ -135,8 +135,8 @@ class ImageResize
             $this->source_image = $this->imageCreateJpegfromExif($filename);
 
             // set new width and height for image, maybe it has changed
-            $this->original_w = ImageSX($this->source_image);
-            $this->original_h = ImageSY($this->source_image);
+            $this->original_w = imagesx($this->source_image);
+            $this->original_h = imagesy($this->source_image);
 
             break;
 
