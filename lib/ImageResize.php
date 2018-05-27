@@ -135,8 +135,8 @@ class ImageResize
             $this->source_image = $this->imageCreateJpegfromExif($filename);
 
             // set new width and height for image, maybe it has changed
-            $this->original_w = ImageSX($this->source_image);
-            $this->original_h = ImageSY($this->source_image);
+            $this->original_w = imagesx($this->source_image);
+            $this->original_h = imagesy($this->source_image);
 
             break;
 
@@ -205,7 +205,7 @@ class ImageResize
      * @param string $image_type
      * @param integer $quality
      * @param integer $permissions
-     * @return \static
+     * @return static
      */
     public function save($filename, $image_type = null, $quality = null, $permissions = null)
     {
@@ -364,7 +364,7 @@ class ImageResize
      *
      * @param integer $max_short
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resizeToShortSide($max_short, $allow_enlarge = false)
     {
@@ -388,7 +388,7 @@ class ImageResize
      *
      * @param integer $max_long
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resizeToLongSide($max_long, $allow_enlarge = false)
     {
@@ -412,7 +412,7 @@ class ImageResize
      *
      * @param integer $height
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resizeToHeight($height, $allow_enlarge = false)
     {
@@ -429,7 +429,7 @@ class ImageResize
      *
      * @param integer $width
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resizeToWidth($width, $allow_enlarge = false)
     {
@@ -447,7 +447,7 @@ class ImageResize
      * @param integer $max_width
      * @param integer $max_height
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resizeToBestFit($max_width, $max_height, $allow_enlarge = false)
     {
@@ -471,7 +471,7 @@ class ImageResize
      * Resizes image according to given scale (proportionally)
      *
      * @param integer|float $scale
-     * @return \static
+     * @return static
      */
     public function scale($scale)
     {
@@ -489,7 +489,7 @@ class ImageResize
      * @param integer $width
      * @param integer $height
      * @param boolean $allow_enlarge
-     * @return \static
+     * @return static
      */
     public function resize($width, $height, $allow_enlarge = false)
     {
@@ -523,7 +523,7 @@ class ImageResize
      * @param integer $height
      * @param boolean $allow_enlarge
      * @param integer $position
-     * @return \static
+     * @return static
      */
     public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
@@ -574,7 +574,7 @@ class ImageResize
      * @param integer $height
      * @param integer $x
      * @param integer $y
-     * @return \static
+     * @return static
      */
     public function freecrop($width, $height, $x = false, $y = false)
     {
@@ -645,7 +645,7 @@ class ImageResize
      *
      * @param integer $expectedSize
      * @param integer $position
-     * @return integer
+     * @return float|integer
      */
     protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
     {
