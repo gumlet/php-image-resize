@@ -2,6 +2,8 @@
 
 namespace Gumlet;
 
+use Exception;
+
 /**
  * PHP class to resize and scale images
  */
@@ -171,7 +173,11 @@ class ImageResize
             return $img;
         }
 
-        $exif = @exif_read_data($filename);
+        try {
+            $exif = @exif_read_data($filename);
+        } catch (Exception $e) {
+            $exif = null;
+        }
 
         if (!$exif || !isset($exif['Orientation'])) {
             return $img;
