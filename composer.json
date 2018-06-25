@@ -1,37 +1,44 @@
 {
     "name": "gumlet/php-image-resize",
     "description": "PHP class to re-size and scale images",
-    "keywords": ["php", "image", "resize","scale"],
+    "keywords": ["php", "image", "resize", "scale"],
     "type": "library",
     "homepage": "https://github.com/gumlet/php-image-resize",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Aditya Patadia",
-            "homepage": "http://aditya.patadia.org/"
-        }
-    ],
-    "require": {
+    {
+        "name": "Aditya Patadia",
+        "homepage": "http://aditya.patadia.org/"
+    }],
+    "require":
+    {
         "php": ">=5.4.0",
         "ext-gd": "*",
         "ext-fileinfo": "*"
     },
-    "suggest": {
+    "suggest":
+    {
         "ext-exif": "Auto-rotate jpeg files"
     },
-    "autoload": {
-        "psr-4": {
+    "autoload":
+    {
+        "psr-4":
+        {
             "Gumlet\\": "lib/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
+    "autoload-dev":
+    {
+        "psr-4":
+        {
             "Gumlet\\": "test/"
         }
     },
-    "require-dev": {
+    "require-dev":
+    {
         "phpunit/phpunit": "^4.8",
-        "php-coveralls/php-coveralls": "dev-master || ^1.0",
+        "apigen/apigen": "^4.1",
+        "php-coveralls/php-coveralls": "^2.1",
         "ext-exif": "*",
         "ext-gd": "*"
     }
