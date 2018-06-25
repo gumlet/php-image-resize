@@ -43,10 +43,6 @@
 			</ul>
 
 
-			<h3>Functions</h3>
-			<ul>
-				<li><a href="function-Gumlet.imageflip.html">imageflip</a></li>
-			</ul>
 		</div>
 	</div>
 </div>
@@ -100,7 +96,7 @@
 		<b>Namespace:</b> <a href="namespace-Gumlet.html">Gumlet</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gumlet.ImageResize.html#5-630" title="Go to source code">ImageResize.php</a>
+			<b>Located at</b> <a href="source-class-Gumlet.ImageResize.html#7-721" title="Go to source code">ImageResize.php</a>
 		<br>
 	</div>
 
@@ -120,7 +116,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createFromString">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#46-60" title="Go to source code">createFromString</a>( <span>string <var>$image_data</var></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#54-68" title="Go to source code">createFromString</a>( <span>string <var>$image_data</var></span> )</code>
 
 		<div class="description short">
 			<p>Create instance from a strng</p>
@@ -151,6 +147,82 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="addFilter" id="_addFilter">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addFilter">#</a>
+		<code><a href="source-class-Gumlet.ImageResize.html#71-81" title="Go to source code">addFilter</a>( <span>callable <var>$filter</var></span> )</code>
+
+		<div class="description short">
+			<p>Add filter function for use right before save image to file.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add filter function for use right before save image to file.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="applyFilter" id="_applyFilter">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_applyFilter">#</a>
+		<code><a href="source-class-Gumlet.ImageResize.html#83-94" title="Go to source code">applyFilter</a>( <span> <var>$image</var></span>, <span> <var>$filterType</var> = IMG_FILTER_NEGATE</span> )</code>
+
+		<div class="description short">
+			<p>Apply filters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Apply filters.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$image</var></dt>
+					<dd>an image resource identifier</dd>
+					<dt><var>$filterType</var></dt>
+					<dd>type and default value is IMG_FILTER_NEGATE</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
@@ -163,7 +235,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#62-132" title="Go to source code">__construct</a>( <span>string <var>$filename</var></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#96-165" title="Go to source code">__construct</a>( <span>string <var>$filename</var></span> )</code>
 
 		<div class="description short">
 			<p>Loads image source and its properties to the instanciated object</p>
@@ -206,7 +278,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_imageCreateJpegfromExif">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#135-164" title="Go to source code">imageCreateJpegfromExif</a>( <span> <var>$filename</var></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#168-205" title="Go to source code">imageCreateJpegfromExif</a>( <span> <var>$filename</var></span> )</code>
 
 		<div class="description short">
 			
@@ -236,7 +308,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_save">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#166-278" title="Go to source code">save</a>( <span>string <var>$filename</var></span>, <span>string <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$permissions</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#207-322" title="Go to source code">save</a>( <span>string <var>$filename</var></span>, <span>string <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$permissions</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Saves new image</p>
@@ -281,7 +353,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getImageAsString">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#280-298" title="Go to source code">getImageAsString</a>( <span>integer <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#324-342" title="Go to source code">getImageAsString</a>( <span>integer <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Convert the image to string</p>
@@ -322,7 +394,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#300-308" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#344-352" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Convert the image to string with the current settings</p>
@@ -356,7 +428,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_output">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#310-322" title="Go to source code">output</a>( <span>string <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#354-366" title="Go to source code">output</a>( <span>string <var>$image_type</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$quality</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Outputs image to browser</p>
@@ -393,7 +465,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resizeToShortSide">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#324-346" title="Go to source code">resizeToShortSide</a>( <span>integer <var>$max_short</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#368-390" title="Go to source code">resizeToShortSide</a>( <span>integer <var>$max_short</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to the given short side (short side proportional)</p>
@@ -434,7 +506,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resizeToLongSide">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#348-370" title="Go to source code">resizeToLongSide</a>( <span>integer <var>$max_long</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#392-414" title="Go to source code">resizeToLongSide</a>( <span>integer <var>$max_long</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to the given long side (short side proportional)</p>
@@ -475,7 +547,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resizeToHeight">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#372-387" title="Go to source code">resizeToHeight</a>( <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#416-431" title="Go to source code">resizeToHeight</a>( <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to the given height (width proportional)</p>
@@ -516,7 +588,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resizeToWidth">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#389-404" title="Go to source code">resizeToWidth</a>( <span>integer <var>$width</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#433-448" title="Go to source code">resizeToWidth</a>( <span>integer <var>$width</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to the given width (height proportional)</p>
@@ -557,7 +629,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resizeToBestFit">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#406-430" title="Go to source code">resizeToBestFit</a>( <span>integer <var>$max_width</var></span>, <span>integer <var>$max_height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#450-474" title="Go to source code">resizeToBestFit</a>( <span>integer <var>$max_width</var></span>, <span>integer <var>$max_height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image to best fit inside the given dimensions</p>
@@ -600,7 +672,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scale">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#432-446" title="Go to source code">scale</a>( <span>integer|float <var>$scale</var></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#476-490" title="Go to source code">scale</a>( <span>integer|float <var>$scale</var></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to given scale (proportionally)</p>
@@ -639,7 +711,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resize">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#448-479" title="Go to source code">resize</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#492-523" title="Go to source code">resize</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Resizes image according to the given width and height</p>
@@ -682,7 +754,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_crop">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#481-530" title="Go to source code">crop</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$position</var> = self::CROPCENTER</span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#525-574" title="Go to source code">crop</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$position</var> = self::CROPCENTER</span> )</code>
 
 		<div class="description short">
 			<p>Crops image according to the given width, height and crop position</p>
@@ -727,7 +799,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_freecrop">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#532-564" title="Go to source code">freecrop</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>integer <var>$x</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$y</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#576-608" title="Go to source code">freecrop</a>( <span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>integer <var>$x</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$y</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Crops image according to the given width, height, x and y</p>
@@ -772,7 +844,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSourceWidth">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#566-574" title="Go to source code">getSourceWidth</a>( )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#610-618" title="Go to source code">getSourceWidth</a>( )</code>
 
 		<div class="description short">
 			<p>Gets source width</p>
@@ -806,7 +878,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSourceHeight">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#576-584" title="Go to source code">getSourceHeight</a>( )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#620-628" title="Go to source code">getSourceHeight</a>( )</code>
 
 		<div class="description short">
 			<p>Gets source height</p>
@@ -840,7 +912,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDestWidth">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#586-594" title="Go to source code">getDestWidth</a>( )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#630-638" title="Go to source code">getDestWidth</a>( )</code>
 
 		<div class="description short">
 			<p>Gets width of the destination image</p>
@@ -874,7 +946,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDestHeight">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#596-603" title="Go to source code">getDestHeight</a>( )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#640-647" title="Go to source code">getDestHeight</a>( )</code>
 
 		<div class="description short">
 			<p>Gets height of the destination image</p>
@@ -901,14 +973,14 @@
 		<td class="attributes"><code>
 			 protected 
 
-			integer
+			float|integer
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCropPosition">#</a>
-		<code><a href="source-class-Gumlet.ImageResize.html#605-629" title="Go to source code">getCropPosition</a>( <span>integer <var>$expectedSize</var></span>, <span>integer <var>$position</var> = self::CROPCENTER</span> )</code>
+		<code><a href="source-class-Gumlet.ImageResize.html#649-673" title="Go to source code">getCropPosition</a>( <span>integer <var>$expectedSize</var></span>, <span>integer <var>$position</var> = self::CROPCENTER</span> )</code>
 
 		<div class="description short">
 			<p>Gets crop position (X or Y) according to the given position</p>
@@ -928,7 +1000,48 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer
+					float|integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="imageFlip" id="_imageFlip">
+
+		<td class="attributes"><code>
+			 public 
+
+			null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_imageFlip">#</a>
+		<code><a href="source-class-Gumlet.ImageResize.html#675-720" title="Go to source code">imageFlip</a>( <span>resource <var>$image</var></span>, <span>integer <var>$mode</var></span> )</code>
+
+		<div class="description short">
+			<p>Flips an image using a given mode if PHP version is lower than 5.5</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Flips an image using a given mode if PHP version is lower than 5.5</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$image</var></dt>
+					<dd></dd>
+					<dt><var>$mode</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					null
 				</div>
 
 
@@ -953,7 +1066,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#10" title="Go to source code"><b>CROPTOP</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#12" title="Go to source code"><b>CROPTOP</b></a>
 			</code>
 
 			<div class="description short">
@@ -977,7 +1090,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#11" title="Go to source code"><b>CROPCENTRE</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#13" title="Go to source code"><b>CROPCENTRE</b></a>
 			</code>
 
 			<div class="description short">
@@ -1001,7 +1114,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#12" title="Go to source code"><b>CROPCENTER</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#14" title="Go to source code"><b>CROPCENTER</b></a>
 			</code>
 
 			<div class="description short">
@@ -1025,7 +1138,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#13" title="Go to source code"><b>CROPBOTTOM</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#15" title="Go to source code"><b>CROPBOTTOM</b></a>
 			</code>
 
 			<div class="description short">
@@ -1049,7 +1162,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#14" title="Go to source code"><b>CROPLEFT</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#16" title="Go to source code"><b>CROPLEFT</b></a>
 			</code>
 
 			<div class="description short">
@@ -1073,7 +1186,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#15" title="Go to source code"><b>CROPRIGHT</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#17" title="Go to source code"><b>CROPRIGHT</b></a>
 			</code>
 
 			<div class="description short">
@@ -1097,7 +1210,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gumlet.ImageResize.html#16" title="Go to source code"><b>CROPTOPCENTER</b></a>
+				<a href="source-class-Gumlet.ImageResize.html#18" title="Go to source code"><b>CROPTOPCENTER</b></a>
 			</code>
 
 			<div class="description short">
@@ -1116,6 +1229,78 @@
 			</div>
 		</td>
 	</tr>
+	<tr data-order="IMG_FLIP_HORIZONTAL" id="IMG_FLIP_HORIZONTAL">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gumlet.ImageResize.html#19" title="Go to source code"><b>IMG_FLIP_HORIZONTAL</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#IMG_FLIP_HORIZONTAL" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="IMG_FLIP_VERTICAL" id="IMG_FLIP_VERTICAL">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gumlet.ImageResize.html#20" title="Go to source code"><b>IMG_FLIP_VERTICAL</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#IMG_FLIP_VERTICAL" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="IMG_FLIP_BOTH" id="IMG_FLIP_BOTH">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gumlet.ImageResize.html#21" title="Go to source code"><b>IMG_FLIP_BOTH</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#IMG_FLIP_BOTH" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
 	</table>
 
 
@@ -1130,7 +1315,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#18" title="Go to source code"><var>$quality_jpg</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#23" title="Go to source code"><var>$quality_jpg</var></a>
 
 			<div class="description short">
 				
@@ -1155,7 +1340,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#19" title="Go to source code"><var>$quality_webp</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#24" title="Go to source code"><var>$quality_webp</var></a>
 
 			<div class="description short">
 				
@@ -1180,7 +1365,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#20" title="Go to source code"><var>$quality_png</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#25" title="Go to source code"><var>$quality_png</var></a>
 
 			<div class="description short">
 				
@@ -1205,7 +1390,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#21" title="Go to source code"><var>$quality_truecolor</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#26" title="Go to source code"><var>$quality_truecolor</var></a>
 
 			<div class="description short">
 				
@@ -1230,7 +1415,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#23" title="Go to source code"><var>$interlace</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#28" title="Go to source code"><var>$interlace</var></a>
 
 			<div class="description short">
 				
@@ -1255,7 +1440,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#25" title="Go to source code"><var>$source_type</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#30" title="Go to source code"><var>$source_type</var></a>
 
 			<div class="description short">
 				
@@ -1280,7 +1465,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#27" title="Go to source code"><var>$source_image</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#32" title="Go to source code"><var>$source_image</var></a>
 
 			<div class="description short">
 				
@@ -1305,7 +1490,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#29" title="Go to source code"><var>$original_w</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#34" title="Go to source code"><var>$original_w</var></a>
 
 			<div class="description short">
 				
@@ -1330,7 +1515,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#30" title="Go to source code"><var>$original_h</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#35" title="Go to source code"><var>$original_h</var></a>
 
 			<div class="description short">
 				
@@ -1355,7 +1540,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#32" title="Go to source code"><var>$dest_x</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#37" title="Go to source code"><var>$dest_x</var></a>
 
 			<div class="description short">
 				
@@ -1380,7 +1565,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#33" title="Go to source code"><var>$dest_y</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#38" title="Go to source code"><var>$dest_y</var></a>
 
 			<div class="description short">
 				
@@ -1405,7 +1590,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#35" title="Go to source code"><var>$source_x</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#40" title="Go to source code"><var>$source_x</var></a>
 
 			<div class="description short">
 				
@@ -1430,7 +1615,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#36" title="Go to source code"><var>$source_y</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#41" title="Go to source code"><var>$source_y</var></a>
 
 			<div class="description short">
 				
@@ -1455,7 +1640,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#38" title="Go to source code"><var>$dest_w</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#43" title="Go to source code"><var>$dest_w</var></a>
 
 			<div class="description short">
 				
@@ -1480,7 +1665,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#39" title="Go to source code"><var>$dest_h</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#44" title="Go to source code"><var>$dest_h</var></a>
 
 			<div class="description short">
 				
@@ -1505,7 +1690,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#41" title="Go to source code"><var>$source_w</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#46" title="Go to source code"><var>$source_w</var></a>
 
 			<div class="description short">
 				
@@ -1530,7 +1715,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#42" title="Go to source code"><var>$source_h</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#47" title="Go to source code"><var>$source_h</var></a>
 
 			<div class="description short">
 				
@@ -1555,7 +1740,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gumlet.ImageResize.html#44" title="Go to source code"><var>$source_info</var></a>
+				<a href="source-class-Gumlet.ImageResize.html#49" title="Go to source code"><var>$source_info</var></a>
 
 			<div class="description short">
 				
@@ -1570,6 +1755,31 @@
 			<div>
 				<a href="#$source_info" class="anchor">#</a>
 				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="filters" id="$filters">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gumlet.ImageResize.html#52" title="Go to source code"><var>$filters</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$filters" class="anchor">#</a>
+				<code>[]</code>
 			</div>
 		</td>
 	</tr>

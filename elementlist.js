@@ -1,3 +1,3 @@
 
 var ApiGen = ApiGen || {};
-ApiGen.elements = [["c","Gumlet\\ImageResize"],["c","Gumlet\\ImageResizeException"],["f","imageflip()"]];
+ApiGen.elements = [["c","Gumlet\\ImageResize"],["c","Gumlet\\ImageResizeException"]];
