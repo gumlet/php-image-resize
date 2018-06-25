@@ -6,7 +6,6 @@ php:
   - 7.0
   - 7.1
   - 7.2
-  - nightly
 
 before_script:
   - composer install
@@ -15,5 +14,5 @@ script:
   - mkdir -p build/logs
   - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
-after_script:
-  - php vendor/bin/coveralls -v
+after_success:
+  - travis_retry php vendor/bin/php-coveralls -v
