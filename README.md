@@ -22,12 +22,12 @@ If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
 ```json
 {
     "require": {
-        "gumlet/php-image-resize": "1.8.*"
+        "gumlet/php-image-resize": "1.9.*"
     }
 }
 ```
 
-If you are still using PHP 5.3, please install version ```1.7.0``` or below of this library.
+If you are still using PHP 5.3, please install version ```1.7.0``` and if you are using PHP 5.4, please install version ```1.8.0``` of this library.
 
 Otherwise:
 
