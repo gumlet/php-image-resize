@@ -262,7 +262,9 @@ class ImageResize
         }
 
         imageinterlace($dest_image, $this->interlace);
-
+        
+        imagegammacorrect($this->source_image, 2.2, 1.0);
+        
         imagecopyresampled(
             $dest_image,
             $this->source_image,
@@ -275,6 +277,8 @@ class ImageResize
             $this->source_w,
             $this->source_h
         );
+        
+        imagegammacorrect($dest_image, 1.0, 2.2);
 
 
         $this->applyFilter($dest_image);
