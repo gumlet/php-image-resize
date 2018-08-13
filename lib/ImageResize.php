@@ -105,7 +105,7 @@ class ImageResize
         if (!defined('IMAGETYPE_WEBP')) {
             define('IMAGETYPE_WEBP', 18);
         }
-        if ($filename === null || empty($filename) || (substr($filename, 0, 7) !== 'data://' && !is_file($filename))) {
+        if ($filename === null || empty($filename) || (substr($filename, 0, 5) !== 'data:' && !is_file($filename))) {
             throw new ImageResizeException('File does not exist');
         }
 

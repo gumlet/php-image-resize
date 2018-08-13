@@ -15,6 +15,7 @@ class ImageResizeTest extends TestCase
 
     private $unsupported_image = 'Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA';
     private $image_string = 'R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
+    private $data_url = 'data:image/gif;base64,R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
 
 
     /**
@@ -63,6 +64,14 @@ class ImageResizeTest extends TestCase
 
         $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
+    }
+
+    public function testLoadRfc2397()
+    {
+      $resize = new ImageResize($this->data_url);
+
+      $this->assertEquals(IMAGETYPE_GIF, $resize->source_type);
+      $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
 
     public function testAddFilter()
