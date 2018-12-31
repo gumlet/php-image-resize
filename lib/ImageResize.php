@@ -47,7 +47,8 @@ class ImageResize
     protected $source_h;
 
     protected $source_info;
-
+    
+    protected $gamma_correct = true;
 
     protected $filters = [];
 
@@ -286,7 +287,9 @@ class ImageResize
 
         imageinterlace($dest_image, $this->interlace);
 
-        imagegammacorrect($this->source_image, 2.2, 1.0);
+        if ($this->gamma_correct) {
+            imagegammacorrect($this->source_image, 2.2, 1.0);
+        }
 
         if( !empty($exact_size) && is_array($exact_size) ) {
             if ($this->getSourceHeight() < $this->getSourceWidth()) {
@@ -312,7 +315,9 @@ class ImageResize
             $this->source_h
         );
         
-        imagegammacorrect($dest_image, 1.0, 2.2);
+        if ($this->gamma_correct) {
+            imagegammacorrect($dest_image, 1.0, 2.2);
+        }
 
 
         $this->applyFilter($dest_image);
