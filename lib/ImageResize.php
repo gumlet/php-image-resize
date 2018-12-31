@@ -24,6 +24,7 @@ class ImageResize
     public $quality_webp = 85;
     public $quality_png = 6;
     public $quality_truecolor = true;
+    public $gamma_correct = true;
 
     public $interlace = 1;
 
@@ -48,8 +49,6 @@ class ImageResize
 
     protected $source_info;
     
-    protected $gamma_correct = true;
-
     protected $filters = [];
 
     /**
