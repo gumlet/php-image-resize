@@ -3,7 +3,7 @@ php-image-resize
 
 PHP library to resize, scale and crop images.
 
-[![Build Status](https://travis-ci.org/gumlet/php-image-resize.svg?branch=master)](https://travis-ci.org/gumlet/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/gumlet/php-image-resize/v/stable)](https://packagist.org/packages/gumlet/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/gumlet/php-image-resize/d/monthly)](https://packagist.org/packages/gumlet/php-image-resize)
+[![Build Status](https://travis-ci.org/gumlet/php-image-resize.svg?branch=master)](https://travis-ci.org/gumlet/php-image-resize) [![Latest Stable Version](https://poser.pugx.org/gumlet/php-image-resize/v/stable)](https://packagist.org/packages/gumlet/php-image-resize) [![Monthly Downloads](https://poser.pugx.org/gumlet/php-image-resize/d/monthly)](https://packagist.org/packages/gumlet/php-image-resize) [![Coverage Status](https://coveralls.io/repos/github/gumlet/php-image-resize/badge.svg?branch=master)](https://coveralls.io/github/gumlet/php-image-resize?branch=master)
 
 Hosted Solution
 ---------------
