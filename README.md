@@ -354,6 +354,15 @@ $flip->imageFlip($image, 0);
 
 Both functions will be used in the order in which they were added.
 
+Gamma color correction
+--------
+
+You can disable the gamma color correction enabled by default.
+
+```php
+$image = new ImageResize('image.png');
+$image->gamma(false);
+```
 
 API Doc
 -------

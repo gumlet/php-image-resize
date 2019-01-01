@@ -24,6 +24,7 @@ class ImageResize
     public $quality_webp = 85;
     public $quality_png = 6;
     public $quality_truecolor = true;
+    public $gamma_correct = true;
 
     public $interlace = 1;
 
@@ -47,8 +48,7 @@ class ImageResize
     protected $source_h;
 
     protected $source_info;
-
-
+    
     protected $filters = [];
 
     /**
@@ -286,7 +286,9 @@ class ImageResize
 
         imageinterlace($dest_image, $this->interlace);
 
-        imagegammacorrect($this->source_image, 2.2, 1.0);
+        if ($this->gamma_correct) {
+            imagegammacorrect($this->source_image, 2.2, 1.0);
+        }
 
         if( !empty($exact_size) && is_array($exact_size) ) {
             if ($this->getSourceHeight() < $this->getSourceWidth()) {
@@ -312,7 +314,9 @@ class ImageResize
             $this->source_h
         );
         
-        imagegammacorrect($dest_image, 1.0, 2.2);
+        if ($this->gamma_correct) {
+            imagegammacorrect($dest_image, 1.0, 2.2);
+        }
 
 
         $this->applyFilter($dest_image);
@@ -755,5 +759,18 @@ class ImageResize
                 return null;
         }
         imagedestroy($temp_image);
+    }
+
+    /**
+     * Enable or not the gamma color correction on the image, enabled by default
+     *
+     * @param bool $enable
+     * @return static
+     */
+    public function gamma($enable = true)
+    {
+        $this->gamma_correct = $enable;
+
+        return $this;
     }
 }
