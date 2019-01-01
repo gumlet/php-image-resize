@@ -760,4 +760,17 @@ class ImageResize
         }
         imagedestroy($temp_image);
     }
+
+    /**
+     * Enable or not the gamma color correction on the image, enabled by default
+     *
+     * @param bool $enable
+     * @return static
+     */
+    public function gamma($enable = true)
+    {
+        $this->gamma_correct = $enable;
+
+        return $this;
+    }
 }
