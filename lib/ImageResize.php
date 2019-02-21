@@ -249,16 +249,6 @@ class ImageResize
             if (version_compare(PHP_VERSION, '5.5.0', '<')) {
                 throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
             }
-            if( !empty($exact_size) && is_array($exact_size) ){
-                $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
-                $background = imagecolorallocate($dest_image, 255, 255, 255);
-                imagefilledrectangle($dest_image, 0, 0, $exact_size[0], $exact_size[1], $background);
-            } else{
-                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
-                $background = imagecolorallocate($dest_image, 255, 255, 255);
-                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
-            }
-            break;
 
         case IMAGETYPE_PNG:
             if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
