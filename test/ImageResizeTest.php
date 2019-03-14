@@ -410,6 +410,32 @@ class ImageResizeTest extends TestCase
         $this->assertEquals(IMAGETYPE_PNG, exif_imagetype($filename));
     }
 
+    public function testSaveWebpFromPng()
+    {
+        $image = $this->createTransparentImage(200, 100);
+
+        $resize = new ImageResize($image);
+
+        $filename = $this->getTempFile();
+
+        $resize->save($filename, IMAGETYPE_WEBP);
+
+        $this->assertEquals(IMAGETYPE_WEBP, exif_imagetype($filename));
+    }
+
+    public function testSaveWebpFromJpg()
+    {
+        $image = $this->createImage(200, 100, 'jpeg');
+
+        $resize = new ImageResize($image);
+
+        $filename = $this->getTempFile();
+
+        $resize->save($filename, IMAGETYPE_WEBP);
+
+        $this->assertEquals(IMAGETYPE_WEBP, exif_imagetype($filename));
+    }
+
     public function testSaveChmod()
     {
         $image = $this->createImage(200, 100, 'png');
@@ -507,6 +533,46 @@ class ImageResizeTest extends TestCase
         $this->assertEquals('image/png', $type);
     }
 
+    public function testOutputWebpFromPng()
+    {
+        $image = $this->createTransparentImage(200, 100);
+
+        $resize = new ImageResize($image);
+
+        ob_start();
+
+        // supressing header errors
+        @$resize->output(IMAGETYPE_WEBP);
+
+        $image_contents = ob_get_clean();
+
+        $info = finfo_open();
+
+        $type = finfo_buffer($info, $image_contents, FILEINFO_MIME_TYPE);
+
+        $this->assertEquals('image/webp', $type);
+    }
+
+    public function testOutputWebpFromJpg()
+    {
+        $image = $this->createImage(200, 100, 'jpeg');
+
+        $resize = new ImageResize($image);
+
+        ob_start();
+
+        // supressing header errors
+        @$resize->output(IMAGETYPE_WEBP);
+
+        $image_contents = ob_get_clean();
+
+        $info = finfo_open();
+
+        $type = finfo_buffer($info, $image_contents, FILEINFO_MIME_TYPE);
+
+        $this->assertEquals('image/webp', $type);
+    }
+
 
     /**
      * Helpers
@@ -524,6 +590,20 @@ class ImageResizeTest extends TestCase
 
         $output_function = 'image' . $type;
         $output_function($image, $filename);
+
+        return $filename;
+    }
+
+    private function createTransparentImage($width, $height)
+    {
+        $image = imagecreatetruecolor($width, $height);
+
+        imagesavealpha($image, true);
+	    $color = imagecolorallocatealpha($image, 0, 0, 0, 127);
+	    imagefill($image, 0, 0, $color);
+
+        $filename = $this->getTempFile();
+	    imagepng($image, $filename);
 
         return $filename;
     }
