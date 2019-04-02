@@ -5,13 +5,15 @@ addons:
     update: true
     packages:
       - libwebp-dev
-
 php:
   - 5.5
   - 5.6
   - 7.0
   - 7.1
   - 7.2
+
+before_install:
+  - ./configure --with-gd --with-jpeg-dir=/usr --with-webp-dir=/usr --with-vpx-dir=/usr --with-png-dir=/usr --enable-exif
 
 before_script:
   - composer install
