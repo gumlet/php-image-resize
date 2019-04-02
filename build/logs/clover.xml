@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1554197958">
+  <project timestamp="1554197958">
+    <package name="Gumlet">
+      <file name="/var/www/rocket/php-image-resize/lib/ImageResize.php">
+        <class name="ImageResize" namespace="Gumlet">
+          <metrics methods="25" coveredmethods="21" conditionals="0" coveredconditionals="0" statements="288" coveredstatements="245" elements="313" coveredelements="266"/>
+        </class>
+        <line num="61" type="method" name="createFromString" crap="3" count="5"/>
+        <line num="63" type="stmt" count="5"/>
+        <line num="64" type="stmt" count="1"/>
+        <line num="66" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="3"/>
+        <line num="77" type="method" name="addFilter" crap="1" count="2"/>
+        <line num="79" type="stmt" count="2"/>
+        <line num="80" type="stmt" count="2"/>
+        <line num="89" type="method" name="applyFilter" crap="2" count="14"/>
+        <line num="91" type="stmt" count="14"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="14"/>
+        <line num="103" type="method" name="__construct" crap="17.47" count="41"/>
+        <line num="105" type="stmt" count="41"/>
+        <line num="106" type="stmt" count="0"/>
+        <line num="108" type="stmt" count="41"/>
+        <line num="109" type="stmt" count="1"/>
+        <line num="112" type="stmt" count="40"/>
+        <line num="113" type="stmt" count="40"/>
+        <line num="114" type="stmt" count="1"/>
+        <line num="117" type="stmt" count="39"/>
+        <line num="118" type="stmt" count="0"/>
+        <line num="121" type="stmt" count="39"/>
+        <line num="122" type="stmt" count="0"/>
+        <line num="126" type="stmt" count="39"/>
+        <line num="127" type="stmt" count="39"/>
+        <line num="128" type="stmt" count="39"/>
+        <line num="129" type="stmt" count="39"/>
+        <line num="131" type="stmt" count="39"/>
+        <line num="132" type="stmt" count="39"/>
+        <line num="133" type="stmt" count="7"/>
+        <line num="134" type="stmt" count="7"/>
+        <line num="136" type="stmt" count="32"/>
+        <line num="137" type="stmt" count="6"/>
+        <line num="140" type="stmt" count="6"/>
+        <line num="141" type="stmt" count="6"/>
+        <line num="143" type="stmt" count="6"/>
+        <line num="145" type="stmt" count="26"/>
+        <line num="146" type="stmt" count="24"/>
+        <line num="147" type="stmt" count="24"/>
+        <line num="149" type="stmt" count="2"/>
+        <line num="150" type="stmt" count="0"/>
+        <line num="151" type="stmt" count="0"/>
+        <line num="153" type="stmt" count="0"/>
+        <line num="154" type="stmt" count="0"/>
+        <line num="157" type="stmt" count="2"/>
+        <line num="160" type="stmt" count="37"/>
+        <line num="161" type="stmt" count="0"/>
+        <line num="164" type="stmt" count="37"/>
+        <line num="168" type="method" name="imageCreateJpegfromExif" crap="194.48" count="6"/>
+        <line num="170" type="stmt" count="6"/>
+        <line num="172" type="stmt" count="6"/>
+        <line num="173" type="stmt" count="6"/>
+        <line num="177" type="stmt" count="0"/>
+        <line num="178" type="stmt" count="0"/>
+        <line num="179" type="stmt" count="0"/>
+        <line num="182" type="stmt" count="0"/>
+        <line num="183" type="stmt" count="0"/>
+        <line num="186" type="stmt" count="0"/>
+        <line num="188" type="stmt" count="0"/>
+        <line num="189" type="stmt" count="0"/>
+        <line num="190" type="stmt" count="0"/>
+        <line num="191" type="stmt" count="0"/>
+        <line num="192" type="stmt" count="0"/>
+        <line num="193" type="stmt" count="0"/>
+        <line num="196" type="stmt" count="0"/>
+        <line num="197" type="stmt" count="0"/>
+        <line num="198" type="stmt" count="0"/>
+        <line num="200" type="stmt" count="0"/>
+        <line num="204" type="stmt" count="0"/>
+        <line num="217" type="method" name="save" crap="43.17" count="14"/>
+        <line num="219" type="stmt" count="14"/>
+        <line num="220" type="stmt" count="14"/>
+        <line num="223" type="stmt" count="14"/>
+        <line num="224" type="stmt" count="4"/>
+        <line num="225" type="stmt" count="0"/>
+        <line num="227" type="stmt" count="4"/>
+        <line num="230" type="stmt" count="4"/>
+        <line num="231" type="stmt" count="4"/>
+        <line num="232" type="stmt" count="4"/>
+        <line num="233" type="stmt" count="4"/>
+        <line num="234" type="stmt" count="4"/>
+        <line num="236" type="stmt" count="10"/>
+        <line num="237" type="stmt" count="2"/>
+        <line num="238" type="stmt" count="0"/>
+        <line num="239" type="stmt" count="0"/>
+        <line num="240" type="stmt" count="0"/>
+        <line num="242" type="stmt" count="2"/>
+        <line num="243" type="stmt" count="2"/>
+        <line num="244" type="stmt" count="2"/>
+        <line num="246" type="stmt" count="2"/>
+        <line num="248" type="stmt" count="8"/>
+        <line num="249" type="stmt" count="4"/>
+        <line num="250" type="stmt" count="0"/>
+        <line num="253" type="stmt" count="4"/>
+        <line num="254" type="stmt" count="8"/>
+        <line num="255" type="stmt" count="0"/>
+        <line num="256" type="stmt" count="0"/>
+        <line num="258" type="stmt" count="0"/>
+        <line num="261" type="stmt" count="8"/>
+        <line num="262" type="stmt" count="0"/>
+        <line num="264" type="stmt" count="8"/>
+        <line num="268" type="stmt" count="8"/>
+        <line num="269" type="stmt" count="8"/>
+        <line num="271" type="stmt" count="8"/>
+        <line num="272" type="stmt" count="8"/>
+        <line num="273" type="stmt" count="8"/>
+        <line num="274" type="stmt" count="8"/>
+        <line num="277" type="stmt" count="14"/>
+        <line num="279" type="stmt" count="14"/>
+        <line num="280" type="stmt" count="14"/>
+        <line num="283" type="stmt" count="14"/>
+        <line num="284" type="stmt" count="0"/>
+        <line num="285" type="stmt" count="0"/>
+        <line num="286" type="stmt" count="0"/>
+        <line num="288" type="stmt" count="0"/>
+        <line num="289" type="stmt" count="0"/>
+        <line num="290" type="stmt" count="0"/>
+        <line num="294" type="stmt" count="14"/>
+        <line num="295" type="stmt" count="14"/>
+        <line num="296" type="stmt" count="14"/>
+        <line num="297" type="stmt" count="14"/>
+        <line num="298" type="stmt" count="14"/>
+        <line num="299" type="stmt" count="14"/>
+        <line num="300" type="stmt" count="14"/>
+        <line num="301" type="stmt" count="14"/>
+        <line num="302" type="stmt" count="14"/>
+        <line num="303" type="stmt" count="14"/>
+        <line num="304" type="stmt" count="14"/>
+        <line num="307" type="stmt" count="14"/>
+        <line num="308" type="stmt" count="14"/>
+        <line num="312" type="stmt" count="14"/>
+        <line num="315" type="stmt" count="14"/>
+        <line num="316" type="stmt" count="4"/>
+        <line num="317" type="stmt" count="4"/>
+        <line num="319" type="stmt" count="10"/>
+        <line num="320" type="stmt" count="2"/>
+        <line num="321" type="stmt" count="2"/>
+        <line num="324" type="stmt" count="2"/>
+        <line num="325" type="stmt" count="2"/>
+        <line num="327" type="stmt" count="8"/>
+        <line num="328" type="stmt" count="4"/>
+        <line num="329" type="stmt" count="0"/>
+        <line num="331" type="stmt" count="4"/>
+        <line num="332" type="stmt" count="4"/>
+        <line num="335" type="stmt" count="4"/>
+        <line num="336" type="stmt" count="4"/>
+        <line num="338" type="stmt" count="4"/>
+        <line num="339" type="stmt" count="4"/>
+        <line num="340" type="stmt" count="4"/>
+        <line num="343" type="stmt" count="4"/>
+        <line num="344" type="stmt" count="4"/>
+        <line num="347" type="stmt" count="14"/>
+        <line num="348" type="stmt" count="1"/>
+        <line num="351" type="stmt" count="14"/>
+        <line num="353" type="stmt" count="14"/>
+        <line num="363" type="method" name="getImageAsString" crap="1" count="2"/>
+        <line num="365" type="stmt" count="2"/>
+        <line num="367" type="stmt" count="2"/>
+        <line num="369" type="stmt" count="2"/>
+        <line num="371" type="stmt" count="2"/>
+        <line num="373" type="stmt" count="2"/>
+        <line num="381" type="method" name="__toString" crap="1" count="1"/>
+        <line num="383" type="stmt" count="1"/>
+        <line num="391" type="method" name="output" crap="2" count="5"/>
+        <line num="393" type="stmt" count="5"/>
+        <line num="395" type="stmt" count="5"/>
+        <line num="397" type="stmt" count="5"/>
+        <line num="398" type="stmt" count="5"/>
+        <line num="407" type="method" name="resizeToShortSide" crap="2" count="2"/>
+        <line num="409" type="stmt" count="2"/>
+        <line num="410" type="stmt" count="1"/>
+        <line num="411" type="stmt" count="1"/>
+        <line num="413" type="stmt" count="1"/>
+        <line num="415" type="stmt" count="1"/>
+        <line num="416" type="stmt" count="1"/>
+        <line num="418" type="stmt" count="1"/>
+        <line num="421" type="stmt" count="2"/>
+        <line num="431" type="method" name="resizeToLongSide" crap="2" count="2"/>
+        <line num="433" type="stmt" count="2"/>
+        <line num="434" type="stmt" count="1"/>
+        <line num="435" type="stmt" count="1"/>
+        <line num="437" type="stmt" count="1"/>
+        <line num="439" type="stmt" count="1"/>
+        <line num="440" type="stmt" count="1"/>
+        <line num="442" type="stmt" count="1"/>
+        <line num="445" type="stmt" count="2"/>
+        <line num="455" type="method" name="resizeToHeight" crap="1" count="4"/>
+        <line num="457" type="stmt" count="4"/>
+        <line num="458" type="stmt" count="4"/>
+        <line num="460" type="stmt" count="4"/>
+        <line num="462" type="stmt" count="4"/>
+        <line num="472" type="method" name="resizeToWidth" crap="1" count="2"/>
+        <line num="474" type="stmt" count="2"/>
+        <line num="475" type="stmt" count="2"/>
+        <line num="477" type="stmt" count="2"/>
+        <line num="479" type="stmt" count="2"/>
+        <line num="490" type="method" name="resizeToBestFit" crap="5" count="2"/>
+        <line num="492" type="stmt" count="2"/>
+        <line num="493" type="stmt" count="1"/>
+        <line num="496" type="stmt" count="1"/>
+        <line num="497" type="stmt" count="1"/>
+        <line num="498" type="stmt" count="1"/>
+        <line num="500" type="stmt" count="1"/>
+        <line num="501" type="stmt" count="1"/>
+        <line num="502" type="stmt" count="1"/>
+        <line num="505" type="stmt" count="1"/>
+        <line num="514" type="method" name="scale" crap="1" count="1"/>
+        <line num="516" type="stmt" count="1"/>
+        <line num="517" type="stmt" count="1"/>
+        <line num="519" type="stmt" count="1"/>
+        <line num="521" type="stmt" count="1"/>
+        <line num="532" type="method" name="resize" crap="4" count="37"/>
+        <line num="534" type="stmt" count="37"/>
+        <line num="539" type="stmt" count="37"/>
+        <line num="540" type="stmt" count="1"/>
+        <line num="541" type="stmt" count="1"/>
+        <line num="545" type="stmt" count="37"/>
+        <line num="546" type="stmt" count="37"/>
+        <line num="548" type="stmt" count="37"/>
+        <line num="549" type="stmt" count="37"/>
+        <line num="551" type="stmt" count="37"/>
+        <line num="552" type="stmt" count="37"/>
+        <line num="554" type="stmt" count="37"/>
+        <line num="566" type="method" name="crop" crap="5" count="4"/>
+        <line num="568" type="stmt" count="4"/>
+        <line num="573" type="stmt" count="4"/>
+        <line num="574" type="stmt" count="1"/>
+        <line num="577" type="stmt" count="4"/>
+        <line num="578" type="stmt" count="1"/>
+        <line num="582" type="stmt" count="4"/>
+        <line num="583" type="stmt" count="4"/>
+        <line num="585" type="stmt" count="4"/>
+        <line num="586" type="stmt" count="3"/>
+        <line num="588" type="stmt" count="3"/>
+        <line num="590" type="stmt" count="3"/>
+        <line num="591" type="stmt" count="3"/>
+        <line num="593" type="stmt" count="3"/>
+        <line num="595" type="stmt" count="1"/>
+        <line num="597" type="stmt" count="1"/>
+        <line num="599" type="stmt" count="1"/>
+        <line num="600" type="stmt" count="1"/>
+        <line num="602" type="stmt" count="1"/>
+        <line num="605" type="stmt" count="4"/>
+        <line num="617" type="method" name="freecrop" crap="5" count="1"/>
+        <line num="619" type="stmt" count="1"/>
+        <line num="620" type="stmt" count="1"/>
+        <line num="622" type="stmt" count="1"/>
+        <line num="623" type="stmt" count="1"/>
+        <line num="624" type="stmt" count="1"/>
+        <line num="625" type="stmt" count="1"/>
+        <line num="627" type="stmt" count="1"/>
+        <line num="630" type="stmt" count="1"/>
+        <line num="631" type="stmt" count="1"/>
+        <line num="633" type="stmt" count="1"/>
+        <line num="636" type="stmt" count="1"/>
+        <line num="637" type="stmt" count="1"/>
+        <line num="639" type="stmt" count="1"/>
+        <line num="647" type="method" name="getSourceWidth" crap="1" count="37"/>
+        <line num="649" type="stmt" count="37"/>
+        <line num="657" type="method" name="getSourceHeight" crap="1" count="37"/>
+        <line num="659" type="stmt" count="37"/>
+        <line num="667" type="method" name="getDestWidth" crap="1" count="29"/>
+        <line num="669" type="stmt" count="29"/>
+        <line num="676" type="method" name="getDestHeight" crap="1" count="28"/>
+        <line num="678" type="stmt" count="28"/>
+        <line num="688" type="method" name="getCropPosition" crap="6" count="4"/>
+        <line num="690" type="stmt" count="4"/>
+        <line num="692" type="stmt" count="4"/>
+        <line num="693" type="stmt" count="4"/>
+        <line num="694" type="stmt" count="1"/>
+        <line num="695" type="stmt" count="1"/>
+        <line num="696" type="stmt" count="4"/>
+        <line num="697" type="stmt" count="1"/>
+        <line num="698" type="stmt" count="4"/>
+        <line num="699" type="stmt" count="4"/>
+        <line num="700" type="stmt" count="1"/>
+        <line num="701" type="stmt" count="1"/>
+        <line num="702" type="stmt" count="1"/>
+        <line num="704" type="stmt" count="4"/>
+        <line num="714" type="method" name="imageFlip" crap="8" count="1"/>
+        <line num="717" type="stmt" count="1"/>
+        <line num="718" type="stmt" count="1"/>
+        <line num="719" type="stmt" count="1"/>
+        <line num="720" type="stmt" count="1"/>
+        <line num="721" type="stmt" count="1"/>
+        <line num="722" type="stmt" count="1"/>
+        <line num="723" type="stmt" count="1"/>
+        <line num="724" type="stmt" count="1"/>
+        <line num="725" type="stmt" count="1"/>
+        <line num="727" type="stmt" count="1"/>
+        <line num="729" type="stmt" count="1"/>
+        <line num="730" type="stmt" count="1"/>
+        <line num="731" type="stmt" count="1"/>
+        <line num="732" type="stmt" count="1"/>
+        <line num="733" type="stmt" count="1"/>
+        <line num="734" type="stmt" count="1"/>
+        <line num="735" type="stmt" count="1"/>
+        <line num="736" type="stmt" count="1"/>
+        <line num="737" type="stmt" count="1"/>
+        <line num="739" type="stmt" count="1"/>
+        <line num="741" type="stmt" count="1"/>
+        <line num="742" type="stmt" count="1"/>
+        <line num="743" type="stmt" count="1"/>
+        <line num="744" type="stmt" count="1"/>
+        <line num="745" type="stmt" count="1"/>
+        <line num="746" type="stmt" count="1"/>
+        <line num="749" type="stmt" count="1"/>
+        <line num="751" type="stmt" count="1"/>
+        <line num="752" type="stmt" count="1"/>
+        <line num="760" type="method" name="gamma" crap="2" count="0"/>
+        <line num="762" type="stmt" count="0"/>
+        <line num="764" type="stmt" count="0"/>
+        <metrics loc="766" ncloc="587" classes="1" methods="25" coveredmethods="21" conditionals="0" coveredconditionals="0" statements="288" coveredstatements="245" elements="313" coveredelements="266"/>
+      </file>
+      <file name="/var/www/rocket/php-image-resize/lib/ImageResizeException.php">
+        <class name="ImageResizeException" namespace="Gumlet">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="10" ncloc="7" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+    </package>
+    <metrics files="2" loc="776" ncloc="594" classes="2" methods="25" coveredmethods="21" conditionals="0" coveredconditionals="0" statements="288" coveredstatements="245" elements="313" coveredelements="266"/>
+  </project>
+</coverage>
