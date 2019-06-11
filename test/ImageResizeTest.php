@@ -58,6 +58,15 @@ class ImageResizeTest extends TestCase
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
 
+    public function testLoadWebp()
+    {
+        $image = __DIR__ . '/ressources/test_webp.webp';
+        $resize = new ImageResize($image);
+
+        $this->assertEquals(IMAGETYPE_WEBP, $resize->source_type);
+        $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
+    }
+
     public function testLoadString()
     {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
