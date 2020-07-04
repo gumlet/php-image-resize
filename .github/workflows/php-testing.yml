@@ -19,7 +19,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         extensions: gd
-        coverage: none
+        coverage: xdebug
         tools: php-cs-fixer, phpunit
 
     - name: Composer Install
@@ -28,10 +28,4 @@ jobs:
     - name: Running Tests
       run: |
         mkdir -p build/logs
-        ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: build/logs/clover.xml
+        ./vendor/bin/phpunit
