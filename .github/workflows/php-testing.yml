@@ -1,0 +1,37 @@
+name: PHP CI
+
+on: ["push", "pull_request"]
+
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: gd
+        coverage: none
+        tools: php-cs-fixer, phpunit
+
+    - name: Composer Install
+      run: composer install
+
+    - Running Tests
+      run: |
+        mkdir -p build/logs
+        ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: build/logs/clover.xml
