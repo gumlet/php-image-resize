@@ -19,7 +19,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
-        extensions: gd, xdebug
+        extensions: gd, xdebug, fileinfo
         coverage: xdebug
         tools: php-cs-fixer, phpunit
 
