@@ -18,8 +18,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
-        extensions: gd
-        coverage: none
+        extensions: gd, xdebug
+        coverage: xdebug
         tools: php-cs-fixer, phpunit
 
     - name: Composer Install
@@ -28,5 +28,4 @@ jobs:
     - name: Running Tests
       run: |
         mkdir -p build/logs
-        ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-        php vendor/bin/php-coveralls
+        ./vendor/bin/phpunit
