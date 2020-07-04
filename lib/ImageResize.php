@@ -48,7 +48,7 @@ class ImageResize
     protected $source_h;
 
     protected $source_info;
-    
+
     protected $filters = [];
 
     /**
@@ -110,23 +110,32 @@ class ImageResize
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $checkWebp = false;
         if (strstr(finfo_file($finfo, $filename), 'image') === false) {
-            throw new ImageResizeException('Unsupported file type');
+            if (version_compare(PHP_VERSION, '5.6.0', '<=')) {
+                if (strstr(file_get_contents($filename), 'WEBPVP8') !== false) {
+                    $checkWebp = true;
+                    $this->source_type = IMAGETYPE_WEBP;
+                }
+
+            } else {
+                throw new ImageResizeException('Unsupported file type');
+            }
         }
 
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
         }
 
-        if (!$image_info) {
-            throw new ImageResizeException('Could not read file');
-        }
+        if (!$checkWebp) {
+            if (!$image_info) {
+                throw new ImageResizeException('Could not read file');
+            }
 
-        list(
-            $this->original_w,
-            $this->original_h,
-            $this->source_type
-        ) = $image_info;
+            $this->original_w = $image_info[0];
+            $this->original_h = $image_info[1];
+            $this->source_type = $image_info[2];
+        }
 
         switch ($this->source_type) {
         case IMAGETYPE_GIF:
@@ -147,10 +156,10 @@ class ImageResize
             break;
 
         case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-            }
             $this->source_image = imagecreatefromwebp($filename);
+            $this->original_w = imagesx($this->source_image);
+            $this->original_h = imagesy($this->source_image);
+
             break;
 
         default:
@@ -300,7 +309,7 @@ class ImageResize
                 $this->dest_y = 0;
             }
         }
-        
+
         imagecopyresampled(
             $dest_image,
             $this->source_image,
@@ -313,7 +322,7 @@ class ImageResize
             $this->source_w,
             $this->source_h
         );
-        
+
         if ($this->gamma_correct) {
             imagegammacorrect($dest_image, 1.0, 2.2);
         }
