@@ -509,7 +509,7 @@ class ImageResize
 
         if ($height > $max_height) {
             $height = $max_height;
-            $width = $height / $ratio;
+            $width = (int) round($height / $ratio);
         }
 
         return $this->resize($width, $height, $allow_enlarge);
