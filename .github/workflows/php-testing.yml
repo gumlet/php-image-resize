@@ -25,7 +25,7 @@ jobs:
     - name: Composer Install
       run: composer install
 
-    - Running Tests
+    - name: Running Tests
       run: |
         mkdir -p build/logs
         ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
