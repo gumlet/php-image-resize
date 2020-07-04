@@ -118,7 +118,7 @@ class ImageResize
             } else {
                 throw new ImageResizeException('Unsupported file type');
             }
-        } elseif(strstr(finfo_file($finfo, $filename), 'image/webp')) {
+        } elseif(strstr(finfo_file($finfo, $filename), 'image/webp') !== false) {
           $checkWebp = true;
           $this->source_type = IMAGETYPE_WEBP;
         }
