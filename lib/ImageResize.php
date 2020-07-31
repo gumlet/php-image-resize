@@ -217,7 +217,7 @@ class ImageResize
      * Saves new image
      *
      * @param string $filename
-     * @param string $image_type
+     * @param integer $image_type
      * @param integer $quality
      * @param integer $permissions
      * @param boolean $exact_size
