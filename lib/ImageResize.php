@@ -267,6 +267,10 @@ class ImageResize
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
             }
+                
+            imagealphablending($dest_image, false);
+            imagesavealpha($dest_image, true);
+                
             break;
 
         case IMAGETYPE_PNG:
