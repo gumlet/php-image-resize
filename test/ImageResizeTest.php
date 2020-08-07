@@ -108,7 +108,7 @@ class ImageResizeTest extends TestCase
 
     /**
      * @expectedException \Gumlet\ImageResizeException
-     * @expectedExceptionMessage File does not exist
+     * @expectedExceptionMessage No filename given
      */
     public function testLoadNoFile()
     {

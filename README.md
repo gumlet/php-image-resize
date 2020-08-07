@@ -64,7 +64,7 @@ To scale an image, in this case to half it's size (scaling is percentage based):
 ```php
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$image->save('image2.jpg')
+$image->save('image2.jpg');
 ```
 
 To resize an image according to one dimension (keeping aspect ratio):
@@ -327,7 +327,7 @@ $image->addFilter(function ($imageDesc) {
 });
 
 // Add banner on bottom left corner
-$image18Plus = 'banner.png'
+$image18Plus = 'banner.png';
 $image->addFilter(function ($imageDesc) use ($image18Plus) {
     $logo = imagecreatefrompng($image18Plus);
     $logo_width = imagesx($logo);
@@ -359,11 +359,11 @@ Both functions will be used in the order in which they were added.
 Gamma color correction
 --------
 
-You can disable the gamma color correction enabled by default.
+You can enable the gamma color correction disabled by default.
 
 ```php
 $image = new ImageResize('image.png');
-$image->gamma(false);
+$image->gamma(true);
 ```
 
 API Doc

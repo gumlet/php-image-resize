@@ -1,45 +1,43 @@
 {
-    "name": "gumlet/php-image-resize",
-    "description": "PHP class to re-size and scale images",
-    "keywords": ["php", "image", "resize", "scale"],
-    "type": "library",
-    "homepage": "https://github.com/gumlet/php-image-resize",
-    "license": "MIT",
-    "authors": [
+  "name": "gumlet/php-image-resize",
+  "description": "PHP class to resize and scale images",
+  "keywords": [
+    "php",
+    "image",
+    "resize",
+    "scale"
+  ],
+  "type": "library",
+  "homepage": "https://github.com/gumlet/php-image-resize",
+  "license": "MIT",
+  "authors": [
     {
-        "name": "Aditya Patadia",
-        "homepage": "http://aditya.patadia.org/"
-    }],
-    "require":
-    {
-        "php": ">=5.5.0",
-        "ext-gd": "*",
-        "ext-fileinfo": "*"
-    },
-    "suggest":
-    {
-        "ext-exif": "Auto-rotate jpeg files"
-    },
-    "autoload":
-    {
-        "psr-4":
-        {
-            "Gumlet\\": "lib/"
-        }
-    },
-    "autoload-dev":
-    {
-        "psr-4":
-        {
-            "Gumlet\\": "test/"
-        }
-    },
-    "require-dev":
-    {
-        "phpunit/phpunit": "^4.8",
-        "apigen/apigen": "^4.1",
-        "php-coveralls/php-coveralls": "^2.1",
-        "ext-exif": "*",
-        "ext-gd": "*"
+      "name": "Aditya Patadia",
+      "homepage": "http://aditya.patadia.org/"
     }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "ext-gd": "*",
+    "ext-fileinfo": "*",
+    "ext-exif": "*"
+  },
+  "suggest": {
+    "ext-exif": "Auto-rotate jpeg files"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gumlet\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Gumlet\\": "test/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8",
+    "apigen/apigen": "^4.1",
+    "php-coveralls/php-coveralls": "^2.1"
+  }
 }
