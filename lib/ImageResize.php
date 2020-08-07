@@ -347,6 +347,8 @@ class ImageResize implements ImageResizeInterface
         if ($this->gamma_correction) {
             if (false === imagegammacorrect( $dest_image, 1.0, 2.2 ))
                 throw new ImageResizeException(__CLASS__ . ' ERROR: Correction image gamma failed (1.0 -> 2.2)');
+            if (false === imagegammacorrect( $source_image, 1.0, 2.2 ))
+                throw new ImageResizeException(__CLASS__ . ' ERROR: Correction source image gamma failed (1.0 -> 2.2)');
         }
         
         $this->applyFilter( $dest_image );
@@ -729,4 +731,24 @@ class ImageResize implements ImageResizeInterface
         
         return $this;
     }
+    
+    public function setQualityJPEG($quality)
+    {
+        $this->quality_jpg = $quality ?: $this->quality_jpg;
+        return $this;
+    }
+    
+    public function setQualityPNG($quality)
+    {
+        $this->quality_png = $quality ?: $this->quality_png;
+        return $this;
+    }
+    
+    public function setQualityWebp($quality)
+    {
+        $this->quality_webp = $quality ?: $this->quality_webp;
+        return $this;
+    }
+    
+    
 }
