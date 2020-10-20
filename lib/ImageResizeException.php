@@ -7,4 +7,5 @@ namespace Gumlet;
  */
 class ImageResizeException extends \Exception
 {
+
 }

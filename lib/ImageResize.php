@@ -75,8 +75,8 @@ class ImageResize implements ImageResizeInterface
     
     public function __construct($filename)
     {
-        if (!defined( 'IMAGETYPE_WEBP' )) {
-            define( 'IMAGETYPE_WEBP', 18 );
+        if (!defined('IMAGETYPE_WEBP')) {
+            define('IMAGETYPE_WEBP', 18);
         }
         
         if ($filename === null || empty($filename))
@@ -86,7 +86,7 @@ class ImageResize implements ImageResizeInterface
             throw new ImageResizeException( __CLASS__ . " ERROR: Not a file or valid datastream" );
         }
         
-        $finfo = finfo_open( FILEINFO_MIME_TYPE );
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
         if (false === $finfo)
             throw new ImageResizeException(__CLASS__ . " ERROR: Can't retrieve file info.");
         
@@ -749,6 +749,5 @@ class ImageResize implements ImageResizeInterface
         $this->quality_webp = $quality ?: $this->quality_webp;
         return $this;
     }
-    
     
 }
