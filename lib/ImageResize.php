@@ -675,13 +675,6 @@ class ImageResize implements ImageResizeInterface
         return $size;
     }
     
-    /**
-     *  Flips an image using a given mode if PHP version is lower than 5.5
-     *
-     * @param resource $image
-     * @param integer $mode
-     * @return null
-     */
     public function imageFlip($image, $mode)
     {
         switch ($mode) {
@@ -728,7 +721,6 @@ class ImageResize implements ImageResizeInterface
     public function gamma($enable = true)
     {
         $this->gamma_correction = $enable;
-        
         return $this;
     }
     

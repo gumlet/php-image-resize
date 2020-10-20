@@ -214,5 +214,31 @@ interface ImageResizeInterface
      */
     public function gamma($enable = true);
     
+    /**
+     * Flips an image using a given mode if PHP version is lower than 5.5
+     *
+     * @param resource $image
+     * @param integer $mode
+     */
     public function imageFlip($image, $mode);
+    
+    /**
+     * Set JPEG Quality
+     *
+     * @param $quality
+     * @return static
+     */
+    public function setQualityJPEG($quality);
+    
+    /**
+     * @param $quality
+     * @return static
+     */
+    public function setQualityPNG($quality);
+    
+    /**
+     * @param $quality
+     * @return static
+     */
+    public function setQualityWebp($quality);
 }
