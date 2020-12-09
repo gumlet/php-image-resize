@@ -274,7 +274,7 @@ class ImageResize
             break;
 
         case IMAGETYPE_PNG:
-            if (!$this->quality_truecolor && !imageistruecolor($this->source_image)) {
+            if (!$this->quality_truecolor || !imageistruecolor($this->source_image)) {
                 if( !empty($exact_size) && is_array($exact_size) ){
                     $dest_image = imagecreate($exact_size[0], $exact_size[1]);
                 } else{
