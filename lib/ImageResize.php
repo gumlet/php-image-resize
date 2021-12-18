@@ -431,12 +431,12 @@ class ImageResize
     {
         if ($this->getSourceHeight() < $this->getSourceWidth()) {
             $ratio = $max_short / $this->getSourceHeight();
-            $long = $this->getSourceWidth() * $ratio;
+            $long = (int) ($this->getSourceWidth() * $ratio);
 
             $this->resize($long, $max_short, $allow_enlarge);
         } else {
             $ratio = $max_short / $this->getSourceWidth();
-            $long = $this->getSourceHeight() * $ratio;
+            $long = (int) ($this->getSourceHeight() * $ratio);
 
             $this->resize($max_short, $long, $allow_enlarge);
         }
