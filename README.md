@@ -359,11 +359,11 @@ Both functions will be used in the order in which they were added.
 Gamma color correction
 --------
 
-You can disable the gamma color correction enabled by default.
+You can enable the gamma color correction which is disabled by default.
 
 ```php
 $image = new ImageResize('image.png');
-$image->gamma(false);
+$image->gamma(true);
 ```
 
 API Doc
