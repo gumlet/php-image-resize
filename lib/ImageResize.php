@@ -203,11 +203,7 @@ class ImageResize
         }
 
         if ($orientation === 5 || $orientation === 4 || $orientation === 7) {
-            if(function_exists('imageflip')) {
-                imageflip($img, IMG_FLIP_HORIZONTAL);
-            } else {
-                $this->imageFlip($img, IMG_FLIP_HORIZONTAL);
-            }
+            imageflip($img, IMG_FLIP_HORIZONTAL);
         }
 
         return $img;
@@ -455,12 +451,12 @@ class ImageResize
     {
         if ($this->getSourceHeight() > $this->getSourceWidth()) {
             $ratio = $max_long / $this->getSourceHeight();
-            $short = $this->getSourceWidth() * $ratio;
+            $short = (int) ($this->getSourceWidth() * $ratio);
 
             $this->resize($short, $max_long, $allow_enlarge);
         } else {
             $ratio = $max_long / $this->getSourceWidth();
-            $short = $this->getSourceHeight() * $ratio;
+            $short = (int) ($this->getSourceHeight() * $ratio);
 
             $this->resize($max_long, $short, $allow_enlarge);
         }
@@ -478,7 +474,7 @@ class ImageResize
     public function resizeToHeight($height, $allow_enlarge = false)
     {
         $ratio = $height / $this->getSourceHeight();
-        $width = $this->getSourceWidth() * $ratio;
+        $width = (int) ($this->getSourceWidth() * $ratio);
 
         $this->resize($width, $height, $allow_enlarge);
 
@@ -495,7 +491,7 @@ class ImageResize
     public function resizeToWidth($width, $allow_enlarge = false)
     {
         $ratio  = $width / $this->getSourceWidth();
-        $height = $this->getSourceHeight() * $ratio;
+        $height = (int) ($this->getSourceHeight() * $ratio);
 
         $this->resize($width, $height, $allow_enlarge);
 
@@ -518,11 +514,11 @@ class ImageResize
 
         $ratio  = $this->getSourceHeight() / $this->getSourceWidth();
         $width = $max_width;
-        $height = $width * $ratio;
+        $height = (int) ($width * $ratio);
 
         if ($height > $max_height) {
             $height = $max_height;
-            $width = (int) round($height / $ratio);
+            $width = (int) ($height / $ratio);
         }
 
         return $this->resize($width, $height, $allow_enlarge);
@@ -536,8 +532,8 @@ class ImageResize
      */
     public function scale($scale)
     {
-        $width  = $this->getSourceWidth() * $scale / 100;
-        $height = $this->getSourceHeight() * $scale / 100;
+        $width  = (int) ($this->getSourceWidth() * $scale / 100);
+        $height = (int) ($this->getSourceHeight() * $scale / 100);
 
         $this->resize($width, $height, true);
 
@@ -608,7 +604,7 @@ class ImageResize
         if ($ratio_dest < $ratio_source) {
             $this->resizeToHeight($height, $allow_enlarge);
 
-            $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
+            $excess_width = (int) (($this->getDestWidth() - $width) * $this->getSourceWidth() / $this->getDestWidth());
 
             $this->source_w = $this->getSourceWidth() - $excess_width;
             $this->source_x = $this->getCropPosition($excess_width, $position);
@@ -617,7 +613,7 @@ class ImageResize
         } else {
             $this->resizeToWidth($width, $allow_enlarge);
 
-            $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
+            $excess_height = (int) (($this->getDestHeight() - $height) * $this->getSourceHeight() / $this->getDestHeight());
 
             $this->source_h = $this->getSourceHeight() - $excess_height;
             $this->source_y = $this->getCropPosition($excess_height, $position);
@@ -728,59 +724,12 @@ class ImageResize
     }
 
     /**
-     *  Flips an image using a given mode if PHP version is lower than 5.5
-     *
-     * @param  resource $image
-     * @param  integer  $mode
-     * @return null
-     */
-    public function imageFlip($image, $mode)
-    {
-        switch($mode) {
-            case self::IMG_FLIP_HORIZONTAL: {
-                $max_x = imagesx($image) - 1;
-                $half_x = $max_x / 2;
-                $sy = imagesy($image);
-                $temp_image = imageistruecolor($image)? imagecreatetruecolor(1, $sy): imagecreate(1, $sy);
-                for ($x = 0; $x < $half_x; ++$x) {
-                    imagecopy($temp_image, $image, 0, 0, $x, 0, 1, $sy);
-                    imagecopy($image, $image, $x, 0, $max_x - $x, 0, 1, $sy);
-                    imagecopy($image, $temp_image, $max_x - $x, 0, 0, 0, 1, $sy);
-                }
-                break;
-            }
-            case self::IMG_FLIP_VERTICAL: {
-                $sx = imagesx($image);
-                $max_y = imagesy($image) - 1;
-                $half_y = $max_y / 2;
-                $temp_image = imageistruecolor($image)? imagecreatetruecolor($sx, 1): imagecreate($sx, 1);
-                for ($y = 0; $y < $half_y; ++$y) {
-                    imagecopy($temp_image, $image, 0, 0, 0, $y, $sx, 1);
-                    imagecopy($image, $image, 0, $y, 0, $max_y - $y, $sx, 1);
-                    imagecopy($image, $temp_image, 0, $max_y - $y, 0, 0, $sx, 1);
-                }
-                break;
-            }
-            case self::IMG_FLIP_BOTH: {
-                $sx = imagesx($image);
-                $sy = imagesy($image);
-                $temp_image = imagerotate($image, 180, 0);
-                imagecopy($image, $temp_image, 0, 0, 0, 0, $sx, $sy);
-                break;
-            }
-            default:
-                return null;
-        }
-        imagedestroy($temp_image);
-    }
-
-    /**
      * Enable or not the gamma color correction on the image, enabled by default
      *
      * @param bool $enable
      * @return static
      */
-    public function gamma($enable = true)
+    public function gamma($enable = false)
     {
         $this->gamma_correct = $enable;
 
