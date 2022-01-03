@@ -237,7 +237,7 @@ $image->save('image.png', IMAGETYPE_PNG);
 Quality
 -------
 
-The properties `$quality_jpg` and `$quality_png` are available for you to configure:
+The properties `$quality_jpg`, `$quality_webp` and `$quality_png` are available for you to configure:
 
 ```php
 $image = new ImageResize('image.jpg');
