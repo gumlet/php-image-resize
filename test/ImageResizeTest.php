@@ -10,10 +10,11 @@ class ImageResizeTest extends TestCase
     private $image_types = array(
         'gif',
         'jpeg',
-        'png'
+        'png',
+        'bmp',
     );
 
-    private $unsupported_image = 'Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA';
+    private $unsupported_image = 'AAAKAAAAAAAAAAAAAQABABgAAF9SlQAAAAAAAAAAVFJVRVZJU0lPTi1YRklMRS4A';
     private $image_string = 'R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
     private $data_url = 'data:image/gif;base64,R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
 
@@ -64,6 +65,15 @@ class ImageResizeTest extends TestCase
         $resize = new ImageResize($image);
 
         $this->assertEquals(IMAGETYPE_WEBP, $resize->source_type);
+        $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
+    }
+
+    public function testLoadBmp()
+    {
+        $image = __DIR__ . '/ressources/test_bmp.bmp';
+        $resize = new ImageResize($image);
+
+        $this->assertEquals(IMAGETYPE_BMP, $resize->source_type);
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
 
@@ -392,6 +402,15 @@ class ImageResizeTest extends TestCase
         $resize->save($filename);
 
         $this->assertEquals(IMAGETYPE_PNG, exif_imagetype($filename));
+    }
+
+    public function testSaveBmp()
+    {
+        $image = $this->createImage(200, 100, 'png');
+        $resize = new ImageResize($image);
+        $filename = $this->getTempFile();
+        $resize->save($filename, IMAGETYPE_BMP);
+        $this->assertEquals(IMAGETYPE_BMP, exif_imagetype($filename));
     }
 
     public function testSaveChmod()

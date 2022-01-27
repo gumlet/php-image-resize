@@ -105,6 +105,11 @@ class ImageResize
         if (!defined('IMAGETYPE_WEBP')) {
             define('IMAGETYPE_WEBP', 18);
         }
+
+        if (!defined('IMAGETYPE_BMP')) {
+            define('IMAGETYPE_BMP', 6);
+        }
+
         if ($filename === null || empty($filename) || (substr($filename, 0, 5) !== 'data:' && !is_file($filename))) {
             throw new ImageResizeException('File does not exist');
         }
@@ -129,6 +134,10 @@ class ImageResize
 
         if (!$checkWebp) {
             if (!$image_info) {
+                if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
+                    throw new ImageResizeException('Unsupported image type');
+                }
+
                 throw new ImageResizeException('Could not read file');
             }
 
@@ -162,6 +171,13 @@ class ImageResize
 
             break;
 
+        case IMAGETYPE_BMP:
+            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
+                throw new ImageResizeException('For bmp support PHP >= 7.2.0 is required');
+            }
+            $this->source_image = imagecreatefrombmp($filename);
+            break;
+
         default:
             throw new ImageResizeException('Unsupported image type');
         }
@@ -169,6 +185,8 @@ class ImageResize
         if (!$this->source_image) {
             throw new ImageResizeException('Could not load image');
         }
+
+        finfo_close($finfo);
 
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
@@ -291,6 +309,22 @@ class ImageResize
             imagecolortransparent($dest_image, $background);
             imagefill($dest_image, 0, 0, $background);
             break;
+
+        case IMAGETYPE_BMP:
+            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
+                throw new ImageResizeException('For WebP support PHP >= 7.2.0 is required');
+            }
+
+            if(!empty($exact_size) && is_array($exact_size)) {
+                $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $exact_size[0], $exact_size[1], $background);
+            } else {
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
+            }
+            break;
         }
 
         imageinterlace($dest_image, $this->interlace);
@@ -360,6 +394,10 @@ class ImageResize
             }
 
             imagepng($dest_image, $filename, $quality);
+            break;
+
+        case IMAGETYPE_BMP:
+            imagebmp($dest_image, $filename, $quality);
             break;
         }
 
