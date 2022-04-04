@@ -66,7 +66,7 @@ To scale an image, in this case to half it's size (scaling is percentage based):
 ```php
 $image = new ImageResize('image.jpg');
 $image->scale(50);
-$image->save('image2.jpg')
+$image->save('image2.jpg');
 ```
 
 To resize an image according to one dimension (keeping aspect ratio):
