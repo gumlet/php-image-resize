@@ -213,11 +213,11 @@ class ImageResize
         $orientation = $exif['Orientation'];
 
         if ($orientation === 6 || $orientation === 5) {
-            $img = imagerotate($img, 270, null);
+            $img = imagerotate($img, 270, 0);
         } elseif ($orientation === 3 || $orientation === 4) {
-            $img = imagerotate($img, 180, null);
+            $img = imagerotate($img, 180, 0);
         } elseif ($orientation === 8 || $orientation === 7) {
-            $img = imagerotate($img, 90, null);
+            $img = imagerotate($img, 90, 0);
         }
 
         if ($orientation === 5 || $orientation === 4 || $orientation === 7) {
