@@ -380,4 +380,4 @@ Maintainer
 
 This library is maintained by <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a>
 
-[<img src="https://www.gumlet.com/public/img/logo.png" width="300px">](https://www.gumlet.com)
+[<img src="https://assets.gumlet.com/public/img/logo.png" width="300px">](https://www.gumlet.com)
