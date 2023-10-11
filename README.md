@@ -352,7 +352,9 @@ Flips an image using a given mode and this method is only for PHP version 5.4.
 $flip = new ImageResize('image.png');
 $image = imagecreatetruecolor(200, 100);
 
-$flip->imageFlip($image, 0);
+$image->addFilter(function ($image) {
+    imageflip($image, IMG_FLIP_HORIZONTAL);
+});
 
 ```
 
