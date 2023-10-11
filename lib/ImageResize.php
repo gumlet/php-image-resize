@@ -465,12 +465,12 @@ class ImageResize
     {
         if ($this->getSourceHeight() < $this->getSourceWidth()) {
             $ratio = $max_short / $this->getSourceHeight();
-            $long = (int) ($this->getSourceWidth() * $ratio);
+            $long = (int) round($this->getSourceWidth() * $ratio);
 
             $this->resize($long, $max_short, $allow_enlarge);
         } else {
             $ratio = $max_short / $this->getSourceWidth();
-            $long = (int) ($this->getSourceHeight() * $ratio);
+            $long = (int) round($this->getSourceHeight() * $ratio);
 
             $this->resize($max_short, $long, $allow_enlarge);
         }
@@ -489,12 +489,12 @@ class ImageResize
     {
         if ($this->getSourceHeight() > $this->getSourceWidth()) {
             $ratio = $max_long / $this->getSourceHeight();
-            $short = (int) ($this->getSourceWidth() * $ratio);
+            $short = (int) round($this->getSourceWidth() * $ratio);
 
             $this->resize($short, $max_long, $allow_enlarge);
         } else {
             $ratio = $max_long / $this->getSourceWidth();
-            $short = (int) ($this->getSourceHeight() * $ratio);
+            $short = (int) round($this->getSourceHeight() * $ratio);
 
             $this->resize($max_long, $short, $allow_enlarge);
         }
@@ -512,7 +512,7 @@ class ImageResize
     public function resizeToHeight($height, $allow_enlarge = false)
     {
         $ratio = $height / $this->getSourceHeight();
-        $width = (int) ($this->getSourceWidth() * $ratio);
+        $width = (int) round($this->getSourceWidth() * $ratio);
 
         $this->resize($width, $height, $allow_enlarge);
 
@@ -529,7 +529,7 @@ class ImageResize
     public function resizeToWidth($width, $allow_enlarge = false)
     {
         $ratio  = $width / $this->getSourceWidth();
-        $height = (int) ($this->getSourceHeight() * $ratio);
+        $height = (int) round($this->getSourceHeight() * $ratio);
 
         $this->resize($width, $height, $allow_enlarge);
 
@@ -552,11 +552,11 @@ class ImageResize
 
         $ratio  = $this->getSourceHeight() / $this->getSourceWidth();
         $width = $max_width;
-        $height = (int) ($width * $ratio);
+        $height = (int) round($width * $ratio);
 
         if ($height > $max_height) {
             $height = $max_height;
-            $width = (int) ($height / $ratio);
+            $width = (int) round($height / $ratio);
         }
 
         return $this->resize($width, $height, $allow_enlarge);
@@ -570,8 +570,8 @@ class ImageResize
      */
     public function scale($scale)
     {
-        $width  = (int) ($this->getSourceWidth() * $scale / 100);
-        $height = (int) ($this->getSourceHeight() * $scale / 100);
+        $width  = (int) round($this->getSourceWidth() * $scale / 100);
+        $height = (int) round($this->getSourceHeight() * $scale / 100);
 
         $this->resize($width, $height, true);
 
@@ -642,7 +642,7 @@ class ImageResize
         if ($ratio_dest < $ratio_source) {
             $this->resizeToHeight($height, $allow_enlarge);
 
-            $excess_width = (int) (($this->getDestWidth() - $width) * $this->getSourceWidth() / $this->getDestWidth());
+            $excess_width = (int) round(($this->getDestWidth() - $width) * $this->getSourceWidth() / $this->getDestWidth());
 
             $this->source_w = $this->getSourceWidth() - $excess_width;
             $this->source_x = $this->getCropPosition($excess_width, $position);
@@ -651,7 +651,7 @@ class ImageResize
         } else {
             $this->resizeToWidth($width, $allow_enlarge);
 
-            $excess_height = (int) (($this->getDestHeight() - $height) * $this->getSourceHeight() / $this->getDestHeight());
+            $excess_height = (int) round(($this->getDestHeight() - $height) * $this->getSourceHeight() / $this->getDestHeight());
 
             $this->source_h = $this->getSourceHeight() - $excess_height;
             $this->source_y = $this->getCropPosition($excess_height, $position);
@@ -758,7 +758,7 @@ class ImageResize
             $size = $expectedSize / 4;
             break;
         }
-        return (int) $size;
+        return (int) round($size);
     }
 
     /**
