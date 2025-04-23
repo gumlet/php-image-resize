@@ -15,8 +15,8 @@ class ImageResizeTest extends TestCase
     );
 
     private $unsupported_image = 'AAAKAAAAAAAAAAAAAQABABgAAF9SlQAAAAAAAAAAVFJVRVZJU0lPTi1YRklMRS4A';
-    private $image_string = 'R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
-    private $data_url = 'data:image/gif;base64,R0lGODlhAQABAIAAAAQCBP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==';
+    private $image_string = 'R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+    private $data_url = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
 
 
     /**
@@ -435,14 +435,14 @@ class ImageResizeTest extends TestCase
     {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
         $image = $resize->getImageAsString();
-        $this->assertEquals(43, strlen($image));
+        $this->assertEquals(35, strlen($image));
     }
 
     public function testToString()
     {
         $resize = ImageResize::createFromString(base64_decode($this->image_string));
         $image = (string)$resize;
-        $this->assertEquals(43, strlen($image));
+        $this->assertEquals(35, strlen($image));
     }
 
 
