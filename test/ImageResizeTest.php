@@ -14,7 +14,7 @@ class ImageResizeTest extends TestCase
         'bmp',
     );
 
-    private $unsupported_image = 'AAAKAAAAAAAAAAAAAQABABgAAF9SlQAAAAAAAAAAVFJVRVZJU0lPTi1YRklMRS4A';
+    private $unsupported_image = 'AAAMJXgAAACGQpA0AAABAAEAGQAA'; // JPEG-XL image
     private $image_string = 'R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
     private $data_url = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
 
