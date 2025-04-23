@@ -166,6 +166,8 @@ class ImageResize
 
         case IMAGETYPE_AVIF:
             $this->source_image = imagecreatefromavif($filename);
+            $this->original_w = imagesx($this->source_image);
+            $this->original_h = imagesy($this->source_image);
             break;
 
         case IMAGETYPE_BMP:
