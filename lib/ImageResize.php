@@ -109,24 +109,21 @@ class ImageResize
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
         }
 
-        if (!$checkWebp) {
-            if (!$image_info) {
-                if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
-                    throw new ImageResizeException('Unsupported image type');
-                }
-
-                throw new ImageResizeException('Could not read file');
+        if (!$image_info) {
+            if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
+                throw new ImageResizeException('Unsupported image type');
             }
 
-            $this->original_w = $image_info[0];
-            $this->original_h = $image_info[1];
-            $this->source_type = $image_info[2];
+            throw new ImageResizeException('Unsupported file type');
         }
+
+        $this->original_w = $image_info[0];
+        $this->original_h = $image_info[1];
+        $this->source_type = $image_info[2];
 
         switch ($this->source_type) {
         case IMAGETYPE_GIF:
