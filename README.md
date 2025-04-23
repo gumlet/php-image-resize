@@ -8,7 +8,7 @@ PHP library to resize, scale and crop images.
 Cloud Solution
 ---------------
 
-If you don't want to crop, resize and store images on your server, <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a> is a **free** service which can process images in real-time and serve worldwide through CDN.
+If you don't want to crop, resize and store images on your server, <a href="https://www.gumlet.com/image-optimization/" target="_blank">Gumlet.com</a> is a **free** service which can process images in real-time and serve worldwide through CDN.
 
 ------------------
 
@@ -382,4 +382,4 @@ Maintainer
 
 This library is maintained by <a href="https://www.gumlet.com" target="_blank">Gumlet.com</a>
 
-[<img src="https://assets.gumlet.com/public/img/logo.png" width="300px">](https://www.gumlet.com)
+[<img src="https://assets.gumlet.io/public/img/logo.png" width="300px">](https://www.gumlet.com)
