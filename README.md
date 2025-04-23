@@ -22,7 +22,7 @@ If using [Composer](https://getcomposer.org/), in your `composer.json` file add:
 ```json
 {
     "require": {
-        "gumlet/php-image-resize": "2.0.*"
+        "gumlet/php-image-resize": "2.1.*"
     }
 }
 ```
@@ -31,7 +31,7 @@ If you are still using PHP 5.3, please install version ```1.7.0``` and if you ar
 
 WebP support is added with PHP `5.6.0` and current version of library supports that. If you are facing issues, please use `1.9.2` version of this library.
 
-For PHP versions >= 7.2, `2.0.1` or above version of this library should be used.
+For PHP versions >= 7.2 to 8.0, `2.0.x` or version of this library should be used.
 
 Otherwise:
 

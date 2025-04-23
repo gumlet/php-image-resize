@@ -68,6 +68,16 @@ class ImageResizeTest extends TestCase
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
 
+    public function testLoadAvif()
+    {
+        $image = __DIR__ . '/ressources/test_avif.avif';
+        $resize = new ImageResize($image);
+
+        $this->assertEquals(100, $resize->original_w);
+        $this->assertEquals(IMAGETYPE_AVIF, $resize->source_type);
+        $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
+    }
+
     public function testLoadBmp()
     {
         $image = __DIR__ . '/ressources/test_bmp.bmp';

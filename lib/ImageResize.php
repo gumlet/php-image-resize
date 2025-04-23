@@ -22,6 +22,7 @@ class ImageResize
 
     public $quality_jpg = 85;
     public $quality_webp = 85;
+    public $quality_avif = 60;
     public $quality_png = 6;
     public $quality_truecolor = true;
     public $gamma_correct = false;
@@ -102,49 +103,27 @@ class ImageResize
      */
     public function __construct($filename)
     {
-        if (!defined('IMAGETYPE_WEBP')) {
-            define('IMAGETYPE_WEBP', 18);
-        }
-
-        if (!defined('IMAGETYPE_BMP')) {
-            define('IMAGETYPE_BMP', 6);
-        }
-
         if ($filename === null || empty($filename) || (substr($filename, 0, 5) !== 'data:' && !is_file($filename))) {
             throw new ImageResizeException('File does not exist');
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $checkWebp = false;
-        if (strstr(finfo_file($finfo, $filename), 'image') === false) {
-            if (version_compare(PHP_VERSION, '7.0.0', '<=') && strstr(file_get_contents($filename), 'WEBPVP8') !== false) {
-                $checkWebp = true;
-                $this->source_type = IMAGETYPE_WEBP;
-            } else {
-                throw new ImageResizeException('Unsupported file type');
-            }
-        } elseif(strstr(finfo_file($finfo, $filename), 'image/webp') !== false) {
-          $checkWebp = true;
-          $this->source_type = IMAGETYPE_WEBP;
-        }
 
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
         }
 
-        if (!$checkWebp) {
-            if (!$image_info) {
-                if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
-                    throw new ImageResizeException('Unsupported image type');
-                }
-
-                throw new ImageResizeException('Could not read file');
+        if (!$image_info) {
+            if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
+                throw new ImageResizeException('Unsupported image type');
             }
 
-            $this->original_w = $image_info[0];
-            $this->original_h = $image_info[1];
-            $this->source_type = $image_info[2];
+            throw new ImageResizeException('Could not read file');
         }
+
+        $this->original_w = $image_info[0];
+        $this->original_h = $image_info[1];
+        $this->source_type = $image_info[2];
 
         switch ($this->source_type) {
         case IMAGETYPE_GIF:
@@ -171,10 +150,14 @@ class ImageResize
 
             break;
 
+        case IMAGETYPE_AVIF:
+            $this->source_image = imagecreatefromavif($filename);
+            $this->original_w = imagesx($this->source_image);
+            $this->original_h = imagesy($this->source_image);
+
+            break;
+
         case IMAGETYPE_BMP:
-            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
-                throw new ImageResizeException('For bmp support PHP >= 7.2.0 is required');
-            }
             $this->source_image = imagecreatefrombmp($filename);
             break;
 
@@ -269,9 +252,22 @@ class ImageResize
             break;
 
         case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
+            if( !empty($exact_size) && is_array($exact_size) ){
+                $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $exact_size[0], $exact_size[1], $background);
+            } else{
+                $dest_image = imagecreatetruecolor($this->getDestWidth(), $this->getDestHeight());
+                $background = imagecolorallocate($dest_image, 255, 255, 255);
+                imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
             }
+                
+            imagealphablending($dest_image, false);
+            imagesavealpha($dest_image, true);
+                
+            break;
+        
+        case IMAGETYPE_AVIF:
             if( !empty($exact_size) && is_array($exact_size) ){
                 $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
@@ -378,14 +374,19 @@ class ImageResize
             break;
 
         case IMAGETYPE_WEBP:
-            if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 5.5.0 is required');
-            }
             if ($quality === null) {
                 $quality = $this->quality_webp;
             }
 
             imagewebp($dest_image, $filename, $quality);
+            break;
+
+        case IMAGETYPE_AVIF:
+            if ($quality === null) {
+                $quality = $this->quality_avif;
+            }
+
+            imageavif($dest_image, $filename, $quality);
             break;
 
         case IMAGETYPE_PNG:
