@@ -159,9 +159,6 @@ class ImageResize
 
         case IMAGETYPE_WEBP:
             $this->source_image = imagecreatefromwebp($filename);
-            $this->original_w = imagesx($this->source_image);
-            $this->original_h = imagesy($this->source_image);
-
             break;
 
         case IMAGETYPE_AVIF:
@@ -171,9 +168,6 @@ class ImageResize
             break;
 
         case IMAGETYPE_BMP:
-            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
-                throw new ImageResizeException('For bmp support PHP >= 7.2.0 is required');
-            }
             $this->source_image = imagecreatefrombmp($filename);
             break;
 
@@ -323,10 +317,6 @@ class ImageResize
             break;
 
         case IMAGETYPE_BMP:
-            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
-                throw new ImageResizeException('For WebP support PHP >= 7.2.0 is required');
-            }
-
             if(!empty($exact_size) && is_array($exact_size)) {
                 $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
