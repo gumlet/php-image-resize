@@ -108,18 +108,7 @@ class ImageResize
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $checkWebp = false;
-        if (strstr(finfo_file($finfo, $filename), 'image') === false) {
-            if (version_compare(PHP_VERSION, '7.0.0', '<=') && strstr(file_get_contents($filename), 'WEBPVP8') !== false) {
-                $checkWebp = true;
-                $this->source_type = IMAGETYPE_WEBP;
-            } else {
-                throw new ImageResizeException('Unsupported file type');
-            }
-        } elseif(strstr(finfo_file($finfo, $filename), 'image/webp') !== false) {
-          $checkWebp = true;
-          $this->source_type = IMAGETYPE_WEBP;
-        }
+
 
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
