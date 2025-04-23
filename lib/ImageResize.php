@@ -108,22 +108,36 @@ class ImageResize
         }
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $checkWebp = false;
+        if (strstr(finfo_file($finfo, $filename), 'image') === false) {
+            if (version_compare(PHP_VERSION, '7.0.0', '<=') && strstr(file_get_contents($filename), 'WEBPVP8') !== false) {
+                $checkWebp = true;
+                $this->source_type = IMAGETYPE_WEBP;
+            } else {
+                throw new ImageResizeException('Unsupported file type');
+            }
+        } elseif(strstr(finfo_file($finfo, $filename), 'image/webp') !== false) {
+          $checkWebp = true;
+          $this->source_type = IMAGETYPE_WEBP;
+        }
 
         if (!$image_info = getimagesize($filename, $this->source_info)) {
             $image_info = getimagesize($filename);
         }
 
-        if (!$image_info) {
-            if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
-                throw new ImageResizeException('Unsupported image type');
+        if (!$checkWebp) {
+            if (!$image_info) {
+                if (strstr(finfo_file($finfo, $filename), 'image') !== false) {
+                    throw new ImageResizeException('Unsupported image type');
+                }
+
+                throw new ImageResizeException('Could not read file');
             }
 
-            throw new ImageResizeException('Could not read file');
+            $this->original_w = $image_info[0];
+            $this->original_h = $image_info[1];
+            $this->source_type = $image_info[2];
         }
-
-        $this->original_w = $image_info[0];
-        $this->original_h = $image_info[1];
-        $this->source_type = $image_info[2];
 
         switch ($this->source_type) {
         case IMAGETYPE_GIF:
@@ -152,12 +166,12 @@ class ImageResize
 
         case IMAGETYPE_AVIF:
             $this->source_image = imagecreatefromavif($filename);
-            $this->original_w = imagesx($this->source_image);
-            $this->original_h = imagesy($this->source_image);
-
             break;
 
         case IMAGETYPE_BMP:
+            if (version_compare(PHP_VERSION, '7.2.0', '<')) {
+                throw new ImageResizeException('For bmp support PHP >= 7.2.0 is required');
+            }
             $this->source_image = imagecreatefrombmp($filename);
             break;
 
