@@ -64,7 +64,7 @@ class ImageResizeTest extends TestCase
         $image = __DIR__ . '/ressources/test_webp.webp';
         $resize = new ImageResize($image);
 
-        $this->assertEquals(IMAGETYPE_WEBP, $resize->getSourceWidth());
+        $this->assertEquals(IMAGETYPE_WEBP, $resize->source_type);
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
 
@@ -73,7 +73,7 @@ class ImageResizeTest extends TestCase
         $image = __DIR__ . '/ressources/test_avif.avif';
         $resize = new ImageResize($image);
 
-        $this->assertEquals(100, $resize->original_w);
+        $this->assertEquals(100, $resize->getSourceWidth());
         $this->assertEquals(IMAGETYPE_AVIF, $resize->source_type);
         $this->assertInstanceOf('\Gumlet\ImageResize', $resize);
     }
