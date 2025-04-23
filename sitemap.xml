@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url><loc>index.html</loc></url>
+
+		<url><loc>tree.html</loc></url>
+
+			<url><loc>namespace-Gumlet.html</loc></url>
+
+			<url><loc>Gumlet.ImageResize.html</loc></url>
+			<url><loc>Gumlet.ImageResizeException.html</loc></url>
+
+
+			<url><loc>source-ImageResize.html</loc></url>
+			<url><loc>source-ImageResizeException.html</loc></url>
+</urlset>

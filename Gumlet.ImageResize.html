@@ -1,0 +1,1589 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Class Gumlet\ImageResize |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-Gumlet.html">Gumlet</a>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li class="active">
+						<a href="Gumlet.ImageResize.html">
+							ImageResize
+						</a>
+					</li>
+			</ul>
+		</div>
+		<div class="menu-section">
+			<h3>Exceptions</h3>
+			<ul>
+					<li>
+						<a href="Gumlet.ImageResizeException.html">
+							ImageResizeException
+						</a>
+					</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-Gumlet.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="Gumlet.ImageResize.html">Class</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+		<h1>
+			Class <a href="namespace-Gumlet.html">Gumlet</a>\<a href="Gumlet.ImageResize.html">ImageResize</a>
+		</h1>
+
+
+	<table class="classLikeSignatureTable">
+
+
+
+
+	</table>
+		<div class="classLikeDescription">
+	<div class="description"><p>PHP class to resize and scale images</p>
+</div>
+		</div>
+
+
+		<div class="classLikeSection">
+			<b>Located at</b> <a href="source-ImageResize.html#10" title="Go to source code">ImageResize.php</a><br>
+		</div>
+
+
+
+		<table class="table" id="methods">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Methods</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="createFromString" id="_createFromString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					static
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#55-69" title="Go to source code">createFromString</a>(<span>string <var>$image_data</var></span>): <b><span class="active" title="Gumlet\ImageResize">ImageResize</span></b></code>
+
+
+	<div class="expandable-collapsedView">
+		Create instance from a strng
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Create instance from a strng</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="Gumlet.ImageResizeException.html"><span>Gumlet\ImageResizeException</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_createFromString">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="addFilter" id="_addFilter">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#72-82" title="Go to source code">addFilter</a>(<span>callable <var>$filter</var></span>): $this</code>
+
+
+	<div class="expandable-collapsedView">
+		Add filter function for use right before save image to file.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Add filter function for use right before save image to file.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_addFilter">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="applyFilter" id="_applyFilter">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#84-95" title="Go to source code">applyFilter</a>(<span><var>$image</var></span>, <span><var>$filterType</var> = IMG_FILTER_NEGATE</span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Apply filters.
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Apply filters.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_applyFilter">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="__construct" id="___construct">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#97-171" title="Go to source code">__construct</a>(<span>string <var>$filename</var></span>): <b><span class="active" title="Gumlet\ImageResize">ImageResize</span></b></code>
+
+
+	<div class="expandable-collapsedView">
+		Loads image source and its properties to the instanciated object
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Loads image source and its properties to the instanciated object</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="Gumlet.ImageResizeException.html"><span>Gumlet\ImageResizeException</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#___construct">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="imageCreateJpegfromExif" id="_imageCreateJpegfromExif">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#173-207" title="Go to source code">imageCreateJpegfromExif</a>(<span><var>$filename</var></span>)</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_imageCreateJpegfromExif">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="save" id="_save">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#209-404" title="Go to source code">save</a>(
+	<span>string <var>$filename</var></span>,
+	<span>integer <var>$image_type</var> = <span class="php-kw">null</span></span>,
+	<span>integer <var>$quality</var> = <span class="php-kw">null</span></span>,
+	<span>integer <var>$permissions</var> = <span class="php-kw">null</span></span>,
+	<span>boolean <var>$exact_size</var> = <span class="php-kw">false</span></span>,
+): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Saves new image
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Saves new image</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_save">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getImageAsString" id="_getImageAsString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#406-424" title="Go to source code">getImageAsString</a>(<span>int <var>$image_type</var> = <span class="php-kw">null</span></span>, <span>int <var>$quality</var> = <span class="php-kw">null</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Convert the image to string
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Convert the image to string</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getImageAsString">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="__toString" id="___toString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#426-434" title="Go to source code">__toString</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Convert the image to string with the current settings
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Convert the image to string with the current settings</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#___toString">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="output" id="_output">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#436-448" title="Go to source code">output</a>(<span>string <var>$image_type</var> = <span class="php-kw">null</span></span>, <span>integer <var>$quality</var> = <span class="php-kw">null</span></span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Outputs image to browser
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Outputs image to browser</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_output">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resizeToShortSide" id="_resizeToShortSide">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#450-472" title="Go to source code">resizeToShortSide</a>(<span>integer <var>$max_short</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to the given short side (short side proportional)
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to the given short side (short side proportional)</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resizeToShortSide">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resizeToLongSide" id="_resizeToLongSide">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#474-496" title="Go to source code">resizeToLongSide</a>(<span>integer <var>$max_long</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to the given long side (short side proportional)
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to the given long side (short side proportional)</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resizeToLongSide">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resizeToHeight" id="_resizeToHeight">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#498-513" title="Go to source code">resizeToHeight</a>(<span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to the given height (width proportional)
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to the given height (width proportional)</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resizeToHeight">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resizeToWidth" id="_resizeToWidth">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#515-530" title="Go to source code">resizeToWidth</a>(<span>integer <var>$width</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to the given width (height proportional)
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to the given width (height proportional)</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resizeToWidth">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resizeToBestFit" id="_resizeToBestFit">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#532-556" title="Go to source code">resizeToBestFit</a>(<span>integer <var>$max_width</var></span>, <span>integer <var>$max_height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image to best fit inside the given dimensions
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image to best fit inside the given dimensions</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resizeToBestFit">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="scale" id="_scale">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#558-572" title="Go to source code">scale</a>(<span>integer|float <var>$scale</var></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to given scale (proportionally)
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to given scale (proportionally)</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_scale">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="resize" id="_resize">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#574-605" title="Go to source code">resize</a>(<span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Resizes image according to the given width and height
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Resizes image according to the given width and height</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_resize">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="crop" id="_crop">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#607-656" title="Go to source code">crop</a>(<span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>boolean <var>$allow_enlarge</var> = <span class="php-kw">false</span></span>, <span>integer <var>$position</var> = <b><span class="active" title="Gumlet\ImageResize">self</span></b>::<a href="Gumlet.ImageResize.html#CROPCENTER">CROPCENTER</a></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Crops image according to the given width, height and crop position
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Crops image according to the given width, height and crop position</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_crop">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="freecrop" id="_freecrop">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#658-690" title="Go to source code">freecrop</a>(<span>integer <var>$width</var></span>, <span>integer <var>$height</var></span>, <span>integer <var>$x</var> = <span class="php-kw">false</span></span>, <span>integer <var>$y</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Crops image according to the given width, height, x and y
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Crops image according to the given width, height, x and y</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_freecrop">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getSourceWidth" id="_getSourceWidth">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#692-700" title="Go to source code">getSourceWidth</a>(): integer</code>
+
+
+	<div class="expandable-collapsedView">
+		Gets source width
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Gets source width</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getSourceWidth">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getSourceHeight" id="_getSourceHeight">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#702-710" title="Go to source code">getSourceHeight</a>(): integer</code>
+
+
+	<div class="expandable-collapsedView">
+		Gets source height
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Gets source height</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getSourceHeight">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getDestWidth" id="_getDestWidth">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#712-720" title="Go to source code">getDestWidth</a>(): integer</code>
+
+
+	<div class="expandable-collapsedView">
+		Gets width of the destination image
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Gets width of the destination image</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getDestWidth">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getDestHeight" id="_getDestHeight">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#722-729" title="Go to source code">getDestHeight</a>(): integer</code>
+
+
+	<div class="expandable-collapsedView">
+		Gets height of the destination image
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Gets height of the destination image</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getDestHeight">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getCropPosition" id="_getCropPosition">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#731-755" title="Go to source code">getCropPosition</a>(<span>integer <var>$expectedSize</var></span>, <span>integer <var>$position</var> = <b><span class="active" title="Gumlet\ImageResize">self</span></b>::<a href="Gumlet.ImageResize.html#CROPCENTER">CROPCENTER</a></span>): integer</code>
+
+
+	<div class="expandable-collapsedView">
+		Gets crop position (X or Y) according to the given position
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Gets crop position (X or Y) according to the given position</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getCropPosition">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="gamma" id="_gamma">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-ImageResize.html#757-768" title="Go to source code">gamma</a>(<span>bool <var>$enable</var> = <span class="php-kw">false</span></span>): static</code>
+
+
+	<div class="expandable-collapsedView">
+		Enable or not the gamma color correction on the image, enabled by default
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Enable or not the gamma color correction on the image, enabled by default</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_gamma">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+		<table class="table" id="constants">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Constants</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="CROPTOP" id="CROPTOP">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#12" title="Go to source code">CROPTOP</a> = <span class="php-num">1</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPTOP">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPCENTRE" id="CROPCENTRE">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#13" title="Go to source code">CROPCENTRE</a> = <span class="php-num">2</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPCENTRE">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPCENTER" id="CROPCENTER">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#14" title="Go to source code">CROPCENTER</a> = <span class="php-num">2</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPCENTER">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPBOTTOM" id="CROPBOTTOM">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#15" title="Go to source code">CROPBOTTOM</a> = <span class="php-num">3</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPBOTTOM">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPLEFT" id="CROPLEFT">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#16" title="Go to source code">CROPLEFT</a> = <span class="php-num">4</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPLEFT">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPRIGHT" id="CROPRIGHT">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#17" title="Go to source code">CROPRIGHT</a> = <span class="php-num">5</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPRIGHT">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="CROPTOPCENTER" id="CROPTOPCENTER">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#18" title="Go to source code">CROPTOPCENTER</a> = <span class="php-num">6</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#CROPTOPCENTER">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="IMG_FLIP_HORIZONTAL" id="IMG_FLIP_HORIZONTAL">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#19" title="Go to source code">IMG_FLIP_HORIZONTAL</a> = <span class="php-num">0</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#IMG_FLIP_HORIZONTAL">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="IMG_FLIP_VERTICAL" id="IMG_FLIP_VERTICAL">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#20" title="Go to source code">IMG_FLIP_VERTICAL</a> = <span class="php-num">1</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#IMG_FLIP_VERTICAL">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="IMG_FLIP_BOTH" id="IMG_FLIP_BOTH">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-ImageResize.html#21" title="Go to source code">IMG_FLIP_BOTH</a> = <span class="php-num">2</span></code>
+
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#IMG_FLIP_BOTH">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+		<table class="table" id="properties">
+			<tr>
+				<th class="table-heading sortable" colspan="4" title="Switch between natural and alphabetical order">Properties</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="quality_jpg" id="$quality_jpg">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#23" title="Go to source code">$quality_jpg</a></var> = <span class="php-num">85</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$quality_jpg">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="quality_webp" id="$quality_webp">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#24" title="Go to source code">$quality_webp</a></var> = <span class="php-num">85</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$quality_webp">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="quality_avif" id="$quality_avif">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#25" title="Go to source code">$quality_avif</a></var> = <span class="php-num">60</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$quality_avif">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="quality_png" id="$quality_png">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#26" title="Go to source code">$quality_png</a></var> = <span class="php-num">6</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$quality_png">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="quality_truecolor" id="$quality_truecolor">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#27" title="Go to source code">$quality_truecolor</a></var> = <span class="php-kw">true</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$quality_truecolor">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="gamma_correct" id="$gamma_correct">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#28" title="Go to source code">$gamma_correct</a></var> = <span class="php-kw">false</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$gamma_correct">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="interlace" id="$interlace">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#30" title="Go to source code">$interlace</a></var> = <span class="php-num">1</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$interlace">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_type" id="$source_type">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#32" title="Go to source code">$source_type</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_type">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_image" id="$source_image">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#34" title="Go to source code">$source_image</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_image">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="original_w" id="$original_w">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#36" title="Go to source code">$original_w</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$original_w">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="original_h" id="$original_h">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#37" title="Go to source code">$original_h</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$original_h">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="dest_x" id="$dest_x">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#39" title="Go to source code">$dest_x</a></var> = <span class="php-num">0</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$dest_x">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="dest_y" id="$dest_y">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#40" title="Go to source code">$dest_y</a></var> = <span class="php-num">0</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$dest_y">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_x" id="$source_x">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#42" title="Go to source code">$source_x</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_x">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_y" id="$source_y">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#43" title="Go to source code">$source_y</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_y">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="dest_w" id="$dest_w">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#45" title="Go to source code">$dest_w</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$dest_w">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="dest_h" id="$dest_h">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#46" title="Go to source code">$dest_h</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$dest_h">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_w" id="$source_w">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#48" title="Go to source code">$source_w</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_w">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_h" id="$source_h">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#49" title="Go to source code">$source_h</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_h">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="source_info" id="$source_info">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#51" title="Go to source code">$source_info</a></var></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$source_info">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="filters" id="$filters">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap"></code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-ImageResize.html#53" title="Go to source code">$filters</a></var> = []</code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$filters">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+		</div>
+
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen v7.0.0-alpha.6</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>
