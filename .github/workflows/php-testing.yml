@@ -24,7 +24,7 @@ jobs:
         tools: php-cs-fixer, phpunit
 
     - name: Composer Install
-      run:  composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      run:  composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
     - name: Running Tests
       run: |
