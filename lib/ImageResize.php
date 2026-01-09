@@ -165,8 +165,6 @@ class ImageResize
             throw new ImageResizeException('Could not load image');
         }
 
-        finfo_close($finfo);
-
         return $this->resize($this->getSourceWidth(), $this->getSourceHeight());
     }
 
@@ -257,12 +255,12 @@ class ImageResize
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, (int) $this->getDestWidth(), (int) $this->getDestHeight(), $background);
             }
-                
+
             imagealphablending($dest_image, false);
             imagesavealpha($dest_image, true);
-                
+
             break;
-        
+
         case IMAGETYPE_AVIF:
             if( !empty($exact_size) && is_array($exact_size) ){
                 $dest_image = imagecreatetruecolor($exact_size[0], $exact_size[1]);
@@ -273,10 +271,10 @@ class ImageResize
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, (int) $this->getDestWidth(), (int) $this->getDestHeight(), $background);
             }
-                
+
             imagealphablending($dest_image, false);
             imagesavealpha($dest_image, true);
-                
+
             break;
 
         case IMAGETYPE_PNG:
@@ -397,8 +395,6 @@ class ImageResize
         if ($permissions) {
             chmod($filename, $permissions);
         }
-
-        imagedestroy($dest_image);
 
         return $this;
     }
