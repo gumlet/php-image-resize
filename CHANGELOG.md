@@ -2,7 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## [3.0.1] - 2026-10-06 — **Security release** (GHSA-3g9v-hjrx-mg5h)
+
+### Security
+
+- **CWE-400 — Image bomb / uncontrolled resource consumption.**
+  `__construct()` now checks the source image pixel count (`width × height`)
+  against the new `$max_source_pixels` property (default **15,000,000**)
+  **before** calling `imagecreatefromXXX()`. A 4,000 × 4,000 PNG that is
+  only ~56 KB on disk but requires ~61 MB of memory to decode is now rejected
+  immediately with `ImageResizeException`, so the fatal OOM error can no longer
+  kill a PHP-FPM worker. Set `$resize->max_source_pixels = 0` to disable the
+  limit for fully trusted input.
+
+### Added
+
+- `$max_source_pixels` public property (default `15_000_000`).
+- 2 PHPUnit regression tests covering the image-bomb scenario.
+
 ## [3.0.0] - 2026-07-22
+
 
 ### Added
 
