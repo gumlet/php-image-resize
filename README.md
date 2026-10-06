@@ -337,6 +337,19 @@ $image
 ;
 ```
 
+Input Limit
+-----------
+
+This library imposes input image pixel limit of 15,000,000 pixels (3873x3873) to prevent decompression bombs. If you want to raise this limit, you can do it like this.
+
+```php
+$image->max_source_pixels = 30_000_000;
+
+// or you can completely disable the limit for trusted input
+$image->max_source_pixels = 0;
+
+```
+
 Exceptions
 --------
 
