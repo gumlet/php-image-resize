@@ -29,6 +29,17 @@ class ImageResize
 
     public int $interlace = 1;
 
+    /**
+     * Maximum number of source pixels (width × height) allowed when loading an image.
+     * Prevents image-bomb attacks where a small compressed file (e.g. a 56 KB PNG)
+     * decompresses into a canvas large enough to exhaust PHP memory.
+     *
+     * Default: 15,000,000 (~3873×3873 px). A 4000×4000 image requires ~61 MB of
+     * raw canvas memory, which exhausts a typical 128 M memory_limit.
+     * Set to 0 to disable the limit (only do this for fully trusted input).
+     */
+    public int $max_source_pixels = 15_000_000;
+
     public int $source_type;
 
     protected $source_image;
@@ -113,6 +124,20 @@ class ImageResize
             }
 
             throw new ImageResizeException('Unsupported file type');
+        }
+
+        // Guard against image-bomb attacks: reject images whose uncompressed canvas
+        // would exceed the configured pixel limit before calling imagecreatefromXXX().
+        if ($this->max_source_pixels > 0 && ($image_info[0] * $image_info[1]) > $this->max_source_pixels) {
+            throw new ImageResizeException(
+                sprintf(
+                    'Source image is too large (%dx%d = %d pixels). Maximum allowed: %d pixels.',
+                    $image_info[0],
+                    $image_info[1],
+                    $image_info[0] * $image_info[1],
+                    $this->max_source_pixels
+                )
+            );
         }
 
         $this->original_w = $image_info[0];

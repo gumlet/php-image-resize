@@ -627,4 +627,41 @@ class ImageResizeTest extends TestCase
         return tempnam(sys_get_temp_dir(), 'resize_test_image');
     }
 
+    /**
+     * Security regression test — GHSA-3g9v-hjrx-mg5h (image bomb / CWE-400)
+     */
+    public function testImageBombRejectedByDefault(): void
+    {
+        $this->expectException(ImageResizeException::class);
+        $this->expectExceptionMessageMatches('/too large/i');
+
+        // A 4000×4000 PNG fits in ~56 KB compressed but needs ~61 MB of canvas
+        // memory to decode — it must be rejected before imagecreatefrompng() runs.
+        $im = imagecreatetruecolor(4000, 4000);
+        imagefilledrectangle($im, 0, 0, 4000, 4000, imagecolorallocate($im, 255, 255, 255));
+        $bomb = $this->getTempFile();
+        imagepng($im, $bomb, 9);
+        imagedestroy($im);
+
+        try {
+            new ImageResize($bomb); // default max_source_pixels=15_000_000 < 16_000_000
+        } finally {
+            @unlink($bomb);
+        }
+    }
+
+    public function testImageBombLimitCanBeRaisedForTrustedInput(): void
+    {
+        // Callers can disable the limit by setting max_source_pixels = 0
+        $im = imagecreatetruecolor(200, 200);
+        $file = $this->getTempFile();
+        imagepng($im, $file);
+        imagedestroy($im);
+
+        $r = new ImageResize($file);
+        $r->max_source_pixels = 0; // opt out of limit
+        $this->assertEquals(200, $r->getSourceWidth());
+        @unlink($file);
+    }
+
 }
